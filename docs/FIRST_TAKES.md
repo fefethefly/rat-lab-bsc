@@ -91,3 +91,7 @@ Collect qualitative listening feedback and actual repeat listening before decidi
 - Chain: BSC testnet, 97. Tokens 1–4 belong to the operator-designated test wallet.
 - Deployment plus four issuances: 0.001733449167783403 tBNB in gas. No mainnet issuance or spending.
 - Four complete players, scores and covers were recovered from contract reads; regenerated WAV fingerprints all matched. `recovery.json` records the operator-run check, not an independent audit.
+
+## Browser validation boundary
+
+The hosted collection's custom Play/Pause, seeking, work switching, note trace and direct-chain recovery were exercised in the Codex in-app browser, including a 390px viewport. The standalone page successfully rebuilt its WAV and verified the exact fingerprints. A subsequent attempt to operate its native audio control caused that browser tab to crash; the cause has not been established. Standalone-file playback in ordinary browsers still needs a compatibility recheck. This does not invalidate the byte-for-byte WAV reconstruction checks, and the hosted custom player remains the tested listening path.
