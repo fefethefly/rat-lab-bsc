@@ -21,6 +21,7 @@ import BrandMark from "./components/BrandMark";
 import MechanismDemo from "./components/MechanismDemo";
 import { isRelease, type Release } from "./lib/release";
 import "./public.css";
+import "./lab.css";
 
 const stages = [
   [
@@ -59,7 +60,7 @@ const faqs = [
   ],
   [
     "Is the observation room live?",
-    "This public-source build shows an original mascot illustration. The hosted site labels its upstream Robinhood reference recording. Live inference requires the separate local research environment.",
+    "This public-source homepage displays an original mascot illustration. The hosted homepage displays a labeled upstream reference recording. The Observe page streams RAT LAB’s own Aim Eight sessions and clearly separates live inference from saved playback. The launch evidence is separate.",
   ],
   [
     "How can I verify a release?",
@@ -153,8 +154,14 @@ export default function PublicApp() {
           className={menu ? "site-navlinks is-open" : "site-navlinks"}
           aria-label="Main navigation"
         >
-          <a href="#observation" onClick={() => setMenu(false)}>
-            Observation
+          <a href="/live" onClick={() => setMenu(false)}>
+            Observe
+          </a>
+          <a href="/buyback" onClick={() => setMenu(false)}>
+            Buybacks
+          </a>
+          <a href="/challenge" onClick={() => setMenu(false)}>
+            Challenge
           </a>
           <a href="#mechanism" onClick={() => setMenu(false)}>
             The mechanism
@@ -203,8 +210,8 @@ export default function PublicApp() {
               Meet R-01, our subject in an experiment on BNB Chain.
             </p>
             <div className="site-hero-actions">
-              <a className="site-button accent" href="#mechanism">
-                Explore the experiment <ArrowDown size={18} />
+              <a className="site-button accent" href="/live">
+                Enter the live lab <ArrowDown size={18} />
               </a>
               <a className="site-inline-link" href="#evidence">
                 Inspect the evidence <ArrowUpRight size={16} />
@@ -226,7 +233,7 @@ export default function PublicApp() {
                 <strong>Meet the subject.</strong>
               </div>
               <span className="room-replay site-mono">
-                <span /> STATIC ILLUSTRATION
+                <span /> REFERENCE REPLAY
               </span>
             </div>
             <Viewer running={false} replayOnly />
@@ -250,10 +257,22 @@ export default function PublicApp() {
               </span>
             </div>
             <p className="room-caption">
-              An upstream Robinhood research recording. A view of the mechanism;
+              An original mascot illustration in this public-source build;
               BSC release evidence is shown separately below.
             </p>
           </div>
+        </section>
+        <section className="home-live-link">
+          <div>
+            <strong>The experiment continues.</strong>
+            <p>
+              Watch our own neural runs, inspect simulated allocations, and try
+              the same targets yourself.
+            </p>
+          </div>
+          <a href="/live">
+            Enter the live lab <ArrowUpRight size={18} />
+          </a>
         </section>
         <section className="site-facts" aria-label="Experiment specifications">
           <div className="facts-intro">

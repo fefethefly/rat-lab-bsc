@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Expand} from 'lucide-react';
 
 /** Original public-source fallback. The separate upstream 3D viewer is not redistributed here. */
-export default function Viewer({running}: {running: boolean; replayOnly?: boolean}) {
+export default function Viewer({running}: {running: boolean; replayOnly?: boolean; observerRelay?: string}) {
   const [expanded,setExpanded]=useState(false);
   return <div className="view-frame" style={{minHeight:360,position:'relative',overflow:'hidden',background:'radial-gradient(circle at 75% 50%,#271040,#080313 65%)'}}>
     <div className="scene" style={{display:'grid',placeItems:'center',minHeight:360}}>

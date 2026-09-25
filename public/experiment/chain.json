@@ -1,0 +1,8 @@
+{
+  "chainId": 56,
+  "token": "0xC090F3c8825b1ca46ae85Cf5D809f191764B7777",
+  "checkedAt": "2026-09-25T10:56:30.923673+00:00",
+  "block": "123936662",
+  "buyTaxBps": 200,
+  "sellTaxBps": 200
+}

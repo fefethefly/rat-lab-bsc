@@ -10,6 +10,7 @@ import "@fontsource/geist/latin-400.css";
 import "@fontsource/geist/latin-500.css";
 import "@fontsource/geist/latin-600.css";
 import PublicApp from "./PublicApp";
+const LabApp = lazy(() => import("./LabApp"));
 const publicSite = import.meta.env.VITE_PUBLIC_SITE === "1";
 const OperatorApp = publicSite ? null : lazy(() => import("./App"));
 import "./style.css";
@@ -23,8 +24,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       >
         <OperatorApp />
       </Suspense>
-    ) : (
+    ) : location.pathname === "/" ? (
       <PublicApp />
+    ) : (
+      <Suspense
+        fallback={<div className="console-loading">Opening the lab…</div>}
+      >
+        <LabApp />
+      </Suspense>
     )}
   </React.StrictMode>,
 );

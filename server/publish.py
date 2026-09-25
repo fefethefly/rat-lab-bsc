@@ -28,12 +28,12 @@ async def publish(journal, deploy=False):
     bundle=ROOT/'data/public-site';bundle.mkdir(parents=True,exist_ok=True)
     # Only Vite's static output is sent to Vercel. No source server, journal, private config or key files.
     for item in bundle.iterdir():
-        if item.name=='.vercel':continue
+        if item.name in ('.vercel', '.env.local', '.vercelignore', '.gitignore'):continue
         if item.is_dir():shutil.rmtree(item)
         else:item.unlink()
     shutil.copytree(ROOT/'dist-public',bundle,dirs_exist_ok=True)
     (bundle/'release.json').write_text(json.dumps(release,indent=2)+'\n')
-    (bundle/'vercel.json').write_text(json.dumps({'version':2,'framework':None,'buildCommand':None,'outputDirectory':'.','headers':[{'source':'/(.*)','headers':[{'key':'X-Content-Type-Options','value':'nosniff'},{'key':'Referrer-Policy','value':'strict-origin-when-cross-origin'}]},{'source':'/release.json','headers':[{'key':'Cache-Control','value':'public, max-age=60'}]}]},indent=2))
+    (bundle/'vercel.json').write_text(json.dumps({'version':2,'framework':None,'buildCommand':None,'outputDirectory':'.','rewrites':[{'source':'/'+p,'destination':'/'+p+'/index.html'} for p in ('live','buyback','challenge')],'headers':[{'source':'/(.*)','headers':[{'key':'X-Content-Type-Options','value':'nosniff'},{'key':'Referrer-Policy','value':'strict-origin-when-cross-origin'}]},{'source':'/release.json','headers':[{'key':'Cache-Control','value':'public, max-age=60'}]}]},indent=2))
     if deploy:
         scope='caonanya-6913s-projects'
         subprocess.run(['vercel','link','--yes','--project','rat-lab','--scope',scope],cwd=bundle,check=True)
