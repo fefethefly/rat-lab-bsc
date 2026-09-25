@@ -1,0 +1,212 @@
+:root {
+  --gold: #f0b90b;
+  --green: #c3db9f;
+  --line: #40234f;
+  --muted: #b19ac9;
+}
+body:has(.console-hero) {
+  background: #08050f;
+  color: #f4f0fb;
+}
+.navbar {
+  background: #08050ff2;
+  border-color: #40234f;
+  box-shadow: none;
+}
+.navbar .brand-icon {
+  background: transparent;
+  color: #f0b90b;
+  width: 32px;
+  height: 35px;
+}
+.navbar .brand-icon svg {
+  width: 32px;
+  height: 32px;
+}
+.navbar .brand-light {
+  color: #f0b90b;
+}
+.console-hero {
+  padding: 48px 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 30px;
+}
+.console-hero .eyebrow {
+  color: #c1a0d6;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+.console-hero h1 {
+  font:
+    450 46px/1.15 "Geist",
+    sans-serif;
+  letter-spacing: -2px;
+  margin: 18px 0 13px;
+  color: #f4f0fb;
+}
+.console-hero p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #b6a0c9;
+}
+.console-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 13px;
+  min-width: 235px;
+}
+.console-controls .button {
+  min-height: 45px;
+  font-size: 11px;
+  width: 235px;
+}
+.console-controls .text-link {
+  font-size: 10px;
+}
+.console-session-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 7px "JetBrains Mono";
+  letter-spacing: 0.8px;
+  color: #bdabd1;
+}
+.button.primary {
+  background: #f0b90b;
+  border-color: #f0b90b;
+  color: #17100a;
+  box-shadow: none;
+}
+.button.primary:hover {
+  background: #ffcf32;
+  border-color: #ffcf32;
+  box-shadow: none;
+}
+.lab-shell,
+.modal,
+.principle-card {
+  box-shadow: none;
+}
+.navbar:after {
+  display: none;
+}
+.lab-shell:before {
+  display: block;
+  background: linear-gradient(90deg, #8808b5, #ac45bf 55%, #f0b90b);
+}
+.lab-shell {
+  border-color: #64307e;
+}
+.view-frame {
+  background: #090511;
+}
+.tabbar {
+  background: #180b29;
+}
+.readout {
+  background: #12091e;
+}
+.modal {
+  background: #12091f;
+  border-color: #684081;
+  box-shadow: 0 30px 90px #08020e99;
+}
+.viewer-loading {
+  position: absolute;
+  inset: 0 0 38px;
+  background: #11081d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+  z-index: 3;
+  color: #bda4d4;
+  padding: 25px;
+  text-align: center;
+}
+.viewer-loading .micro {
+  font-size: 8px;
+}
+.viewer-loading i {
+  display: block;
+  width: 70%;
+  max-width: 230px;
+  height: 2px;
+  background: #582b72;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.viewer-loading p {
+  font-size: 10px;
+  line-height: 1.7;
+}
+.viewer-notice {
+  position: absolute;
+  bottom: 50px;
+  left: 16px;
+  right: 16px;
+  background: #21102f;
+  color: #f4f0fb;
+  padding: 12px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 4;
+  border: 1px solid #71408e;
+  border-radius: 3px;
+}
+.viewer-notice button {
+  text-decoration: underline;
+}
+.viewer-fallback .button {
+  margin-top: 15px;
+}
+.console-loading {
+  padding: 80px 10%;
+  font: 16px "Geist";
+  background: #08050f;
+  color: #f4f0fb;
+  min-height: 100dvh;
+}
+@media (max-width: 850px) {
+  .console-hero h1 {
+    font-size: 37px;
+  }
+  .console-hero {
+    gap: 22px;
+  }
+  .console-hero .eyebrow {
+    font-size: 7px;
+  }
+}
+@media (max-width: 620px) {
+  .console-hero {
+    display: block;
+    padding: 32px 0;
+  }
+  .console-hero h1 {
+    font-size: 37px;
+    letter-spacing: -1.5px;
+  }
+  .console-controls {
+    align-items: flex-start;
+    margin-top: 23px;
+    gap: 14px;
+  }
+  .console-controls .button {
+    width: 100%;
+  }
+  .navbar .navlinks {
+    background: #12091e;
+  }
+  .navbar .brand-icon {
+    background: transparent;
+  }
+}

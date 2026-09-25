@@ -6,7 +6,7 @@ export default function Viewer({running}: {running: boolean; replayOnly?: boolea
   const [expanded,setExpanded]=useState(false);
   return <div className="view-frame" style={{minHeight:360,position:'relative',overflow:'hidden',background:'radial-gradient(circle at 75% 50%,#271040,#080313 65%)'}}>
     <div className="scene" style={{display:'grid',placeItems:'center',minHeight:360}}>
-      <img src="/brand/rat-avatar.png" alt="Purple RAT LAB mascot beside a golden lever" style={{display:'block',height:300,maxWidth:'80%',objectFit:'contain'}}/>
+      <img src="/brand/rat-avatar.png" alt="RAT LAB mascot illustration beside a golden lever" style={{display:'block',height:300,maxWidth:'80%',objectFit:'contain'}}/>
     </div>
     <div className="scene-top"><span><i className="dot amber"/>STATIC MASCOT ILLUSTRATION</span><span className="mono">RAT LAB / SUBJECT R-01</span></div>
     <div className="scene-corner tl"/><div className="scene-corner tr"/><div className="scene-corner bl"/><div className="scene-corner br"/>

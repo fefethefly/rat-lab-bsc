@@ -20,3 +20,5 @@ keystores/
 /vendor/
 /public/lab/
 /src/lib/viewer.js
+
+/public/release.json
