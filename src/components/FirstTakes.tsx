@@ -18,6 +18,7 @@ import {
   type BehaviorEvent,
 } from "../lib/firstTakesCore.js";
 import "../first-takes.css";
+import TakeMotion from "./TakeMotion";
 type Track = {
   id: string;
   title: string;
@@ -423,19 +424,24 @@ function TakePlayer({ track }: { track: Track }) {
           <button onClick={() => setRetry((n) => n + 1)}>Rebuild again</button>
         )}
       </p>
+      {source && <TakeMotion samples={source.run.samples} firstTargetMs={source.run.firstTargetMs}
+        events={track.events} at={at} durationMs={track.sourceDurationMs} />}
       <div className="take-downloads">
         <a href={`/first-takes/${track.id}.zip`} download>
-          <DownloadSimple size={18} /> Keep the complete work <span>ZIP</span>
+          <DownloadSimple size={18} /> Keep the original archive <span>ZIP</span>
         </a>
         <a href={`/first-takes/${track.id}/audio.wav`} download>
           WAV <ArrowUpRight size={15} />
         </a>
         <a
-          href={`/first-takes/${track.id}/player.html`}
+          href={`/first-takes/listen-v2/${track.id}.html`}
           target="_blank"
           rel="noreferrer"
         >
-          Standalone player <ArrowUpRight size={15} />
+          Open listening room <ArrowUpRight size={15} />
+        </a>
+        <a href={`/first-takes/listen-v2/${track.id}.html`} download={`${track.id}-listening-room.html`}>
+          Save offline player <DownloadSimple size={15} />
         </a>
         <button
           onClick={async () => {
@@ -530,8 +536,9 @@ function TakePlayer({ track }: { track: Track }) {
         <p>
           The host replay check and matching fingerprints support inspection;
           they are not an on-chain proof of neural execution. Download the pack,
-          open player.html offline, or run node verify.mjs to check the full
-          source-to-audio mapping. No model weights or 3D assets are included.
+          run node verify.mjs to check the full source-to-audio mapping. The
+          separate listening room adds compatible playback controls; the original
+          ZIP and on-chain player remain unchanged. No model weights or 3D assets are included.
         </p>
         <a
           href={`/first-takes/${track.id}/manifest.json`}
@@ -726,7 +733,7 @@ function ChainCopy({
       {message && <p role="status">{message}</p>}
       {url && (
         <a href={url} download={track.id + "-from-chain.html"}>
-          Download player from chain <DownloadSimple size={16} />
+          Download original player from chain <DownloadSimple size={16} />
         </a>
       )}
     </div>

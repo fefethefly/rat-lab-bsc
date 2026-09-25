@@ -28,7 +28,7 @@ Our origin study asked what learned behavior could do when its actions had a che
 
 | Experience | What is running |
 | :--- | :--- |
-| [**First Takes**](https://rat-lab.fun/first-takes) | Four behavioral music studies, traceable notes, exact audio reconstruction packs and a test-only NFT archive. Free listening; no production sale. |
+| [**First Takes**](https://rat-lab.fun/first-takes) | Four behavioral music studies, synchronized movement-to-note playback, self-contained listening rooms and a test-only NFT archive. Free listening; no production sale. |
 | [**Music studio**](https://rat-lab.fun/music) | Compose eight notes on four keys. Hear a real attempt at its actual hit times, download the synthesized WAV, and share or remix the score. [First verified take ↗](https://rat-lab.fun/music?id=a9cfcf042e75987cebb8) |
 | [**Create & remix**](https://rat-lab.fun/create) | Three route templates, eight editable targets, a real experiment queue and persistent mission links. Successful verified attempts include synchronized race playback; failures remain documented. |
 | [**Observe R-01**](https://rat-lab.fun/live) | Our own recurring Aim Eight inference sessions, cursor playback, replay checks and downloadable records. Fixed trained policies; no claim of ongoing learning. |

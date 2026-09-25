@@ -7,7 +7,7 @@ Four recorded targeting attempts become four short musical studies. This is **be
 ## What is available
 
 - Four freely playable works, with audio rebuilt and verified in the browser.
-- Note-by-note links to the exact source trajectory sample.
+- Note-by-note links to the exact source trajectory sample, plus a synchronized magnified cursor trail and pitch display. The trail uses recorded samples, without simulated extra movement.
 - WAV audio, original generated covers and shareable work links.
 - A ZIP for each work containing a standalone HTML player, original renderer, score, raw cursor samples, manifest, batch plan and verification script.
 - A test-only ERC-721 archive with the packed score, self-contained HTML player and SVG cover stored directly on-chain. Public testnet receipts are in `public/first-takes/testnet/deployment.json`. Use **Verify the on-chain copy** on a work page to read its player and score from the public RPC, rebuild its WAV, compare fingerprints and download the recovered player.
@@ -92,6 +92,21 @@ Collect qualitative listening feedback and actual repeat listening before decidi
 - Deployment plus four issuances: 0.001733449167783403 tBNB in gas. No mainnet issuance or spending.
 - Four complete players, scores and covers were recovered from contract reads; regenerated WAV fingerprints all matched. `recovery.json` records the operator-run check, not an independent audit.
 
+## Listening room v2
+
+The collection now links to `public/first-takes/listen-v2/take-01.html` (and the other three works). Each self-contained HTML embeds the **unchanged original renderer and score**, verifies both the score and exact WAV hashes, and uses Web Audio with custom Play/Pause, restart and seek controls. Seeking pauses; press Play to continue. Hidden pages pause automatically, and playback only begins after a user gesture. A verified WAV download is available even if the playback API cannot start.
+
+Use **Save offline player** to keep the compatibility HTML separately. It is an **off-chain listening client**, not newly minted content. The original `player.html`, ZIP, work index, contracts and all archived fingerprints remain unchanged. The chain-recovery button deliberately downloads the original on-chain player. `listen-v2/index.json` records separate client hashes and the corresponding original player, score and WAV hashes.
+
+Regenerate these clients from public records with:
+
+```sh
+node scripts/first-takes/build-compatible.mjs
+node --test --test-concurrency=1 tests/*.test.mjs
+```
+
+Transport tests cover resume/pause/seek offsets, end-of-recording replay, interrupted pending playback, disposal and overlapping Play requests. Archive regression checks also confirm the compatibility release has not changed the original ZIPs or players.
+
 ## Browser validation boundary
 
-The hosted collection's custom Play/Pause, seeking, work switching, note trace and direct-chain recovery were exercised in the Codex in-app browser, including a 390px viewport. The standalone page successfully rebuilt its WAV and verified the exact fingerprints. A subsequent attempt to operate its native audio control caused that browser tab to crash; the cause has not been established. Standalone-file playback in ordinary browsers still needs a compatibility recheck. This does not invalidate the byte-for-byte WAV reconstruction checks, and the hosted custom player remains the tested listening path.
+The hosted collection's custom Play/Pause, seeking, work switching, note trace and direct-chain recovery were exercised in the Codex in-app browser, including a 390px viewport. The standalone page successfully rebuilt its WAV and verified the exact fingerprints. A subsequent attempt to operate its native audio control caused that browser tab to crash; the cause has not been established. The new v2 client avoids native audio controls and has passed hosted playback, pause, seeking and restart checks in the in-app browser. Downloaded-file playback in other browsers still needs a wider compatibility check. This does not invalidate the byte-for-byte WAV reconstruction checks, and the hosted custom player remains the tested listening path.

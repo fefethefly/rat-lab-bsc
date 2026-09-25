@@ -1,0 +1,185 @@
+<!doctype html>
+<!-- MIT License
+
+Copyright (c) 2026 RAT LAB contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; media-src blob:; img-src data:; connect-src 'none'">
+<title>A small departure · RAT LAB listening room</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#110d18;color:#f6effb;font:16px system-ui,sans-serif}main{max-width:940px;margin:auto;padding:clamp(24px,6vw,72px) 24px}header{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #3a2c48;padding-bottom:24px}small,.eyebrow{font:11px monospace;letter-spacing:.1em;color:#ddbf62}h1{font-size:clamp(40px,8vw,80px);line-height:1.06;letter-spacing:-.055em;margin:45px 0 20px}p{color:#bbafc9;line-height:1.7;max-width:65ch}#art{border:1px solid #473352;background:#1a1224;margin:30px 0}#art svg{display:block;width:100%;max-height:340px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}button,.download{font:inherit;min-height:48px;padding:13px 22px;border:1px solid #665135;border-radius:4px;background:#efc54b;color:#1a1224;cursor:pointer}#restart{background:transparent;color:#e8daee;border-color:#4a3859}button:disabled{opacity:.35;cursor:default}button:hover:enabled{filter:brightness(1.08)}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f6d877;outline-offset:5px}#clock{margin-left:auto;font:13px monospace;font-variant-numeric:tabular-nums;color:#c7b8d4}input{width:100%;accent-color:#efc54b;min-height:40px}#status{font-size:13px;min-height:44px}.downloads{display:flex;gap:24px;flex-wrap:wrap;border-top:1px solid #3a2c48;padding-top:24px}a{color:#efc54b;text-underline-offset:5px}a[hidden]{display:none}details{margin-top:35px;border-top:1px solid #3a2c48;padding:24px 0}summary{cursor:pointer}code{font:11px monospace;overflow-wrap:anywhere}#progress{height:3px;background:#efc54b;transform-origin:left;transform:scaleX(0)}footer{margin-top:35px;color:#a99bb8;font-size:12px;line-height:1.7}@media(max-width:480px){#clock{width:100%;margin:10px 0}header{font-size:12px}h1{margin-top:30px}}
+</style></head><body><main>
+<header><small>RAT LAB / FIRST TAKES</small><span class="eyebrow">LISTENING ROOM 02</span></header>
+<h1>A small departure</h1><p>A movement, kept as music. Rebuild the exact recording here, then listen without a website, wallet or network connection.</p>
+<div id="art"></div><div id="progress"></div>
+<p class="eyebrow">17 NOTES / TRAJECTORY-KEYS-V1</p>
+<div class="controls"><button id="build">Rebuild & verify</button><button id="play" disabled>Play recording</button><button id="restart" disabled>Restart</button><span id="clock">0.00s / 10.08s</span></div>
+<label for="position">Playback position</label><input type="range" id="position" min="0" max="10.084036281179138" step="0.02" value="0" disabled>
+<p id="status" role="status">Ready to rebuild. Playback starts only when you press Play.</p>
+<div class="downloads"><a id="wav" hidden download="take-04.wav">Save verified WAV</a><a href="https://rat-lab.fun/first-takes?take=take-04">Explore the source recording</a></div>
+<details><summary>What is preserved?</summary><p>This compatibility player uses Web Audio and custom controls. It rebuilds the same archived score and exact WAV; it is a new off-chain listening client, not a replacement for the immutable on-chain HTML.</p><p>Behavior sonification maps recorded movement to pitch, timing and velocity. This is not a trained music policy. Local hash checks establish consistency, not independent proof of neural execution.</p><p>Score SHA-256<br><code>e315e3df5f286826a0870d0dc246bd7ea79a3975dbfaa67e0a0315fa24b6e993</code></p><p>WAV SHA-256<br><code>b6c50d1a35a7aaa7fef1c796d324569ad3e0ec4ef28b209209d622da0ac55427</code></p><p>Original on-chain player SHA-256<br><code>6b06c1a5bd3014c8ceb515070ba46bb91d8f820e6bea118b5502d961d4f2a86c</code></p><p>The original ZIP and its source-verification script remain available on the work page. Keep this HTML using your browser’s Save action, or download it from the collection page.</p></details>
+<footer>Free research preview · BSC testnet archive · No sale or copyright transfer.<br>Original synthesis and player code © RAT LAB contributors, MIT licensed. <a href="https://github.com/fefethefly/rat-lab-bsc">Source & license</a></footer>
+<script type="module">
+/** RAT LAB original behavioral mapping and integer PCM renderer. MIT. No network dependencies. */
+const mappingVersion = 'trajectory-keys-v1';
+const rendererVersion = 'integer-keys-v1';
+const scale = [48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74];
+const frequencies = [130813,146832,164814,195998,220000,261626,293665,329628,391995,440000,523251,587330];
+const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+function deriveEvents(source) {
+  const run = source?.run;
+  if (!run?.verified || !Array.isArray(run.samples) || !run.samples.length || !Number.isFinite(run.firstTargetMs) || !Number.isFinite(run.durationMs)) throw Error('A host-verified recording is required.');
+  const events = []; let previous = null;
+  for (let i = 0; i < run.samples.length; i++) {
+    const s = run.samples[i];
+    if (!Number.isInteger(s.atMs) || !Array.isArray(s.cursor) || s.cursor.length !== 2 || !s.cursor.every(n => Number.isFinite(n) && n >= 0 && n <= 1)) throw Error('Malformed source sample.');
+    if (i && s.atMs <= run.samples[i-1].atMs) throw Error('Samples must be ordered.');
+    if (s.atMs < run.firstTargetMs || s.atMs > run.firstTargetMs + run.durationMs || s.atMs > run.firstTargetMs + 30000) continue;
+    const at = s.atMs - run.firstTargetMs;
+    const pitch = scale[clamp(Math.floor((.8-s.cursor[1])/.6*scale.length),0,scale.length-1)];
+    const speed = previous ? Math.hypot(s.cursor[0]-previous.cursor[0],s.cursor[1]-previous.cursor[1])*1000/(s.atMs-previous.atMs) : 0;
+    const last = events.at(-1);
+    if (!last || (at-last[0] >= 200 && (pitch !== last[1] || at-last[0] >= 650))) {
+      events.push([at,pitch,clamp(220+Math.floor(speed*1200),220,750),clamp(35+Math.floor(s.cursor[0]*80),35,115),i]);
+    }
+    previous=s;
+    if (events.length===64) break;
+  }
+  if (!events.length) throw Error('No usable trajectory samples.');
+  return events;
+}
+function validateEvents(events) {
+  if (!Array.isArray(events) || events.length<1 || events.length>64) throw Error('Invalid event count.');
+  events.forEach((e,i)=>{
+    if (!Array.isArray(e)||e.length!==5||!e.every(Number.isInteger)||e[0]<0||e[0]>30000||!scale.includes(e[1])||e[2]<220||e[2]>750||e[3]<35||e[3]>115||e[4]<0||e[4]>1000||(i&&e[0]<=events[i-1][0])) throw Error('Invalid music event.');
+  });
+  return events;
+}
+function packEvents(events) {
+  validateEvents(events);
+  const b = new Uint8Array(events.length*10), v=new DataView(b.buffer);
+  events.forEach((e,i)=>{const p=i*10;v.setUint32(p,e[0]);v.setUint8(p+4,e[1]);v.setUint16(p+5,e[2]);v.setUint8(p+7,e[3]);v.setUint16(p+8,e[4]);});
+  return b;
+}
+function unpackEvents(bytes) {
+  if (!(bytes instanceof Uint8Array)||bytes.length%10) throw Error('Invalid packed score.');
+  const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength), out=[];
+  for(let p=0;p<bytes.length;p+=10) out.push([v.getUint32(p),v.getUint8(p+4),v.getUint16(p+5),v.getUint8(p+7),v.getUint16(p+8)]);
+  return validateEvents(out);
+}
+function renderWav(events) {
+  validateEvents(events);
+  const rate=22050, length=Math.ceil((Math.max(...events.map(e=>e[0]+e[2]))+200)*rate/1000), mix=new Int32Array(length);
+  for(const [at,pitch,duration,velocity] of events) {
+    const start=Math.floor(at*rate/1000), count=Math.floor(duration*rate/1000), attack=220;
+    const step=Math.round(frequencies[scale.indexOf(pitch)]*65536/(rate*1000));
+    let phase=0,filtered=0;
+    for(let n=0;n<count;n++) {
+      const tri=phase<32768?phase*2-32768:98303-phase*2;
+      const env=n<attack?Math.floor(n*32768/attack):Math.floor((count-n)*32768/(count-attack));
+      filtered=Math.trunc((filtered*3+tri)/4);
+      mix[start+n]+=Math.trunc(Math.trunc(filtered*env/32768)*velocity/400);
+      phase=(phase+step)&65535;
+    }
+  }
+  const out=new Uint8Array(44+length*2),v=new DataView(out.buffer);
+  for(const [p,s] of [[0,'RIFF'],[8,'WAVE'],[12,'fmt '],[36,'data']]) for(let i=0;i<s.length;i++)out[p+i]=s.charCodeAt(i);
+  v.setUint32(4,out.length-8,true);v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);v.setUint32(40,length*2,true);
+  for(let n=0;n<length;n++)v.setInt16(44+n*2,clamp(mix[n],-32768,32767),true);
+  return out;
+}
+async function sha256(bytes) {
+  const digest=await crypto.subtle.digest('SHA-256',bytes);
+  return Array.from(new Uint8Array(digest),n=>n.toString(16).padStart(2,'0')).join('');
+}
+function coverSvg(events, title='RAT LAB / FIRST TAKES') {
+  validateEvents(events);
+  const safe=title.replace(/[<>&"']/g,'');
+  const total=Math.max(...events.map(e=>e[0]+e[2])), points=events.map(e=>`${80+e[0]/total*840},${460-(e[1]-48)*10}`).join(' ');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650"><rect width="1000" height="650" fill="#100c19"/><g stroke="#30243e">${[180,240,300,360,420,480].map(y=>`<path d="M60 ${y}h880"/>`).join('')}</g><text x="60" y="80" fill="#efc54b" font-family="monospace" font-size="20">${safe}</text><polyline fill="none" stroke="#efc54b" stroke-width="3" points="${points}"/>${events.map(e=>`<circle cx="${80+e[0]/total*840}" cy="${460-(e[1]-48)*10}" r="${3+e[3]/22}" fill="#efc54b"/>`).join('')}<text x="60" y="585" fill="#bcaecb" font-family="monospace" font-size="15">BEHAVIOR → SCORE / ${events.length} NOTES / ${mappingVersion}</text></svg>`;
+}
+
+function createTransport(context, buffer, onChange = () => {}) {
+  let source = null, offset = 0, started = 0, generation = 0, disposed = false;
+  const position = () => Math.min(buffer.duration, offset + (source ? context.currentTime - started : 0));
+  const state = () => ({ playing: !!source, position: position(), duration: buffer.duration });
+  function stop() {
+    if (!source) return;
+    offset = position();
+    const old = source;
+    source = null;
+    old.onended = null;
+    old.stop();
+    old.disconnect();
+  }
+  async function play() {
+    if (disposed || source) return;
+    const request = ++generation;
+    await context.resume();
+    if (disposed || request !== generation || source) return;
+    if (context.state !== 'running') throw Error('Audio is suspended. Press Play again.');
+    if (offset >= buffer.duration) offset = 0;
+    const next = context.createBufferSource();
+    next.buffer = buffer;
+    next.connect(context.destination);
+    next.onended = () => {
+      if (source !== next) return;
+      offset = buffer.duration;
+      source = null;
+      next.disconnect();
+      onChange(state());
+    };
+    next.start(0, offset);
+    source = next;
+    started = context.currentTime;
+    onChange(state());
+  }
+  function pause() {
+    generation++;
+    stop();
+    onChange(state());
+  }
+  function seek(seconds) {
+    if (!Number.isFinite(seconds)) throw Error('Invalid playback position.');
+    pause();
+    offset = Math.min(buffer.duration, Math.max(0, seconds));
+    onChange(state());
+  }
+  context.onstatechange = () => {
+    if (context.state !== 'running' && source) pause();
+  };
+  return {
+    state, play, pause, seek,
+    dispose() { disposed = true; pause(); context.onstatechange = null; return context.close(); },
+  };
+}
+const manifest={"schemaVersion":1,"id":"take-04","title":"A small departure","kind":"behavior-sonification","series":"First Takes / study 01","edition":"Unminted research candidate","mappingVersion":"trajectory-keys-v1","rendererVersion":"integer-keys-v1","sourceSha256":"9cf35cd535310968a0dbb84b7174f5b41a239685156a1de31ef2467499f9a3ac","planSha256":"718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271","rendererSha256":"d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777","scoreSha256":"e315e3df5f286826a0870d0dc246bd7ea79a3975dbfaa67e0a0315fa24b6e993","wavSha256":"b6c50d1a35a7aaa7fef1c796d324569ad3e0ec4ef28b209209d622da0ac55427","coverSha256":"f8d19865b3742cde0d3b5527a8f26fa98af16aeb832c2474d46a449697f57dc8","runId":"aim-20260925T132947-7104","brainCommit":"9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8","proof":"a714b22e4e67f0d0bb57ad06d89515f7df33f826c160c186c9d6061315141a66","seed":7104,"createdAt":"2026-09-25T13:29:50.800288Z","hostVerified":true,"complete":true,"hits":8,"misses":0,"sourceDurationMs":9440,"durationMs":10084.036281179138,"events":[[0,62,220,75,27],[200,57,750,71,29],[900,57,220,65,36],[1600,57,220,65,43],[2300,57,220,65,50],[3000,57,221,72,57],[3700,57,220,72,64],[4100,60,750,73,68],[4800,60,220,73,75],[5400,62,750,74,81],[6100,62,220,74,88],[6700,64,750,74,94],[7400,64,220,74,101],[8000,67,604,75,107],[8700,67,220,75,114],[9200,64,684,74,119],[9400,62,220,71,121]],"selection":"All four predeclared seeds retained. No best-of reroll.","trust":"Recorded and replay-checked on the operator host. No on-chain inference proof.","storage":"Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included.","playerSha256":"6b06c1a5bd3014c8ceb515070ba46bb91d8f820e6bea118b5502d961d4f2a86c","playerBytes":10179,"zipSha256":"32ee391c08d021e2f6febbd87d33146f57f145df2efee04f1cc13fe5a6dae486"};
+const $=id=>document.getElementById(id);
+$('art').innerHTML=coverSvg(manifest.events,manifest.title);
+let transport, wav, wavUrl, frame=0;
+function paint() { if(!transport)return;const s=transport.state();$('play').textContent=s.playing?'Pause recording':'Play recording';$('position').value=s.position;$('clock').textContent=s.position.toFixed(2)+'s / '+s.duration.toFixed(2)+'s';$('progress').style.transform='scaleX('+(s.position/s.duration)+')';if(!s.playing&&s.position>=s.duration)$('status').textContent='Recording finished. Press Play to listen again.';cancelAnimationFrame(frame);if(s.playing)frame=requestAnimationFrame(paint); }
+$('build').onclick=async()=>{const b=$('build');b.disabled=true;try{const bytes=renderWav(manifest.events);if(await sha256(bytes)!==manifest.wavSha256||await sha256(packEvents(manifest.events))!==manifest.scoreSha256)throw Error('Fingerprint mismatch');wav=bytes;if(wavUrl)URL.revokeObjectURL(wavUrl);wavUrl=URL.createObjectURL(new Blob([wav],{type:'audio/wav'}));$('wav').href=wavUrl;$('wav').hidden=false;$('play').disabled=false;b.textContent='Fingerprints verified';$('status').textContent='Verified locally. Exact score and WAV match the archive. Press Play to listen.';}catch(e){$('status').textContent='Rebuild failed: '+e.message;b.disabled=false;}};
+$('play').onclick=async()=>{const b=$('play');b.disabled=true;try{if(!transport){const C=window.AudioContext||window.webkitAudioContext;if(!C)throw Error('Web Audio is unavailable. Use Save verified WAV.');const context=new C();try{await context.resume();const buffer=await context.decodeAudioData(wav.slice().buffer);transport=createTransport(context,buffer,paint);$('restart').disabled=false;$('position').disabled=false;}catch(e){await context.close();throw e;}}if(transport.state().playing)transport.pause();else if(!document.hidden)await transport.play();$('status').textContent=transport.state().playing?'Playing the verified recording.':'Recording paused.';paint();}catch(e){$('status').textContent='Playback could not start: '+e.message;}finally{b.disabled=false;}};
+$('position').oninput=()=>{transport.seek(Number($('position').value));$('status').textContent='Position selected. Press Play to continue.';paint();};
+$('restart').onclick=()=>{transport.seek(0);$('status').textContent='Back to the beginning. Press Play to listen.';paint();};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&transport){transport.pause();$('status').textContent='Paused while this page is hidden. Press Play to continue.';}});
+window.addEventListener('pagehide',()=>{if(transport)transport.pause();cancelAnimationFrame(frame);});
+</script></main></body></html>

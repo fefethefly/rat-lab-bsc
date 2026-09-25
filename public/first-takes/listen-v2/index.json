@@ -1,0 +1,38 @@
+{
+  "version": "listen-v2",
+  "note": "Off-chain compatibility player. Original on-chain HTML, score, WAV and ZIP fingerprints remain unchanged.",
+  "tracks": [
+    {
+      "id": "take-01",
+      "path": "/first-takes/listen-v2/take-01.html",
+      "playerSha256": "52bec911727bb18453381413be660503737ff8c506be103d93747eaea8ce6c9a",
+      "archivedPlayerSha256": "72e74e9a4211d56def8002ae307d30836ee31f718000d39f3723dfa5dbeb5b26",
+      "wavSha256": "ef3836175a12e3e1669f6e52f16baf8ebb0aa0bc05c06b095d827f29d76e6540",
+      "scoreSha256": "03642e52f9652cda706bd4bd62247ff14074b58b78cd59a333f59cb767916d54"
+    },
+    {
+      "id": "take-02",
+      "path": "/first-takes/listen-v2/take-02.html",
+      "playerSha256": "77b62271029284b511213aa1f52457bab8ae2e4f018785b9d3a271b1b6066d28",
+      "archivedPlayerSha256": "0f03ec4e1bea2c07fcb074b8347f24f2af244f404c88420616bc1f6b97e987c2",
+      "wavSha256": "d43bdbf20a8bffe88dba236c0a68c07f2c046bcf6453c12ed4906763cbb132cd",
+      "scoreSha256": "7179266a76bdbeedc7f7e82802250259adbd120f4765c93312a1b47e0a98cb5f"
+    },
+    {
+      "id": "take-03",
+      "path": "/first-takes/listen-v2/take-03.html",
+      "playerSha256": "232d7fdb59847649a09e684811a1a1bf3e2a6c4f82dd2294feaf605833cd23e2",
+      "archivedPlayerSha256": "1e102cfc588bbdffd3544e4afff666d8e9e3b15fba652184eed7233c6e06b926",
+      "wavSha256": "06d38ba3890481751001a07e0dcef892a7339798609ef83c6813044d239d3e1c",
+      "scoreSha256": "fd031037ff537c4e25a8b921f0f7e2128ca4d5b4d15b7c0e14d4d97c9831dd67"
+    },
+    {
+      "id": "take-04",
+      "path": "/first-takes/listen-v2/take-04.html",
+      "playerSha256": "1c9ac5f1392bf49af0148da01ee47192d3e35203ae0dda04b985f1b31e1195dc",
+      "archivedPlayerSha256": "6b06c1a5bd3014c8ceb515070ba46bb91d8f820e6bea118b5502d961d4f2a86c",
+      "wavSha256": "b6c50d1a35a7aaa7fef1c796d324569ad3e0ec4ef28b209209d622da0ac55427",
+      "scoreSha256": "e315e3df5f286826a0870d0dc246bd7ea79a3975dbfaa67e0a0315fa24b6e993"
+    }
+  ]
+}
