@@ -177,7 +177,7 @@ export function MissionStudio() {
               type="range"
               min=".42"
               max=".58"
-              step=".005"
+              step=".001"
               value={targets[selected][0]}
               onChange={(e) =>
                 change(selected, Number(e.target.value), targets[selected][1])
@@ -192,7 +192,7 @@ export function MissionStudio() {
               type="range"
               min=".35"
               max=".64"
-              step=".005"
+              step=".001"
               value={targets[selected][1]}
               onChange={(e) =>
                 change(selected, targets[selected][0], Number(e.target.value))
