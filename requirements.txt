@@ -1,0 +1,9 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+numpy==2.2.6
+mujoco==3.3.7
+httpx==0.28.1
+eth-account==0.13.7
+eth-abi==5.2.0
+python-multipart==0.0.20
+Pillow==11.3.0

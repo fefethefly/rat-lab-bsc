@@ -1,0 +1,14 @@
+# Generation record
+
+Mode: built-in image_gen (not CLI). Generated for this project on 2026-09-25. No reference project's logo file was used; the banner uses the newly generated RAT LAB avatar as its identity reference.
+
+## Avatar prompt
+
+Use case: logo-brand. Asset: final square 1024x1024 token avatar for RAT LAB ($RAT), an independent virtual rodent / neural-network experiment on BNB Chain. Create an ORIGINAL premium pixel-art lab rat, side profile facing left, alert and curious, large rounded ear, pointed nose with three fine whiskers, forepaw raised as if pressing a lever, elegant curved tail curling upward to the right. Bold readable silhouette centered with generous black margin, subject fills about 72% of frame. Scientific cyber aesthetic: luminous lemon yellow #fff04b highlights on nose and ear, warm gold #ffbc49 along back, violet #8808b5 body and fuchsia #ed4a9d tail and neural speckles. Flat pure black #000 background. Crisp deliberate pixel clusters and controlled luminous edge accents, confident graphic design, not noisy, no mockup, no coin ring, no lettering, no text, no watermark, no other logo. It must work as a small round-cropped token avatar. Save as PNG.
+
+## Banner prompt
+
+Use case: ads-marketing. Create a final wide landscape social header for RAT LAB, 3:1 aspect ratio, ideally 1536x512. Use the attached original pixel rat as the identity reference: preserve its recognizable purple body, bright yellow ear and highlights, pink curled tail, neural constellation texture, and paw on the small lever. Place that rat on the RIGHT 35% of the banner, fully contained with breathing room. LEFT 55% has very clean professionally typeset huge text exactly 'RAT LAB' in bold modern geometric sans serif, 'RAT' off-white and 'LAB' a subtle magenta-to-warm-gold gradient. Underneath, smaller monospaced text exactly 'TWO NETWORKS. ONE RAT.' and below that smaller text exactly 'BNB CHAIN / FOUR.MEME'. Predominantly pure black background with a faint deep-violet laboratory grid, restrained purple-to-magenta ambient glow behind the rat only, thin scientific corner marks in subdued gold. Keep all text in central safe area, avoid bottom left corner because a social avatar may overlap. High contrast, deliberate empty space, elegant laboratory project identity in the same black/purple/pink/yellow palette. No cryptocurrency price, no investment promises, no deployed/live/launched claims, no unrelated logos, no watermarks, no border mockup. This is a complete ready-to-use banner, not a presentation of a banner.
+
+## Flap banner update
+Built-in image_gen edit, 2026-09-25. Edit target: existing rat-banner.png. Change only subtitle from BNB CHAIN / FOUR.MEME to BNB CHAIN / FLAP; preserve title, tagline, pixel rat, colors and composition. Output copied into public/brand/rat-banner.png.

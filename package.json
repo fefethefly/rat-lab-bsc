@@ -1,0 +1,32 @@
+{
+  "name": "rat-lab-bsc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "server": ".venv/bin/python -m server.app",
+    "test": ".venv/bin/python -m unittest discover -s tests -v",
+    "build:public": "tsc -b && VITE_PUBLIC_SITE=1 vite build --outDir dist-public"
+  },
+  "dependencies": {
+    "@fontsource/geist": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.2.0",
+    "@fontsource/space-grotesk": "^5.2.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "0.160.0",
+    "viem": "^2.38.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.3.0"
+  }
+}

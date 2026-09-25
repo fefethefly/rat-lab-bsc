@@ -1,0 +1,46 @@
+{
+  "status": "example_only_never_run_without_new_review",
+  "creator": "0xA86881412c2E4583bfB0Db7a8B39155C2661d2D9",
+  "chainId": 56,
+  "platform": "Flap",
+  "manifest": {
+    "name": "RAT LAB",
+    "symbol": "RAT",
+    "description": "A virtual rat. Two trained neural networks. Eight physical clicks. RAT LAB is an on-chain experiment on BNB Chain, where learned motor actions trigger a pre-approved Flap launch.",
+    "seed": 2026,
+    "webUrl": "https://rat-lab.fun",
+    "twitterUrl": "https://x.com/gouyi420",
+    "telegramUrl": "",
+    "preBuyBnb": "0",
+    "maxTotalBnb": null,
+    "tax": null,
+    "flapTax": {
+      "buyBps": 200,
+      "sellBps": 200,
+      "beneficiary": "0xA86881412c2E4583bfB0Db7a8B39155C2661d2D9",
+      "taxDuration": 3153600000,
+      "antiFarmerDuration": 3600
+    }
+  },
+  "constraints": [
+    "Zero developer pre-buy",
+    "Buy and sell tax: 2%; beneficiary receives remainder after Flap deductions",
+    "Tax duration draft: 100 years; anti-farmer window: 1 hour; review before signing",
+    "No integrator commission; beneficiary is creator wallet",
+    "Website deployment after verified issuance"
+  ],
+  "assets": {
+    "avatar": "public/brand/rat-avatar.png",
+    "banner": "public/brand/rat-banner.png",
+    "copy": "public/brand/launch-copy.md",
+    "metadataCid": "bafkreieen6w7ejjkxml4reegco6vid4lbkol2yut3w7noooay2n6vsa7pu"
+  },
+  "referenceEconomics": {
+    "source": "https://github.com/LabratDevRH/labrat/blob/main/runs/brainrig_20260924T211408Z_seed2026/captured_tx.json",
+    "creatorTaxBps": 200,
+    "preBuy": "0",
+    "requestedTaxPercent": 2,
+    "status": "flap_2_percent_gross_tax_not_net_creator_fee",
+    "note": "Original creator fee differs from Flap token tax; rates encoded at 200 bps on buy and sell, net creator proceeds are lower after platform deductions."
+  }
+}
