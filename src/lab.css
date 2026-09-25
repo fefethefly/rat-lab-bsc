@@ -1554,3 +1554,684 @@
     gap: 12px;
   }
 }
+
+/* Synchronized human / neural replay arena. */
+.duel-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 22px;
+  padding: 0 2px;
+}
+.duel-banner h2 {
+  font-size: clamp(23px, 2.6vw, 34px);
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin: 10px 0 0;
+}
+.duel-matchup {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  padding-bottom: 24px;
+  font: 11px "JetBrains Mono";
+  white-space: nowrap;
+}
+.duel-matchup b {
+  font-size: 35px;
+  font-weight: 500;
+  margin: 0 8px;
+  color: #f0b90b;
+}
+.duel-matchup > span:last-of-type b {
+  color: #ccb6ed;
+}
+.duel-matchup i {
+  font-size: 22px;
+  font-style: normal;
+  color: #726782;
+}
+.duel-matchup small {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #aa9dbb;
+}
+.duel-arena {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.duel-arena > .lab-panel {
+  overflow: hidden;
+  min-width: 0;
+}
+.duel-player {
+  border-top-color: #f0b90b80;
+}
+.duel-rat {
+  border-top-color: #b291dd80;
+}
+.duel-arena .challenge-score {
+  padding: 18px 23px;
+  gap: 14px;
+  min-height: 90px;
+  border-bottom: 1px solid #b99bd01c;
+}
+.duel-arena .challenge-score strong {
+  font-size: 25px;
+  margin-top: 8px;
+}
+.duel-rat .challenge-score > div:first-child strong {
+  color: #ccb6ed;
+}
+.duel-arena .challenge-board-wrap,
+.recorded-rat {
+  height: 390px;
+}
+.duel-arena .arena-foot {
+  min-height: 54px;
+  padding: 14px 20px;
+  gap: 12px;
+  font-size: 10px;
+}
+.duel-arena .arena-foot button {
+  white-space: nowrap;
+}
+.duel-overlay {
+  background: radial-gradient(ellipse at 50% 55%, #1c1228ee, #100b17ba);
+  padding: 24px;
+  gap: 19px;
+}
+.duel-overlay h2 {
+  font-size: clamp(24px, 2.5vw, 35px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.duel-overlay p {
+  font-size: 11px;
+}
+.duel-overlay.settle-overlay {
+  background: #211b0fc9;
+  gap: 12px;
+}
+.settle-overlay h2 {
+  font-size: 24px;
+  color: #f3cb50;
+}
+.hit-flash {
+  animation: duel-hit 0.45s ease-out;
+}
+@keyframes duel-hit {
+  from {
+    box-shadow:
+      inset 0 0 0 2px #f0b90b,
+      inset 0 0 60px #f0b90b22;
+  }
+  to {
+    box-shadow: inset 0 0 0 0 #f0b90b00;
+  }
+}
+.recorded-rat {
+  position: relative;
+  background: #090610;
+  overflow: hidden;
+  isolation: isolate;
+}
+.recorded-rat-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.recorded-rat-scene canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.rat-camera-label {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 8px "JetBrains Mono";
+  letter-spacing: 0.6px;
+  background: #110b20c9;
+  border: 1px solid #b291dd38;
+  padding: 7px 9px;
+  color: #d7c3f3;
+}
+.rat-camera-label i {
+  width: 4px;
+  height: 4px;
+  background: #c4a4e9;
+}
+.rat-camera-tools {
+  position: absolute;
+  bottom: 13px;
+  right: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #b9a6ce;
+  font: 8px "JetBrains Mono";
+}
+.rat-camera-tools button {
+  background: #110b20d9;
+  border: 1px solid #b291dd40;
+  color: #e1d3f1;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.rat-scene-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #b9a6ce;
+  font-size: 12px;
+  background: #100a1c;
+}
+.rat-scene-fallback {
+  position: absolute;
+  inset: 0;
+  background: #100a1c;
+}
+.fallback-note {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  font-size: 10px;
+  background: #100a1ceb;
+  padding: 10px;
+  color: #c3b0d6;
+}
+.fallback-note button {
+  background: none;
+  color: #f0c653;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.duel-lane-progress {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  padding: 13px 18px;
+  border-block: 1px solid #b99bd023;
+  background: #110c1b;
+}
+.duel-lane-progress span {
+  display: grid;
+  place-items: center;
+  min-height: 30px;
+  font: 9px "JetBrains Mono";
+  color: #84768f;
+  background: #ffffff03;
+  border: 1px solid #b99bd01f;
+  border-radius: 3px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.duel-lane-progress .done {
+  background: #f0b90b19;
+  color: #f5cf56;
+  border-color: #f0b90b55;
+}
+.duel-lane-progress .current {
+  border-color: #f0b90b88;
+  color: #f5cf56;
+}
+.rat-lane .done {
+  background: #ac82d824;
+  border-color: #ac82d866;
+  color: #dbc3f4;
+}
+.rat-lane .current {
+  border-color: #ac82d888;
+  color: #dbc3f4;
+}
+.duel-split-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin: 38px 0 18px;
+}
+.duel-split-heading h2 {
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.7px;
+  margin-top: 9px;
+}
+.duel-split-heading > span {
+  font-size: 11px;
+  color: #a998bb;
+}
+.duel-splits {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  border: 1px solid #b99bd02b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.duel-splits > div {
+  padding: 19px 15px;
+  border-right: 1px solid #b99bd023;
+  background: #130d1e;
+  min-width: 0;
+}
+.duel-splits > div:last-child {
+  border: 0;
+}
+.duel-splits small {
+  display: block;
+  font: 8px "JetBrains Mono";
+  color: #a994bc;
+  letter-spacing: 0.4px;
+}
+.duel-splits strong {
+  display: block;
+  margin: 14px 0;
+  font: 500 17px "JetBrains Mono";
+  color: #80748e;
+}
+.duel-splits span {
+  display: block;
+  font: 8px "JetBrains Mono";
+  line-height: 1.9;
+  color: #b5a4c6;
+  white-space: nowrap;
+}
+.duel-splits .ahead {
+  background: #1d1a13;
+}
+.duel-splits .ahead strong {
+  color: #f0c653;
+}
+.duel-splits .behind strong {
+  color: #d6bae9;
+}
+.duel-notes {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+  margin-top: 34px;
+  border-top: 1px solid #b99bd024;
+  padding: 26px 0;
+}
+.duel-notes strong {
+  display: block;
+  font: 500 23px "JetBrains Mono";
+  margin: 14px 0;
+}
+.duel-notes p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #b4a4c4;
+  margin-top: 12px;
+  max-width: 75ch;
+}
+.text-button {
+  border: 0;
+  background: none;
+  color: #e4c253;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 8px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.duel-proof {
+  margin-top: 15px;
+}
+.duel-proof summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  color: #cab1e0;
+  font-size: 11px;
+}
+.duel-proof p {
+  overflow-wrap: anywhere;
+}
+.duel-experience .score-result {
+  margin-top: 24px;
+}
+.live-subject .recorded-rat {
+  height: 100%;
+}
+.live-replay-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #c5b2d9;
+  font-size: 11px;
+  padding: 12px 22px;
+  background: #171020;
+  border-top: 1px solid #a485bd22;
+}
+.session-flow {
+  margin: 28px 0 36px;
+  border-block: 1px solid #b99bd02b;
+  padding: 23px 0;
+}
+.session-flow-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+.session-flow-heading > span {
+  font: 9px "JetBrains Mono";
+  color: #a896bb;
+}
+.session-flow-heading a {
+  font-size: 11px;
+  color: #e4c253;
+}
+.session-flow ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.session-flow li {
+  position: relative;
+  border-left: 1px solid #b99bd034;
+  padding: 0 22px;
+}
+.session-flow li:first-child {
+  border: 0;
+  padding-left: 0;
+}
+.session-flow small {
+  color: #a38bb9;
+  font: 8px "JetBrains Mono";
+  letter-spacing: 0.8px;
+}
+.session-flow strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 11px 0 5px;
+}
+.session-flow p {
+  color: #a997b9;
+  font-size: 11px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.session-flow .flow-paper strong {
+  color: #f0c653;
+}
+@media (max-width: 1050px) {
+  .duel-splits {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .duel-splits > div:nth-child(-n + 4) {
+    border-bottom: 1px solid #b99bd023;
+  }
+  .duel-arena .challenge-board-wrap,
+  .recorded-rat {
+    height: 340px;
+  }
+  .duel-arena .challenge-score {
+    padding: 16px;
+  }
+  .duel-arena .challenge-score strong {
+    font-size: 21px;
+  }
+}
+@media (max-width: 720px) {
+  .duel-banner {
+    align-items: start;
+  }
+  .duel-banner h2 {
+    font-size: 24px;
+  }
+  .duel-matchup {
+    gap: 6px;
+  }
+  .duel-matchup b {
+    font-size: 25px;
+    margin: 0 4px;
+  }
+  .duel-matchup small {
+    display: none;
+  }
+  .duel-arena {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .duel-rat {
+    order: -1;
+  }
+  .duel-arena .duel-rat .recorded-rat {
+    height: 240px;
+  }
+  .duel-rat .challenge-score {
+    min-height: 68px;
+    padding: 12px 18px;
+  }
+  .duel-rat .challenge-score strong {
+    font-size: 19px;
+  }
+  .duel-rat .duel-lane-progress {
+    padding: 8px 15px;
+  }
+  .duel-rat .duel-lane-progress span {
+    min-height: 24px;
+  }
+  .duel-rat .arena-foot {
+    min-height: 40px;
+    padding: 10px 15px;
+  }
+  .duel-arena .challenge-board-wrap {
+    height: 340px;
+  }
+  .duel-split-heading {
+    display: block;
+    margin-top: 28px;
+  }
+  .duel-split-heading > span {
+    display: block;
+    margin-top: 12px;
+  }
+  .duel-splits > div {
+    padding: 14px 10px;
+  }
+  .duel-splits strong {
+    font-size: 15px;
+  }
+  .duel-notes {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .duel-banner .lab-label {
+    font-size: 7px;
+  }
+  .session-flow ol {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .session-flow li:nth-child(3) {
+    border: 0;
+    padding-left: 0;
+  }
+  .session-flow-heading {
+    align-items: start;
+  }
+  .session-flow-heading > span {
+    max-width: 65%;
+    overflow-wrap: anywhere;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hit-flash {
+    animation: none;
+  }
+  .duel-lane-progress span {
+    transition: none;
+  }
+}
+.lab-page-challenge .lab-main {
+  padding-top: 30px;
+}
+.lab-page-challenge .lab-lead {
+  margin-bottom: 23px;
+}
+.lab-page-challenge .lab-lead h1 {
+  font-size: 34px;
+  margin: 12px 0 9px;
+}
+.lab-page-challenge .duel-banner h2 {
+  font-size: 23px;
+  margin-top: 7px;
+}
+.lab-page-challenge .duel-banner {
+  margin-bottom: 15px;
+}
+.lab-page-challenge .duel-arena .panel-heading {
+  min-height: 46px;
+  padding: 12px 20px;
+}
+.lab-page-challenge .duel-arena .challenge-score {
+  min-height: 80px;
+  padding: 14px 20px;
+}
+@media (max-width: 720px) {
+  .lab-page-challenge .lab-lead h1 {
+    font-size: 30px;
+  }
+  .lab-page-challenge .connection-state {
+    margin-top: 16px;
+  }
+  .lab-page-challenge .duel-banner h2 {
+    font-size: 21px;
+  }
+  .duel-rat {
+    position: sticky;
+    top: 70px;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48%;
+    grid-template-rows: 35px 78px 38px;
+    background: #110b19;
+    box-shadow: 0 6px 18px #08050fc0;
+  }
+  .lab-page-challenge .duel-rat .panel-heading {
+    min-height: 0;
+    padding: 8px 12px;
+    border: 0;
+  }
+  .duel-rat .panel-heading .state-tag {
+    display: none;
+  }
+  .lab-page-challenge .duel-rat .challenge-score {
+    grid-row: 2;
+    grid-column: 1;
+    padding: 8px 12px;
+    min-height: 0;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .duel-rat .challenge-score > div:last-child {
+    display: none;
+  }
+  .duel-rat .challenge-score strong {
+    font-size: 17px;
+  }
+  .duel-rat .challenge-score small {
+    font-size: 7px;
+  }
+  .duel-arena .duel-rat .recorded-rat {
+    grid-row: 1/4;
+    grid-column: 2;
+    height: 151px;
+  }
+  .duel-rat .rat-camera-label {
+    top: 5px;
+    left: 5px;
+    font-size: 6px;
+    padding: 4px;
+  }
+  .duel-rat .rat-camera-tools {
+    bottom: 5px;
+    right: 5px;
+  }
+  .duel-rat .rat-camera-tools span {
+    display: none;
+  }
+  .duel-rat .duel-lane-progress {
+    grid-column: 1;
+    grid-row: 3;
+    padding: 6px 9px;
+    gap: 3px;
+    border-bottom: 0;
+  }
+  .duel-rat .duel-lane-progress span {
+    min-height: 22px;
+    font-size: 7px;
+  }
+  .duel-rat .arena-foot {
+    display: none;
+  }
+}
+.lab-page-challenge .lab-lead {
+  padding: 8px 0 20px;
+  margin-bottom: 15px;
+}
+.lab-page-challenge .lab-main {
+  padding-top: 24px;
+}
+.lab-page-challenge .duel-banner {
+  min-height: 54px;
+}
+.lab-page-challenge .duel-matchup {
+  padding-bottom: 18px;
+}
+.duel-arena {
+  scroll-margin-top: 80px;
+}
+.mobile-preview-toggle {
+  display: none;
+}
+@media (max-width: 720px) {
+  .mobile-preview-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #d6bdeb;
+    background: #20172d;
+    border: 1px solid #aa80d444;
+    border-radius: 3px;
+    min-height: 25px;
+    min-width: 25px;
+    cursor: pointer;
+  }
+  .duel-rat .panel-heading {
+    justify-content: space-between;
+  }
+}

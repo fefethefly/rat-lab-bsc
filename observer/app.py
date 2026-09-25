@@ -33,7 +33,7 @@ async def stream(ws: WebSocket):
     def listener(packet): loop.call_soon_threadsafe(enqueue, packet)
     experiment.listeners.add(listener)
     snapshot=experiment.status(); cur=snapshot.get('current')
-    await ws.send_json({'type':'status','live':snapshot['phase']=='running','hello':{'source':'inference','task':'steer','run':cur['id'] if cur else None,'fps':25,'label':'RAT LAB Aim Eight · neural inference'}})
+    await ws.send_json({'type':'state','live':snapshot['phase']=='running','hello':{'source':'inference','task':'steer','run':cur['id'] if cur else None,'fps':25,'label':'RAT LAB Aim Eight · neural inference'}})
     try:
         while True:
             try: packet=await asyncio.wait_for(queue.get(), 15)

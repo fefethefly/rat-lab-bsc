@@ -143,12 +143,13 @@ export function isExperiment(value: unknown): value is Experiment {
     )
   );
 }
-export function useExperiment() {
+export function useExperiment(enabled = true) {
   const [data, setData] = useState<Experiment | null>(null);
   const [online, setOnline] = useState(false);
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
   useEffect(() => {
+    if (!enabled) return;
     let disposed = false,
       timer = 0;
     const controller = new AbortController();
@@ -217,7 +218,7 @@ export function useExperiment() {
       controller.abort();
       clearTimeout(timer);
     };
-  }, [retry]);
+  }, [retry, enabled]);
   return { data, online, error, retry: () => setRetry((n) => n + 1) };
 }
 export const seconds = (ms: number) => `${(ms / 1000).toFixed(2)}s`;

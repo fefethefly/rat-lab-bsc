@@ -90,10 +90,13 @@ class Experiment:
         self.emit({'type': 'hello', 'source': 'inference', 'task': 'steer', 'run': run_id,
                    'label': 'RAT LAB Aim Eight · neural inference', 'fps': 25})
         def on_click(event, inner):
-            nonlocal index, lit, ready, hits, misses
+            nonlocal index, lit, ready, hits, misses, pose
             if not lit: return
             step, x, y, hit = event
             at = round(inner.t * 20)
+            if pose is None: pose = lf.PoseReader(inner.m)
+            self.emit(lf.pack(inner.t * .02, index, inner.lever_angle(), True,
+                (float(x), float(y)), TARGETS[index], pose(inner.d.qpos)))
             clicks.append({'atMs': at, 'x': float(x), 'y': float(y), 'hit': bool(hit), 'targetIndex': index})
             if hit:
                 hits += 1; index += 1; lit = False; ready = inner.t * .02 + .96; s.hold()
@@ -112,7 +115,7 @@ class Experiment:
             target = TARGETS[index] if lit and index < 8 else None
             if count % 2 == 0:
                 if pose is None: pose = lf.PoseReader(inner.m)
-                self.emit(lf.pack(float(inner.d.time), index, inner.lever_angle(), bool((info or {}).get('click')),
+                self.emit(lf.pack(t, index, inner.lever_angle(), bool((info or {}).get('click')),
                     tuple(float(v) for v in inner.cursor), target, pose(inner.d.qpos)))
             if count % 5 == 0 and phase == 'brain':
                 sample = {'atMs': round(t * 1000), 'cursor': [round(float(v), 5) for v in inner.cursor],

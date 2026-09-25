@@ -22,6 +22,9 @@ import BrandMark from "./components/BrandMark";
 import Viewer from "./components/Viewer";
 import AimBoard from "./components/AimBoard";
 import Challenge from "./components/Challenge";
+import RecordedRat from "./components/RecordedRat";
+import SessionFlow from "./components/SessionFlow";
+import { useDuelRecording, hitsAt } from "./lib/duel";
 import {
   useExperiment,
   seconds,
@@ -43,7 +46,7 @@ const titles = {
   ],
   challenge: [
     "Eight targets. You vs R-01.",
-    "The same sequence. Two very different ways to press a button.",
+    "Race a verified rat recording. Every head movement, lever press and split, side by side.",
   ],
 };
 const when = (date: string) =>
@@ -94,18 +97,21 @@ function Live({
   online: boolean;
   relay: string;
 }) {
-  const run = data.latest;
   const live = online && data.phase === "running" && data.current !== null;
+  const { recording } = useDuelRecording();
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(id); }, []);
+  const run = !live && recording ? recording.run : data.latest;
   const [playing, setPlaying] = useState(
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [at, setAt] = useState(0),
-    [view, setView] = useState<"surface" | "subject">("surface");
+    [view, setView] = useState<"surface" | "subject">("subject");
   const clipEnd = run?.samples?.at(-1)?.atMs || 0;
   const start = run?.firstTargetMs || 0;
   useEffect(() => {
     setAt(start);
-  }, [run?.id, start]);
+  }, [run?.id, start, live]);
   useEffect(() => {
     if (live || !playing || !run) return;
     let raf = 0,
@@ -122,7 +128,7 @@ function Live({
   const samples = run?.samples || [];
   const selected =
     [...samples].reverse().find((s) => s.atMs <= at) || samples[0];
-  const s = live ? data.current : selected;
+  const s = live ? data.current : selected && run ? {...selected, hits: hitsAt(run, at - start), misses: (run.clicks || []).filter(c => !c.hit && c.atMs <= at).length} : selected;
   const target = live
     ? data.current?.target
     : s && s.targetIndex >= 0
@@ -166,18 +172,19 @@ function Live({
           </div>
           {view === "subject" ? (
             <div className="live-subject">
-              {relay && <Viewer running={live} observerRelay={relay} />}
-              {!live && (
+              {live && relay ? (
+                <Viewer running observerRelay={relay} />
+              ) : recording ? (
+                <RecordedRat recording={recording} atMs={at} />
+              ) : (
                 <div className="subject-standby">
                   <Clock size={24} />
-                  <h2>Between experiments.</h2>
-                  <p>The subject view connects when the next run starts.</p>
+                  <h2>Preparing the recorded subject…</h2>
                   <button
                     className="lab-button"
                     onClick={() => setView("surface")}
                   >
-                    Watch recorded control surface
-                    <ArrowRight size={16} />
+                    View cursor replay
                   </button>
                 </div>
               )}
@@ -202,14 +209,14 @@ function Live({
             <div className="playback-actions">
               <button
                 aria-label={playing ? "Pause replay" : "Play replay"}
-                disabled={live || view === "subject" || !run}
+                disabled={live || !run}
                 onClick={() => setPlaying((p) => !p)}
               >
                 {playing ? <Pause size={18} /> : <Play size={18} />}
               </button>
               <button
                 aria-label="Restart replay"
-                disabled={live || view === "subject" || !run}
+                disabled={live || !run}
                 onClick={() => {
                   setAt(start);
                   setPlaying(true);
@@ -220,7 +227,7 @@ function Live({
               <span>
                 {live
                   ? seconds(data.current?.elapsedMs || 0)
-                  : seconds(Math.max(0, at - start))}
+                  : seconds(Math.min(run?.durationMs || 0, Math.max(0, at - start)))}
                 <em> / {run ? seconds(run.durationMs) : "—"}</em>
               </span>
             </div>
@@ -228,7 +235,7 @@ function Live({
               {live
                 ? "NEURAL POLICY → CURSOR → LEVER"
                 : view === "subject"
-                  ? "SUBJECT VIEW"
+                  ? "VERIFIED BODY REPLAY · NOT LIVE"
                   : "RAT LAB RECORDING · NOT LIVE"}
             </span>
           </div>
@@ -255,7 +262,7 @@ function Live({
           <p className="panel-note">
             {live
               ? "A trained policy is running now. No model weights are being updated."
-              : "Replay of our own Aim Eight session. The cursor positions and clicks come from the neural run."}
+              : "Recorded Aim Eight session. Body motion, cursor and score share one verified run. The next live experiment connects automatically."}
           </p>
         </section>
         <aside className="lab-panel telemetry-panel">
@@ -293,14 +300,14 @@ function Live({
               </dd>
             </div>
             <div>
-              <dt>Latest completed run</dt>
+              <dt>{live ? "Last run time" : "Displayed replay time"}</dt>
               <dd>{run ? seconds(run.durationMs) : "—"}</dd>
             </div>
             <div>
               <dt>Next experiment</dt>
               <dd>
                 {online && data.nextRunAt
-                  ? when(data.nextRunAt)
+                  ? `in ${Math.max(0, Math.ceil((Date.parse(data.nextRunAt) - now) / 1000))}s`
                   : live
                     ? "Running now"
                     : "Pending"}
@@ -319,7 +326,7 @@ function Live({
               </strong>
               <p>
                 {run?.verified
-                  ? "Latest session reproduced identical frames and clicks on its recording host."
+                  ? "This recorded session reproduced identical frames and clicks on its recording host."
                   : "Results appear after the verification step."}
               </p>
             </div>
@@ -331,6 +338,7 @@ function Live({
           {run && <RunDetails run={run} />}
         </aside>
       </div>
+      <SessionFlow data={data} />
       <section className="run-history">
         <div className="lab-section-title">
           <div>
@@ -430,6 +438,7 @@ function Buyback({ data, online }: { data: Experiment; online: boolean }) {
         </div>
         <span className="state-tag">SIMULATION</span>
       </div>
+      <SessionFlow data={data} />
       <div className="buyback-layout">
         <section className="lab-panel budget-panel">
           <div className="panel-heading">
@@ -641,9 +650,10 @@ export default function LabApp() {
     "live") as keyof typeof titles;
   const known = page in titles;
   const [menu, setMenu] = useState(false);
-  const { data, online, error, retry } = useExperiment();
+  const { data, online, error, retry } = useExperiment(page !== "challenge" && known);
   const [relay, setRelay] = useState("");
   useEffect(() => {
+    if (page !== "live") return;
     fetch("/experiment/config.json")
       .then((r) => r.json())
       .then((j) => {
@@ -665,7 +675,7 @@ export default function LabApp() {
     canonical?.setAttribute("href", `https://rat-lab.fun/${known ? page : ""}`);
   }, [page, known]);
   return (
-    <div className="public-site lab-site">
+    <div className={`public-site lab-site lab-page-${page}`}>
       <a className="site-skip" href="#lab-main">
         Skip to content
       </a>
@@ -730,30 +740,34 @@ export default function LabApp() {
                 <p>{titles[page][1]}</p>
               </div>
               <div className={"connection-state " + (online ? "online" : "")}>
-                {online ? <WifiHigh size={17} /> : <WifiSlash size={17} />}
+                {page === "challenge" ? <CheckCircle size={17} /> : online ? <WifiHigh size={17} /> : <WifiSlash size={17} />}
                 <span>
-                  {online ? "Observer connected" : "Saved experiment"}
+                  {page === "challenge"
+                    ? "Recorded opponent"
+                    : online
+                      ? "Observer connected"
+                      : "Saved experiment"}
                   <small>
-                    {online
-                      ? "Neural inference · not training"
-                      : "Recorded data · not live"}
+                    {page === "challenge"
+                      ? "Paired motion & click timestamps"
+                      : online
+                        ? "Neural inference · not training"
+                        : "Recorded data · not live"}
                   </small>
                 </span>
               </div>
             </div>
-            {error && (
+            {error && page !== "challenge" && (
               <div className="connection-notice" role="status">
                 <span>{error}</span>
                 <button onClick={retry}>Retry connection</button>
               </div>
             )}
-            {data ? (
+            {page === "challenge" ? <Challenge /> : data ? (
               page === "live" ? (
                 <Live data={data} online={online} relay={relay} />
-              ) : page === "buyback" ? (
-                <Buyback data={data} online={online} />
               ) : (
-                <Challenge data={data} />
+                <Buyback data={data} online={online} />
               )
             ) : (
               <div className="lab-loading" role="status">

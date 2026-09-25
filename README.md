@@ -25,7 +25,7 @@ RAT LAB explores a simple question: what can learned behavior do when its action
 | Experience | What is running |
 | :--- | :--- |
 | [**Observe R-01**](https://rat-lab.fun/live) | Our own recurring Aim Eight inference sessions, cursor playback, replay checks and downloadable records. Fixed trained policies; no claim of ongoing learning. |
-| [**Human vs. rat**](https://rat-lab.fun/challenge) | Play the same eight targets with a pointer or keyboard. Personal scores stay on your device. Different input methods and clocks are disclosed. |
+| [**Human vs. rat**](https://rat-lab.fun/challenge) | Race a verified recording in two synchronized lanes. See every target split, finish ahead or behind R-01, and export your local result. The hosted site includes recorded 3D body motion. |
 | [**BNB buyback rehearsal**](https://rat-lab.fun/buyback) | Unique verified hits generate an illustrative paper allocation. **No funded wallet or real purchases.** Includes a block-specific token-tax snapshot. |
 
 The observer is a separate, read-only service with no signer. It retains 24 run summaries; its simulation window resets on restart. [Runtime, deployment and verification details →](docs/LIVE_LAB.md)
@@ -49,7 +49,7 @@ npm run dev
 # http://127.0.0.1:5173
 ```
 
-To preview the confirmed release state locally, save the [public JSON record](https://rat-lab.fun/release.json) as `public/release.json`, then run `npm run build:public` or refresh the dev server. Without that file, the evidence desk correctly shows an unpublished state. The public-source subject view displays an original static mascot illustration. The 2D observation surface plays our own recorded cursor data and connects to the hosted observer; the human challenge works without upstream model assets.
+To preview the confirmed release state locally, save the [public JSON record](https://rat-lab.fun/release.json) as `public/release.json`, then run `npm run build:public` or refresh the dev server. Without that file, the evidence desk correctly shows an unpublished state. The public-source subject view displays an original static mascot illustration. The 2D observation surface plays our own recorded cursor data and connects to the hosted observer. The duel uses a synchronized 2D cursor fallback in this public-source build; the hosted site adds the separately supplied 3D renderer.
 
 > The hosted website also displays a **labeled upstream reference replay**. That replay, the adapted 3D viewer, original model assets, trained weights, and upstream source are omitted from this repository because the upstream Labrat repository has no repository-wide redistribution license. See [THIRD_PARTY.md](THIRD_PARTY.md) for the exact boundary. A neural session requires separately obtained compatible upstream components.
 

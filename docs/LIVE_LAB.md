@@ -38,3 +38,15 @@ A separate implementation must establish a dedicated wallet, explicitly reviewed
 ## Validation
 
 A local Aim Eight baseline with seed 2026 completed 8/8 hits, zero misses and 9.18 seconds from the first target to the last hit. Exact replay matched on its recording host. Results on another architecture can differ and are verified again on that host. The human timer includes the same target settle interval, ends when the eighth target is hit, and cancels a round if the page is hidden.
+
+## Synchronized human–rat duel
+
+`/challenge` uses one pinned, replay-verified Aim Eight recording. `public/experiment/duel/run.json` contains the rules, neural clicks, cursor samples and session proof. `poses.json` names the same run/proof and `poses.bin` contains body poses exported during that run, with a SHA-256 binding in the record. Generate a new pair with `.venv/bin/python scripts/record-duel.py`; this requires the separate private runtime. Never pair poses from one run with the score or clicks from another.
+
+The browser starts both lanes from the first target after the countdown. The rat's simulation time is mapped onto the race clock; each human split is compared with the rat's timestamp for the same target. The opponent continues to its finish if the human finishes first. Hidden pages cancel active human rounds; reset does not create a score. Personal bests and exported results are local, self-reported practice data. Human clicks never enter the observer's allocation ledger.
+
+The hosted subject renderer shows the recorded body at the controlled timestamp. The public source adapter intentionally returns a 2D cursor fallback because the adapted upstream renderer and model are not redistributed. WebGL failure also falls back to the matching cursor recording, and reduced-motion users get a paused preview. On phones, the compact rat window stays visible above the target board.
+
+`/live` now opens the subject view by default. Between cloud trials, it plays this explicitly labeled pinned recording, with matching telemetry and proof. Live sessions still come from the read-only observer. The separate latest-session flow on `/live` and `/buyback` links completed neural hits, replay verification and that exact proof's paper allocation. This does not add quotes or transaction execution.
+
+Validation: `node --test tests/duel.test.mjs tests/experiment.test.mjs tests/release.test.mjs` checks paired artifacts, exact hit boundaries, split signs and rejection of mismatched records. Browser checks cover both a faster and a slower human finish, reset, personal-best clearing, mobile layout, and loading/2D fallback.
