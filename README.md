@@ -6,7 +6,7 @@
 
 Write a score, design a challenge, and share a real neural attempt.
 
-[**Website ↗**](https://rat-lab.fun) &nbsp;·&nbsp; [**Music studio ↗**](https://rat-lab.fun/music) &nbsp;·&nbsp; [**Observe ↗**](https://rat-lab.fun/live) &nbsp;·&nbsp; [**Create a mission ↗**](https://rat-lab.fun/create) &nbsp;·&nbsp; [**Race ↗**](https://rat-lab.fun/challenge) &nbsp;·&nbsp; [**Buyback ledger ↗**](https://rat-lab.fun/buyback) &nbsp;·&nbsp; [**X ↗**](https://x.com/gouyi420)
+[**Website ↗**](https://rat-lab.fun) &nbsp;·&nbsp; [**First Takes ↗**](https://rat-lab.fun/first-takes) &nbsp;·&nbsp; [**Music studio ↗**](https://rat-lab.fun/music) &nbsp;·&nbsp; [**Observe ↗**](https://rat-lab.fun/live) &nbsp;·&nbsp; [**Create a mission ↗**](https://rat-lab.fun/create) &nbsp;·&nbsp; [**Race ↗**](https://rat-lab.fun/challenge) &nbsp;·&nbsp; [**Buyback ledger ↗**](https://rat-lab.fun/buyback) &nbsp;·&nbsp; [**X ↗**](https://x.com/gouyi420)
 
 </div>
 
@@ -28,6 +28,7 @@ Our origin study asked what learned behavior could do when its actions had a che
 
 | Experience | What is running |
 | :--- | :--- |
+| [**First Takes**](https://rat-lab.fun/first-takes) | Four behavioral music studies, traceable notes, exact audio reconstruction packs and a test-only NFT archive. Free listening; no production sale. |
 | [**Music studio**](https://rat-lab.fun/music) | Compose eight notes on four keys. Hear a real attempt at its actual hit times, download the synthesized WAV, and share or remix the score. [First verified take ↗](https://rat-lab.fun/music?id=a9cfcf042e75987cebb8) |
 | [**Create & remix**](https://rat-lab.fun/create) | Three route templates, eight editable targets, a real experiment queue and persistent mission links. Successful verified attempts include synchronized race playback; failures remain documented. |
 | [**Observe R-01**](https://rat-lab.fun/live) | Our own recurring Aim Eight inference sessions, cursor playback, replay checks and downloadable records. Fixed trained policies; no claim of ongoing learning. |
@@ -39,6 +40,7 @@ The observer is a separate service with no signer. Its bounded public submission
 ### Explore the code
 
 - **[Website](src/PublicApp.tsx)** — mission workbench, our own recorded benchmark, origin study and evidence desk.
+- **[First Takes](src/components/FirstTakes.tsx)** — behavioral scores, note provenance and independent reconstruction. [Method & testnet archive →](docs/FIRST_TAKES.md)
 - **[Music studio](src/components/MusicStudio.tsx)** — four-key composition, verified hit-timed playback, WAV export and remixing. [Design & timing contract →](docs/MUSIC_STUDIO.md)
 - **[Mission studio](src/components/MissionStudio.tsx)** — route editor, queued attempts, saved results and remixing.
 - **[Community service](observer/challenges.py)** — validated tasks, idempotent submissions and persistent archives.

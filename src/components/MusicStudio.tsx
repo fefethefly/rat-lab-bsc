@@ -266,6 +266,11 @@ function MusicComposer() {
   };
   return (
     <form onSubmit={submit} className="music-studio">
+      <p className="music-featured">
+        <a href="/first-takes" className="lab-button">
+          First Takes: hear movement become music <ArrowUpRight size={17} />
+        </a>
+      </p>
       <fieldset disabled={busy || loading}>
         <legend className="sr-only">Compose eight notes for the rat</legend>
         <div className="music-session-heading">

@@ -155,6 +155,9 @@ export default function PublicApp() {
           <a href="/live" onClick={() => setMenu(false)}>
             Observe
           </a>
+          <a href="/first-takes" onClick={() => setMenu(false)}>
+            First Takes
+          </a>
           <a href="/music" onClick={() => setMenu(false)}>
             Music
           </a>

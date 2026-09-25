@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "take-01",
+  "title": "First light",
+  "kind": "behavior-sonification",
+  "series": "First Takes / study 01",
+  "edition": "Unminted research candidate",
+  "mappingVersion": "trajectory-keys-v1",
+  "rendererVersion": "integer-keys-v1",
+  "sourceSha256": "0a60f89bfeaab97898c698a70ef1574b0c612fafd1d37bbd3775eac3b6ac7836",
+  "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+  "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+  "scoreSha256": "03642e52f9652cda706bd4bd62247ff14074b58b78cd59a333f59cb767916d54",
+  "wavSha256": "ef3836175a12e3e1669f6e52f16baf8ebb0aa0bc05c06b095d827f29d76e6540",
+  "coverSha256": "1b77fd99b74c9687ef0f808ecdcb0dd4e816352144b174b51e494f0995ad5c1c",
+  "runId": "aim-20260925T132939-7101",
+  "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+  "proof": "8c2287d9fac3bc06a997ec09a3b1599970dc666a74da77bdedaa7a32a77a0303",
+  "seed": 7101,
+  "createdAt": "2026-09-25T13:29:42.649803Z",
+  "hostVerified": true,
+  "complete": true,
+  "hits": 8,
+  "misses": 0,
+  "sourceDurationMs": 9060,
+  "durationMs": 9791.020408163264,
+  "events": [
+    [
+      0,
+      62,
+      220,
+      75,
+      27
+    ],
+    [
+      200,
+      64,
+      750,
+      76,
+      29
+    ],
+    [
+      400,
+      67,
+      220,
+      76,
+      31
+    ],
+    [
+      1100,
+      67,
+      220,
+      76,
+      38
+    ],
+    [
+      1800,
+      67,
+      220,
+      76,
+      45
+    ],
+    [
+      2500,
+      67,
+      228,
+      76,
+      52
+    ],
+    [
+      2700,
+      64,
+      220,
+      76,
+      54
+    ],
+    [
+      3400,
+      64,
+      220,
+      76,
+      61
+    ],
+    [
+      3900,
+      62,
+      671,
+      73,
+      66
+    ],
+    [
+      4600,
+      62,
+      220,
+      73,
+      73
+    ],
+    [
+      5200,
+      60,
+      437,
+      72,
+      79
+    ],
+    [
+      5900,
+      60,
+      220,
+      72,
+      86
+    ],
+    [
+      6400,
+      57,
+      725,
+      73,
+      91
+    ],
+    [
+      7100,
+      57,
+      220,
+      73,
+      98
+    ],
+    [
+      7700,
+      55,
+      452,
+      73,
+      104
+    ],
+    [
+      8400,
+      55,
+      220,
+      73,
+      111
+    ],
+    [
+      8900,
+      57,
+      691,
+      74,
+      116
+    ]
+  ],
+  "selection": "All four predeclared seeds retained. No best-of reroll.",
+  "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+  "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included."
+}

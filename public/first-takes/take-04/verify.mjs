@@ -1,0 +1,16 @@
+import{readFileSync}from'node:fs';
+import{createHash}from'node:crypto';
+import{deriveEvents,packEvents,renderWav,coverSvg}from'./renderer.mjs';
+const read=p=>readFileSync(new URL(p,import.meta.url));
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const m=JSON.parse(read('manifest.json')),source=read('source.json');
+const check=(ok,what)=>{if(!ok)throw Error('FAILED: '+what);console.log('PASS',what);};
+check(hash(source)===m.sourceSha256,'source fingerprint');
+check(hash(read('plan.json'))===m.planSha256,'batch plan fingerprint');
+check(hash(read('renderer.mjs'))===m.rendererSha256,'mapping / renderer code fingerprint');
+const events=deriveEvents(JSON.parse(source));
+check(JSON.stringify(events)===JSON.stringify(m.events),'trajectory → every note, duration, velocity and source sample');
+check(hash(packEvents(events))===m.scoreSha256&&hash(read('score.bin'))===m.scoreSha256,'packed on-chain score');
+check(hash(renderWav(events))===m.wavSha256&&hash(read('audio.wav'))===m.wavSha256,'bit-identical reconstructed WAV');
+check(hash(coverSvg(events,m.title.toUpperCase()))===m.coverSha256&&hash(read('cover.svg'))===m.coverSha256,'generated cover');
+console.log('Consistent reconstruction. Host provenance is an operator attestation, not a trustless inference proof.');

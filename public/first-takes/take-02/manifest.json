@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "id": "take-02",
+  "title": "The long way home",
+  "kind": "behavior-sonification",
+  "series": "First Takes / study 01",
+  "edition": "Unminted research candidate",
+  "mappingVersion": "trajectory-keys-v1",
+  "rendererVersion": "integer-keys-v1",
+  "sourceSha256": "284d243b26de0b376d57d863100e81bdf14ecc9cfde691baac8c9d45c212e988",
+  "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+  "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+  "scoreSha256": "7179266a76bdbeedc7f7e82802250259adbd120f4765c93312a1b47e0a98cb5f",
+  "wavSha256": "d43bdbf20a8bffe88dba236c0a68c07f2c046bcf6453c12ed4906763cbb132cd",
+  "coverSha256": "993d470ad6584b8fae71d85b23c0b5e82a4baab1479615726b8c86ebd021e4e7",
+  "runId": "aim-20260925T132942-7102",
+  "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+  "proof": "061c5e149c0b4003c63fcc31a47ebdae53a72782e754494c3509ad1b36f9f94f",
+  "seed": 7102,
+  "createdAt": "2026-09-25T13:29:45.247519Z",
+  "hostVerified": true,
+  "complete": true,
+  "hits": 8,
+  "misses": 0,
+  "sourceDurationMs": 9880,
+  "durationMs": 10650.022675736962,
+  "events": [
+    [
+      0,
+      62,
+      220,
+      75,
+      27
+    ],
+    [
+      200,
+      64,
+      750,
+      76,
+      29
+    ],
+    [
+      400,
+      67,
+      220,
+      76,
+      31
+    ],
+    [
+      1100,
+      67,
+      220,
+      76,
+      38
+    ],
+    [
+      1500,
+      64,
+      750,
+      73,
+      42
+    ],
+    [
+      1700,
+      57,
+      750,
+      60,
+      44
+    ],
+    [
+      1900,
+      55,
+      220,
+      62,
+      46
+    ],
+    [
+      2600,
+      55,
+      220,
+      62,
+      53
+    ],
+    [
+      3100,
+      60,
+      750,
+      76,
+      58
+    ],
+    [
+      3300,
+      64,
+      220,
+      79,
+      60
+    ],
+    [
+      4000,
+      64,
+      220,
+      79,
+      67
+    ],
+    [
+      4400,
+      62,
+      579,
+      78,
+      71
+    ],
+    [
+      4600,
+      60,
+      750,
+      62,
+      73
+    ],
+    [
+      4800,
+      57,
+      220,
+      62,
+      75
+    ],
+    [
+      5500,
+      57,
+      220,
+      62,
+      82
+    ],
+    [
+      6000,
+      60,
+      750,
+      74,
+      87
+    ],
+    [
+      6200,
+      62,
+      220,
+      76,
+      89
+    ],
+    [
+      6900,
+      62,
+      220,
+      76,
+      96
+    ],
+    [
+      7300,
+      60,
+      473,
+      76,
+      100
+    ],
+    [
+      8000,
+      60,
+      220,
+      76,
+      107
+    ],
+    [
+      8700,
+      60,
+      220,
+      76,
+      114
+    ],
+    [
+      9400,
+      60,
+      220,
+      76,
+      121
+    ],
+    [
+      9700,
+      64,
+      750,
+      77,
+      124
+    ]
+  ],
+  "selection": "All four predeclared seeds retained. No best-of reroll.",
+  "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+  "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included."
+}

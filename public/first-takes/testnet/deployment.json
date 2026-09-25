@@ -1,0 +1,42 @@
+{
+  "chainId": 97,
+  "network": "BSC testnet",
+  "status": "deployed",
+  "address": "0x07e83867b88e190651e0cb1f123159a33e39804d",
+  "issuer": "0xA86881412c2E4583bfB0Db7a8B39155C2661d2D9",
+  "transactionHash": "0xf0edb72b9ea835ae2871194c7c1481a7d3257cb91980d4f4743cb849de589d05",
+  "tokens": [
+    {
+      "id": "take-01",
+      "tokenId": 1,
+      "transactionHash": "0x9818fadba6adae0f911c287456146bedf2fba8713b6b8b400409d0e1ddb1490c",
+      "sourceSha256": "0a60f89bfeaab97898c698a70ef1574b0c612fafd1d37bbd3775eac3b6ac7836",
+      "playerSha256": "72e74e9a4211d56def8002ae307d30836ee31f718000d39f3723dfa5dbeb5b26"
+    },
+    {
+      "id": "take-02",
+      "tokenId": 2,
+      "transactionHash": "0x1ab4e8f9acf401ec4ee39be1006ad96b905d52ab88d06725e7c8e4f39addb012",
+      "sourceSha256": "284d243b26de0b376d57d863100e81bdf14ecc9cfde691baac8c9d45c212e988",
+      "playerSha256": "0f03ec4e1bea2c07fcb074b8347f24f2af244f404c88420616bc1f6b97e987c2"
+    },
+    {
+      "id": "take-03",
+      "tokenId": 3,
+      "transactionHash": "0x6e661fa5c4aa593a9fd019059053e3ee581dc69c26e1e6b7b0d4cf73ac3f7d3a",
+      "sourceSha256": "f7f458a1832b7576251778fd99bc54be7e5560dfbe344043787a3e202c23398e",
+      "playerSha256": "1e102cfc588bbdffd3544e4afff666d8e9e3b15fba652184eed7233c6e06b926"
+    },
+    {
+      "id": "take-04",
+      "tokenId": 4,
+      "transactionHash": "0x3133c338adf0010fa2d97f3f32705d6fe2c91883ba03dc8a0ba474594249b877",
+      "sourceSha256": "9cf35cd535310968a0dbb84b7174f5b41a239685156a1de31ef2467499f9a3ac",
+      "playerSha256": "6b06c1a5bd3014c8ceb515070ba46bb91d8f820e6bea118b5502d961d4f2a86c"
+    }
+  ],
+  "verifiedAt": "2026-09-25T13:43:36.425Z",
+  "testGasCost": "0.001733449167783403",
+  "note": "Four test-only archive tokens are confirmed. Their scores, complete players and covers are stored on BSC testnet. Testnet data can be reset; this is not a permanence guarantee or a production sale.",
+  "independentlyAudited": false
+}

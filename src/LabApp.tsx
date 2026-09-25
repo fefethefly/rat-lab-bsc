@@ -23,6 +23,7 @@ import Viewer from "./components/Viewer";
 import AimBoard from "./components/AimBoard";
 import Challenge from "./components/Challenge";
 import MusicStudio from "./components/MusicStudio";
+import FirstTakes from "./components/FirstTakes";
 import { MissionStudio, CommunityMission } from "./components/MissionStudio";
 import RecordedRat from "./components/RecordedRat";
 import SessionFlow from "./components/SessionFlow";
@@ -38,6 +39,10 @@ import {
 import "./public.css";
 import "./lab.css";
 const titles = {
+  "first-takes": [
+    "Small movements. Lasting notes.",
+    "First Takes — four behavioral scores from a very small performer.",
+  ],
   music: [
     "You write the notes. It finds its rhythm.",
     "Eight notes, four keys, one real attempt. Make a score for a very small performer.",
@@ -686,7 +691,10 @@ export default function LabApp() {
       ? new URLSearchParams(location.search).get("id")
       : null;
   const workspace =
-    page === "challenge" || page === "create" || page === "music";
+    page === "challenge" ||
+    page === "create" ||
+    page === "music" ||
+    page === "first-takes";
   const [menu, setMenu] = useState(false);
   const { data, online, error, retry } = useExperiment(!workspace && known);
   const [relay, setRelay] = useState("");
@@ -708,7 +716,7 @@ export default function LabApp() {
       .catch(() => {});
   }, []);
   useEffect(() => {
-    document.title = `RAT LAB · ${known ? (page === "live" ? "Live experiment" : page === "buyback" ? "Buyback ledger" : page === "create" ? "Mission studio" : page === "music" ? "Music studio" : "Aim Eight challenge") : "Page not found"}`;
+    document.title = `RAT LAB · ${known ? (page === "live" ? "Live experiment" : page === "buyback" ? "Buyback ledger" : page === "create" ? "Mission studio" : page === "music" ? "Music studio" : page === "first-takes" ? "First Takes" : "Aim Eight challenge") : "Page not found"}`;
     const canonical = document.querySelector('link[rel="canonical"]');
     canonical?.setAttribute("href", `https://rat-lab.fun/${known ? page : ""}`);
   }, [page, known]);
@@ -732,6 +740,7 @@ export default function LabApp() {
             ["/buyback", "Buybacks"],
             ["/challenge", "Race"],
             ["/music", "Music"],
+            ["/first-takes", "First Takes"],
             ["/create", "Create a mission"],
           ].map(([url, label]) => (
             <a
@@ -776,9 +785,11 @@ export default function LabApp() {
                       ? "BNB BUYBACKS"
                       : page === "create"
                         ? "MISSION STUDIO"
-                        : page === "music"
-                          ? "MUSIC STUDIO"
-                          : "AIM EIGHT"}
+                        : page === "first-takes"
+                          ? "FIRST TAKES"
+                          : page === "music"
+                            ? "MUSIC STUDIO"
+                            : "AIM EIGHT"}
                 </span>
                 <h1>
                   {missionId
@@ -801,25 +812,29 @@ export default function LabApp() {
                 )}
                 <span>
                   {workspace
-                    ? page === "music"
-                      ? "Music studio"
-                      : page === "create"
-                        ? "Mission studio"
-                        : missionId
-                          ? "Community mission"
-                          : "Recorded opponent"
+                    ? page === "first-takes"
+                      ? "Recording archive"
+                      : page === "music"
+                        ? "Music studio"
+                        : page === "create"
+                          ? "Mission studio"
+                          : missionId
+                            ? "Community mission"
+                            : "Recorded opponent"
                     : online
                       ? "Observer connected"
                       : "Saved experiment"}
                   <small>
                     {workspace
-                      ? page === "music"
-                        ? "Original scores · real hit timing"
-                        : page === "create"
-                          ? "Public beta · saved designs"
-                          : missionId
-                            ? "Saved design & attempt"
-                            : "Paired motion & click timestamps"
+                      ? page === "first-takes"
+                        ? "Behavioral studies · open listening"
+                        : page === "music"
+                          ? "Original scores · real hit timing"
+                          : page === "create"
+                            ? "Public beta · saved designs"
+                            : missionId
+                              ? "Saved design & attempt"
+                              : "Paired motion & click timestamps"
                       : online
                         ? "Neural inference · not training"
                         : "Recorded data · not live"}
@@ -833,7 +848,9 @@ export default function LabApp() {
                 <button onClick={retry}>Retry connection</button>
               </div>
             )}
-            {page === "music" ? (
+            {page === "first-takes" ? (
+              <FirstTakes />
+            ) : page === "music" ? (
               <MusicStudio />
             ) : page === "create" ? (
               <MissionStudio />

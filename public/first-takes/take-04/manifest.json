@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "take-04",
+  "title": "A small departure",
+  "kind": "behavior-sonification",
+  "series": "First Takes / study 01",
+  "edition": "Unminted research candidate",
+  "mappingVersion": "trajectory-keys-v1",
+  "rendererVersion": "integer-keys-v1",
+  "sourceSha256": "9cf35cd535310968a0dbb84b7174f5b41a239685156a1de31ef2467499f9a3ac",
+  "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+  "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+  "scoreSha256": "e315e3df5f286826a0870d0dc246bd7ea79a3975dbfaa67e0a0315fa24b6e993",
+  "wavSha256": "b6c50d1a35a7aaa7fef1c796d324569ad3e0ec4ef28b209209d622da0ac55427",
+  "coverSha256": "f8d19865b3742cde0d3b5527a8f26fa98af16aeb832c2474d46a449697f57dc8",
+  "runId": "aim-20260925T132947-7104",
+  "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+  "proof": "a714b22e4e67f0d0bb57ad06d89515f7df33f826c160c186c9d6061315141a66",
+  "seed": 7104,
+  "createdAt": "2026-09-25T13:29:50.800288Z",
+  "hostVerified": true,
+  "complete": true,
+  "hits": 8,
+  "misses": 0,
+  "sourceDurationMs": 9440,
+  "durationMs": 10084.036281179138,
+  "events": [
+    [
+      0,
+      62,
+      220,
+      75,
+      27
+    ],
+    [
+      200,
+      57,
+      750,
+      71,
+      29
+    ],
+    [
+      900,
+      57,
+      220,
+      65,
+      36
+    ],
+    [
+      1600,
+      57,
+      220,
+      65,
+      43
+    ],
+    [
+      2300,
+      57,
+      220,
+      65,
+      50
+    ],
+    [
+      3000,
+      57,
+      221,
+      72,
+      57
+    ],
+    [
+      3700,
+      57,
+      220,
+      72,
+      64
+    ],
+    [
+      4100,
+      60,
+      750,
+      73,
+      68
+    ],
+    [
+      4800,
+      60,
+      220,
+      73,
+      75
+    ],
+    [
+      5400,
+      62,
+      750,
+      74,
+      81
+    ],
+    [
+      6100,
+      62,
+      220,
+      74,
+      88
+    ],
+    [
+      6700,
+      64,
+      750,
+      74,
+      94
+    ],
+    [
+      7400,
+      64,
+      220,
+      74,
+      101
+    ],
+    [
+      8000,
+      67,
+      604,
+      75,
+      107
+    ],
+    [
+      8700,
+      67,
+      220,
+      75,
+      114
+    ],
+    [
+      9200,
+      64,
+      684,
+      74,
+      119
+    ],
+    [
+      9400,
+      62,
+      220,
+      71,
+      121
+    ]
+  ],
+  "selection": "All four predeclared seeds retained. No best-of reroll.",
+  "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+  "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included."
+}

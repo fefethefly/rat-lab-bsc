@@ -1,0 +1,640 @@
+.takes-page {
+  --take-yellow: #efc54b;
+  --take-muted: #b5a8c4;
+  color: #f3edf9;
+}
+.takes-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin: -14px 0 46px;
+}
+.takes-intro p {
+  max-width: 590px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--take-muted);
+}
+.takes-intro a,
+.takes-principles a,
+.takes-chain-card a {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--take-yellow);
+  text-decoration: none;
+  font-size: 13px;
+}
+.takes-cabinet {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 42px;
+  align-items: start;
+}
+.takes-sleeves {
+  position: sticky;
+  top: 30px;
+}
+.takes-shelf-label {
+  display: flex;
+  justify-content: space-between;
+  font:
+    10px "JetBrains Mono",
+    monospace;
+  letter-spacing: 0.12em;
+  padding-bottom: 20px;
+  color: var(--take-muted);
+  border-bottom: 1px solid #3b2c4a;
+}
+.takes-sleeves button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 22px 58px minmax(0, 1fr) 16px;
+  gap: 12px;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #30263b;
+  padding: 22px 5px;
+  color: #ddd1e9;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.takes-sleeves button:hover,
+.takes-sleeves button.selected {
+  background: #251b32;
+  color: var(--take-yellow);
+}
+.takes-sleeves button.selected {
+  box-shadow: inset 3px 0 var(--take-yellow);
+}
+.takes-number {
+  font:
+    10px "JetBrains Mono",
+    monospace;
+  color: var(--take-muted);
+}
+.takes-sleeves img {
+  width: 58px;
+  height: 64px;
+  object-fit: cover;
+  border: 1px solid #4a365f;
+  transform: rotate(-4deg);
+}
+.takes-sleeves strong {
+  font-size: 13px;
+  display: block;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.takes-sleeves small {
+  font:
+    9px "JetBrains Mono",
+    monospace;
+  display: block;
+  color: var(--take-muted);
+  margin-top: 6px;
+}
+.takes-sleeves > p {
+  font-size: 12px;
+  color: var(--take-muted);
+  line-height: 1.9;
+  margin-top: 26px;
+}
+.take-player {
+  min-width: 0;
+  background: linear-gradient(135deg, #21152e, #100c18 60%);
+  padding: 34px;
+  border: 1px solid #49345b;
+}
+.take-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+}
+.take-state {
+  font:
+    9px "JetBrains Mono",
+    monospace;
+  color: var(--take-muted);
+  letter-spacing: 0.08em;
+}
+.take-player h2 {
+  font:
+    500 clamp(32px, 4vw, 52px)/1.1 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.055em;
+  margin: 22px 0 32px;
+  color: #f6f0fa;
+}
+.take-score-art {
+  background: #110d19;
+  border: 1px solid #3d2d4d;
+  overflow: hidden;
+  padding: 22px 0 12px;
+}
+.take-art-label,
+.take-art-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font:
+    9px "JetBrains Mono",
+    monospace;
+  letter-spacing: 0.09em;
+  color: var(--take-muted);
+}
+.take-art-label strong {
+  font-size: 32px;
+  color: var(--take-yellow);
+  font-weight: 400;
+}
+.take-art-label small {
+  font-size: 10px;
+  color: var(--take-muted);
+}
+.take-score-art svg {
+  width: 100%;
+  display: block;
+  margin: 4px 0;
+  color: #4b365e;
+}
+.take-score-art g {
+  fill: #8f729f;
+  stroke: #8f729f;
+}
+.take-score-art g line {
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+.take-score-art g.sounded {
+  fill: var(--take-yellow);
+  stroke: var(--take-yellow);
+}
+.take-score-art .take-playhead {
+  stroke: var(--take-yellow);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+.take-art-foot {
+  font-size: 8px;
+}
+.take-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 25px 0 14px;
+}
+.take-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #5a416b;
+  padding: 16px;
+  background: #2a1e36;
+  color: #f6f0ff;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.take-controls .take-play {
+  background: var(--take-yellow);
+  color: #201725;
+  border-color: var(--take-yellow);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 160px;
+}
+.take-controls button:active {
+  transform: translateY(1px);
+}
+.take-controls button:disabled {
+  opacity: 0.4;
+  cursor: wait;
+}
+.take-controls > span {
+  margin-left: auto;
+  font:
+    12px "JetBrains Mono",
+    monospace;
+}
+.take-controls > span small {
+  color: var(--take-muted);
+  font-size: 10px;
+}
+.public-site input.take-position {
+  width: 100%;
+  padding: 0;
+  accent-color: var(--take-yellow);
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+}
+.take-verification {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--take-muted);
+  line-height: 1.7;
+  min-height: 32px;
+}
+.take-verification svg {
+  flex-shrink: 0;
+  color: var(--take-yellow);
+}
+.take-verification.failed {
+  color: #ffaaaa;
+}
+.take-downloads {
+  display: flex;
+  gap: 16px 22px;
+  flex-wrap: wrap;
+  margin: 24px 0 30px;
+}
+.take-downloads a,
+.take-downloads button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  color: #d9cce6;
+  text-decoration: none;
+  cursor: pointer;
+}
+.take-downloads a:first-child {
+  flex-basis: 100%;
+  padding: 18px;
+  border: 1px solid #665072;
+  color: var(--take-yellow);
+  font-size: 13px;
+}
+.take-downloads a:first-child span {
+  margin-left: auto;
+  font:
+    9px "JetBrains Mono",
+    monospace;
+  color: var(--take-muted);
+}
+.take-downloads a:hover,
+.take-downloads button:hover {
+  color: var(--take-yellow);
+}
+.take-share-status {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.take-trace {
+  border-top: 1px solid #43334f;
+  padding: 20px 0;
+}
+.take-trace:last-child {
+  padding-bottom: 0;
+}
+.take-trace summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: #dcccdf;
+  gap: 12px;
+}
+.take-trace p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--take-muted);
+  margin-top: 20px;
+}
+.take-trace a {
+  font-size: 12px;
+  color: var(--take-yellow);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.take-note-list {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 5px;
+  margin: 18px 0;
+}
+.take-note-list button {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 9px 0;
+  border: 1px solid #503860;
+  background: #1b1426;
+  color: #d8c4e8;
+  font:
+    12px "JetBrains Mono",
+    monospace;
+  cursor: pointer;
+}
+.take-note-list button small {
+  font-size: 8px;
+  color: var(--take-muted);
+}
+.take-note-list button[aria-pressed="true"] {
+  border-color: var(--take-yellow);
+  color: var(--take-yellow);
+}
+.take-note-detail {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: #171021;
+  padding: 18px;
+}
+.take-note-detail > strong {
+  font:
+    500 42px "Space Grotesk",
+    sans-serif;
+  color: var(--take-yellow);
+}
+.take-note-detail dl {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  font:
+    10px "JetBrains Mono",
+    monospace;
+}
+.take-note-detail dt {
+  color: var(--take-muted);
+}
+.take-note-detail dd {
+  margin: 0;
+  text-align: right;
+}
+.take-hashes {
+  font:
+    10px/1.8 "JetBrains Mono",
+    monospace;
+  margin: 25px 0;
+}
+.take-hashes dt {
+  color: var(--take-muted);
+  margin-top: 16px;
+}
+.take-hashes dd {
+  margin: 5px 0;
+  overflow-wrap: anywhere;
+  color: #decee9;
+}
+.takes-principles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 60px;
+  margin: 90px 0;
+  padding: 45px 0;
+  border-top: 1px solid #42324f;
+  border-bottom: 1px solid #42324f;
+}
+.takes-principles > .music-label {
+  grid-column: 1/-1;
+}
+.takes-principles h2,
+.takes-chain h2 {
+  font:
+    500 clamp(30px, 4vw, 44px)/1.15 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.045em;
+  margin: 12px 0;
+}
+.takes-principles p,
+.takes-chain p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--take-muted);
+  max-width: 55ch;
+}
+.takes-chain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 50px;
+}
+.takes-chain-card {
+  padding: 30px;
+  background: #21172d;
+  border: 1px solid #50385e;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.takes-chain-card > span {
+  font:
+    10px "JetBrains Mono",
+    monospace;
+  color: var(--take-yellow);
+}
+.takes-chain-card h3 {
+  font:
+    500 25px "Space Grotesk",
+    sans-serif;
+  margin: 0;
+}
+.takes-chain-card p {
+  margin: 0;
+}
+.takes-chain-card small {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--take-muted);
+  margin-top: 10px;
+}
+.takes-loading {
+  padding: 100px 25px;
+  border: 1px solid #49345b;
+  color: #cdbcdc;
+}
+.takes-error {
+  padding: 25px;
+  color: #ffb4b4;
+}
+.takes-page button:focus-visible,
+.takes-page a:focus-visible,
+.takes-page summary:focus-visible {
+  outline: 2px solid var(--take-yellow);
+  outline-offset: 5px;
+}
+.takes-page button:not(:disabled):hover {
+  filter: brightness(1.1);
+}
+@media (max-width: 1050px) {
+  .takes-cabinet {
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 24px;
+  }
+  .takes-sleeves button {
+    grid-template-columns: 18px minmax(0, 1fr) 16px;
+  }
+  .takes-sleeves img {
+    display: none;
+  }
+  .take-player {
+    padding: 24px;
+  }
+  .takes-chain {
+    gap: 30px;
+  }
+  .take-heading {
+    flex-wrap: wrap;
+  }
+  .take-controls > span {
+    font-size: 10px;
+  }
+  .take-controls > span small {
+    display: block;
+    margin-top: 4px;
+  }
+}
+@media (max-width: 740px) {
+  .takes-intro {
+    display: block;
+    margin-top: 0;
+  }
+  .takes-intro p {
+    font-size: 14px;
+  }
+  .takes-cabinet {
+    display: block;
+  }
+  .takes-sleeves {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+    margin-bottom: 30px;
+  }
+  .takes-shelf-label {
+    grid-column: 1/-1;
+  }
+  .takes-sleeves button {
+    padding: 15px 7px;
+    gap: 7px;
+    grid-template-columns: 17px minmax(0, 1fr);
+  }
+  .takes-sleeves button > svg {
+    display: none;
+  }
+  .takes-sleeves strong {
+    font-size: 12px;
+  }
+  .takes-sleeves > p {
+    grid-column: 1/-1;
+    margin: 12px 0 0;
+  }
+  .take-player {
+    padding: 20px 14px;
+  }
+  .take-player h2 {
+    font-size: 35px;
+  }
+  .take-state {
+    font-size: 8px;
+  }
+  .take-art-label {
+    padding: 0 12px;
+    font-size: 8px;
+  }
+  .take-art-foot {
+    padding: 0 10px;
+    font-size: 6px;
+  }
+  .take-controls {
+    gap: 7px;
+  }
+  .take-controls button {
+    padding: 13px 11px;
+  }
+  .take-controls .take-play {
+    min-width: 0;
+    font-size: 12px;
+  }
+  .take-restart svg {
+    width: 17px;
+  }
+  .take-note-list {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .take-note-detail {
+    gap: 12px;
+    padding: 12px;
+  }
+  .take-note-detail > strong {
+    font-size: 30px;
+  }
+  .take-note-detail dl {
+    font-size: 9px;
+    gap: 10px 4px;
+  }
+  .takes-principles,
+  .takes-chain {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .takes-principles {
+    margin: 55px 0;
+    padding: 30px 0;
+  }
+  .takes-principles > .music-label {
+    grid-column: auto;
+  }
+  .takes-chain-card {
+    padding: 24px;
+  }
+  .take-verification {
+    font-size: 10px;
+  }
+  .takes-intro a {
+    margin-top: 12px;
+  }
+  .take-downloads {
+    gap: 20px 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takes-page * {
+    transition: none !important;
+  }
+}
+
+.takes-chain-check {
+  border-top: 1px solid #513b61;
+  padding-top: 20px;
+}
+.takes-chain-check button {
+  background: #efc54b;
+  color: #201725;
+  border: 0;
+  padding: 14px 18px;
+  font:
+    500 12px "Geist",
+    sans-serif;
+  cursor: pointer;
+}
+.takes-chain-check button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.takes-chain-check p {
+  font-size: 12px;
+  margin: 16px 0;
+}

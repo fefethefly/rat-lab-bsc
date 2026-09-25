@@ -1,0 +1,115 @@
+{
+  "version": "first-takes-pilot-v2",
+  "calibration": "An earlier four-seed baseline checked the pipeline. This batch varies target routes; all four planned attempts are retained.",
+  "mappingCodeSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+  "routes": [
+    [
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.64,
+      0.5
+    ],
+    [
+      0.35,
+      0.64,
+      0.4,
+      0.59,
+      0.45,
+      0.55,
+      0.5,
+      0.35
+    ],
+    [
+      0.5,
+      0.5,
+      0.4,
+      0.4,
+      0.6,
+      0.6,
+      0.5,
+      0.5
+    ],
+    [
+      0.64,
+      0.59,
+      0.54,
+      0.49,
+      0.44,
+      0.39,
+      0.35,
+      0.5
+    ]
+  ],
+  "seeds": [
+    7101,
+    7102,
+    7103,
+    7104
+  ],
+  "mapping": "trajectory-keys-v1",
+  "selection": "All four predeclared attempts retained, including incomplete attempts.",
+  "createdAt": "2026-09-25T13:29:39.806634+00:00",
+  "rules": {
+    "id": "first-takes-motion-v1",
+    "targets": [
+      [
+        0.5,
+        0.35,
+        0.14,
+        0.055
+      ],
+      [
+        0.5,
+        0.43,
+        0.2,
+        0.035
+      ],
+      [
+        0.5,
+        0.5,
+        0.2,
+        0.035
+      ],
+      [
+        0.5,
+        0.57,
+        0.2,
+        0.045
+      ],
+      [
+        0.5,
+        0.45,
+        0.16,
+        0.045
+      ],
+      [
+        0.5,
+        0.52,
+        0.16,
+        0.045
+      ],
+      [
+        0.5,
+        0.59,
+        0.16,
+        0.045
+      ],
+      [
+        0.5,
+        0.64,
+        0.16,
+        0.045
+      ]
+    ],
+    "initialDelayMs": 2800,
+    "betweenDelayMs": 960,
+    "targetTimeoutMs": 12000,
+    "clock": "elapsed from first target to final hit, including settle periods",
+    "note": "Human pointer versus neural head/lever control; different input devices, same targets.",
+    "sessionTimeoutMs": 30000
+  }
+}

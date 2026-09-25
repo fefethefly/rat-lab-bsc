@@ -32,3 +32,7 @@ The score preview uses an even 650ms interval. The recorded response instead der
 ## Validation
 
 Store tests cover music validation, derived targets, persistence, request fingerprints and safe retries. Audio tests cover hit-only events, silent misses, seek scheduling, oscillator cancellation and PCM/WAV encoding. Recording tests reject unverified or cross-mission artifacts and retain verified partial takes. Browser checks cover composing and submitting a real task, replay controls, WAV export, remix loading and 390px mobile layout.
+
+## First Takes extension
+
+[First Takes](FIRST_TAKES.md) adds four behavior-derived studies, an independent reconstruction pack and a test-only on-chain archive. It is a separate route from the existing user-composed eight-note studio.

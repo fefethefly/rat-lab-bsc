@@ -1,0 +1,11 @@
+export type BehaviorEvent = [number, number, number, number, number];
+export const mappingVersion: string;
+export const rendererVersion: string;
+export const scale: number[];
+export function deriveEvents(source: unknown): BehaviorEvent[];
+export function validateEvents(events: unknown): BehaviorEvent[];
+export function packEvents(events: BehaviorEvent[]): Uint8Array;
+export function unpackEvents(bytes: Uint8Array): BehaviorEvent[];
+export function renderWav(events: BehaviorEvent[]): Uint8Array;
+export function sha256(bytes: Uint8Array): Promise<string>;
+export function coverSvg(events: BehaviorEvent[], title?: string): string;

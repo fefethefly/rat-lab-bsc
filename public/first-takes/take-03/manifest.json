@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "take-03",
+  "title": "Between decisions",
+  "kind": "behavior-sonification",
+  "series": "First Takes / study 01",
+  "edition": "Unminted research candidate",
+  "mappingVersion": "trajectory-keys-v1",
+  "rendererVersion": "integer-keys-v1",
+  "sourceSha256": "f7f458a1832b7576251778fd99bc54be7e5560dfbe344043787a3e202c23398e",
+  "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+  "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+  "scoreSha256": "fd031037ff537c4e25a8b921f0f7e2128ca4d5b4d15b7c0e14d4d97c9831dd67",
+  "wavSha256": "06d38ba3890481751001a07e0dcef892a7339798609ef83c6813044d239d3e1c",
+  "coverSha256": "00db20543f3e469110d6ae4376770ff12c7856b635867831e140378c60890ff7",
+  "runId": "aim-20260925T132945-7103",
+  "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+  "proof": "4363bad75a73148594c19334a2c759b9ebc654cef332f07a631a4af73642013a",
+  "seed": 7103,
+  "createdAt": "2026-09-25T13:29:47.928603Z",
+  "hostVerified": true,
+  "complete": true,
+  "hits": 8,
+  "misses": 0,
+  "sourceDurationMs": 8820,
+  "durationMs": 8720,
+  "events": [
+    [
+      0,
+      62,
+      220,
+      75,
+      27
+    ],
+    [
+      700,
+      62,
+      220,
+      75,
+      34
+    ],
+    [
+      1400,
+      62,
+      220,
+      75,
+      41
+    ],
+    [
+      2100,
+      62,
+      220,
+      75,
+      48
+    ],
+    [
+      2300,
+      60,
+      283,
+      75,
+      50
+    ],
+    [
+      2500,
+      64,
+      437,
+      75,
+      52
+    ],
+    [
+      3200,
+      64,
+      220,
+      75,
+      59
+    ],
+    [
+      3900,
+      64,
+      220,
+      75,
+      66
+    ],
+    [
+      4600,
+      64,
+      220,
+      75,
+      73
+    ],
+    [
+      4800,
+      62,
+      633,
+      75,
+      75
+    ],
+    [
+      5000,
+      60,
+      750,
+      64,
+      77
+    ],
+    [
+      5200,
+      57,
+      222,
+      64,
+      79
+    ],
+    [
+      5900,
+      57,
+      220,
+      64,
+      86
+    ],
+    [
+      6600,
+      57,
+      220,
+      64,
+      93
+    ],
+    [
+      7300,
+      57,
+      220,
+      64,
+      100
+    ],
+    [
+      7600,
+      60,
+      532,
+      73,
+      103
+    ],
+    [
+      8300,
+      60,
+      220,
+      73,
+      110
+    ]
+  ],
+  "selection": "All four predeclared seeds retained. No best-of reroll.",
+  "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+  "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included."
+}

@@ -1,0 +1,665 @@
+{
+  "schemaVersion": 1,
+  "series": "First Takes",
+  "mode": "RESEARCH PREVIEW",
+  "tracks": [
+    {
+      "schemaVersion": 1,
+      "id": "take-01",
+      "title": "First light",
+      "kind": "behavior-sonification",
+      "series": "First Takes / study 01",
+      "edition": "Unminted research candidate",
+      "mappingVersion": "trajectory-keys-v1",
+      "rendererVersion": "integer-keys-v1",
+      "sourceSha256": "0a60f89bfeaab97898c698a70ef1574b0c612fafd1d37bbd3775eac3b6ac7836",
+      "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+      "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+      "scoreSha256": "03642e52f9652cda706bd4bd62247ff14074b58b78cd59a333f59cb767916d54",
+      "wavSha256": "ef3836175a12e3e1669f6e52f16baf8ebb0aa0bc05c06b095d827f29d76e6540",
+      "coverSha256": "1b77fd99b74c9687ef0f808ecdcb0dd4e816352144b174b51e494f0995ad5c1c",
+      "runId": "aim-20260925T132939-7101",
+      "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+      "proof": "8c2287d9fac3bc06a997ec09a3b1599970dc666a74da77bdedaa7a32a77a0303",
+      "seed": 7101,
+      "createdAt": "2026-09-25T13:29:42.649803Z",
+      "hostVerified": true,
+      "complete": true,
+      "hits": 8,
+      "misses": 0,
+      "sourceDurationMs": 9060,
+      "durationMs": 9791.020408163264,
+      "events": [
+        [
+          0,
+          62,
+          220,
+          75,
+          27
+        ],
+        [
+          200,
+          64,
+          750,
+          76,
+          29
+        ],
+        [
+          400,
+          67,
+          220,
+          76,
+          31
+        ],
+        [
+          1100,
+          67,
+          220,
+          76,
+          38
+        ],
+        [
+          1800,
+          67,
+          220,
+          76,
+          45
+        ],
+        [
+          2500,
+          67,
+          228,
+          76,
+          52
+        ],
+        [
+          2700,
+          64,
+          220,
+          76,
+          54
+        ],
+        [
+          3400,
+          64,
+          220,
+          76,
+          61
+        ],
+        [
+          3900,
+          62,
+          671,
+          73,
+          66
+        ],
+        [
+          4600,
+          62,
+          220,
+          73,
+          73
+        ],
+        [
+          5200,
+          60,
+          437,
+          72,
+          79
+        ],
+        [
+          5900,
+          60,
+          220,
+          72,
+          86
+        ],
+        [
+          6400,
+          57,
+          725,
+          73,
+          91
+        ],
+        [
+          7100,
+          57,
+          220,
+          73,
+          98
+        ],
+        [
+          7700,
+          55,
+          452,
+          73,
+          104
+        ],
+        [
+          8400,
+          55,
+          220,
+          73,
+          111
+        ],
+        [
+          8900,
+          57,
+          691,
+          74,
+          116
+        ]
+      ],
+      "selection": "All four predeclared seeds retained. No best-of reroll.",
+      "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+      "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included.",
+      "playerSha256": "72e74e9a4211d56def8002ae307d30836ee31f718000d39f3723dfa5dbeb5b26",
+      "playerBytes": 10158,
+      "zipSha256": "90d8659ce223381c7a9e0fc508c9bd0342f80cd6a5d84f31165afdb0735f016e"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "take-02",
+      "title": "The long way home",
+      "kind": "behavior-sonification",
+      "series": "First Takes / study 01",
+      "edition": "Unminted research candidate",
+      "mappingVersion": "trajectory-keys-v1",
+      "rendererVersion": "integer-keys-v1",
+      "sourceSha256": "284d243b26de0b376d57d863100e81bdf14ecc9cfde691baac8c9d45c212e988",
+      "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+      "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+      "scoreSha256": "7179266a76bdbeedc7f7e82802250259adbd120f4765c93312a1b47e0a98cb5f",
+      "wavSha256": "d43bdbf20a8bffe88dba236c0a68c07f2c046bcf6453c12ed4906763cbb132cd",
+      "coverSha256": "993d470ad6584b8fae71d85b23c0b5e82a4baab1479615726b8c86ebd021e4e7",
+      "runId": "aim-20260925T132942-7102",
+      "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+      "proof": "061c5e149c0b4003c63fcc31a47ebdae53a72782e754494c3509ad1b36f9f94f",
+      "seed": 7102,
+      "createdAt": "2026-09-25T13:29:45.247519Z",
+      "hostVerified": true,
+      "complete": true,
+      "hits": 8,
+      "misses": 0,
+      "sourceDurationMs": 9880,
+      "durationMs": 10650.022675736962,
+      "events": [
+        [
+          0,
+          62,
+          220,
+          75,
+          27
+        ],
+        [
+          200,
+          64,
+          750,
+          76,
+          29
+        ],
+        [
+          400,
+          67,
+          220,
+          76,
+          31
+        ],
+        [
+          1100,
+          67,
+          220,
+          76,
+          38
+        ],
+        [
+          1500,
+          64,
+          750,
+          73,
+          42
+        ],
+        [
+          1700,
+          57,
+          750,
+          60,
+          44
+        ],
+        [
+          1900,
+          55,
+          220,
+          62,
+          46
+        ],
+        [
+          2600,
+          55,
+          220,
+          62,
+          53
+        ],
+        [
+          3100,
+          60,
+          750,
+          76,
+          58
+        ],
+        [
+          3300,
+          64,
+          220,
+          79,
+          60
+        ],
+        [
+          4000,
+          64,
+          220,
+          79,
+          67
+        ],
+        [
+          4400,
+          62,
+          579,
+          78,
+          71
+        ],
+        [
+          4600,
+          60,
+          750,
+          62,
+          73
+        ],
+        [
+          4800,
+          57,
+          220,
+          62,
+          75
+        ],
+        [
+          5500,
+          57,
+          220,
+          62,
+          82
+        ],
+        [
+          6000,
+          60,
+          750,
+          74,
+          87
+        ],
+        [
+          6200,
+          62,
+          220,
+          76,
+          89
+        ],
+        [
+          6900,
+          62,
+          220,
+          76,
+          96
+        ],
+        [
+          7300,
+          60,
+          473,
+          76,
+          100
+        ],
+        [
+          8000,
+          60,
+          220,
+          76,
+          107
+        ],
+        [
+          8700,
+          60,
+          220,
+          76,
+          114
+        ],
+        [
+          9400,
+          60,
+          220,
+          76,
+          121
+        ],
+        [
+          9700,
+          64,
+          750,
+          77,
+          124
+        ]
+      ],
+      "selection": "All four predeclared seeds retained. No best-of reroll.",
+      "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+      "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included.",
+      "playerSha256": "0f03ec4e1bea2c07fcb074b8347f24f2af244f404c88420616bc1f6b97e987c2",
+      "playerBytes": 10299,
+      "zipSha256": "c33a22763e44b08d730a51e4e5b2f0fe19b59a8f981b44b7517ed6f1218ffa30"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "take-03",
+      "title": "Between decisions",
+      "kind": "behavior-sonification",
+      "series": "First Takes / study 01",
+      "edition": "Unminted research candidate",
+      "mappingVersion": "trajectory-keys-v1",
+      "rendererVersion": "integer-keys-v1",
+      "sourceSha256": "f7f458a1832b7576251778fd99bc54be7e5560dfbe344043787a3e202c23398e",
+      "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+      "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+      "scoreSha256": "fd031037ff537c4e25a8b921f0f7e2128ca4d5b4d15b7c0e14d4d97c9831dd67",
+      "wavSha256": "06d38ba3890481751001a07e0dcef892a7339798609ef83c6813044d239d3e1c",
+      "coverSha256": "00db20543f3e469110d6ae4376770ff12c7856b635867831e140378c60890ff7",
+      "runId": "aim-20260925T132945-7103",
+      "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+      "proof": "4363bad75a73148594c19334a2c759b9ebc654cef332f07a631a4af73642013a",
+      "seed": 7103,
+      "createdAt": "2026-09-25T13:29:47.928603Z",
+      "hostVerified": true,
+      "complete": true,
+      "hits": 8,
+      "misses": 0,
+      "sourceDurationMs": 8820,
+      "durationMs": 8720,
+      "events": [
+        [
+          0,
+          62,
+          220,
+          75,
+          27
+        ],
+        [
+          700,
+          62,
+          220,
+          75,
+          34
+        ],
+        [
+          1400,
+          62,
+          220,
+          75,
+          41
+        ],
+        [
+          2100,
+          62,
+          220,
+          75,
+          48
+        ],
+        [
+          2300,
+          60,
+          283,
+          75,
+          50
+        ],
+        [
+          2500,
+          64,
+          437,
+          75,
+          52
+        ],
+        [
+          3200,
+          64,
+          220,
+          75,
+          59
+        ],
+        [
+          3900,
+          64,
+          220,
+          75,
+          66
+        ],
+        [
+          4600,
+          64,
+          220,
+          75,
+          73
+        ],
+        [
+          4800,
+          62,
+          633,
+          75,
+          75
+        ],
+        [
+          5000,
+          60,
+          750,
+          64,
+          77
+        ],
+        [
+          5200,
+          57,
+          222,
+          64,
+          79
+        ],
+        [
+          5900,
+          57,
+          220,
+          64,
+          86
+        ],
+        [
+          6600,
+          57,
+          220,
+          64,
+          93
+        ],
+        [
+          7300,
+          57,
+          220,
+          64,
+          100
+        ],
+        [
+          7600,
+          60,
+          532,
+          73,
+          103
+        ],
+        [
+          8300,
+          60,
+          220,
+          73,
+          110
+        ]
+      ],
+      "selection": "All four predeclared seeds retained. No best-of reroll.",
+      "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+      "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included.",
+      "playerSha256": "1e102cfc588bbdffd3544e4afff666d8e9e3b15fba652184eed7233c6e06b926",
+      "playerBytes": 10164,
+      "zipSha256": "24a6cf4d0977c148695cc8699061b992f860d924605fb078731685c1e241c75a"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "take-04",
+      "title": "A small departure",
+      "kind": "behavior-sonification",
+      "series": "First Takes / study 01",
+      "edition": "Unminted research candidate",
+      "mappingVersion": "trajectory-keys-v1",
+      "rendererVersion": "integer-keys-v1",
+      "sourceSha256": "9cf35cd535310968a0dbb84b7174f5b41a239685156a1de31ef2467499f9a3ac",
+      "planSha256": "718a1f16c3af31ef85c4b9fe2c9182177115951f7cc2a0bd47d132d28072e271",
+      "rendererSha256": "d169bc9ce8b9b5239857ce0537a0c35ccedf6e87287e284b761d71bca967f777",
+      "scoreSha256": "e315e3df5f286826a0870d0dc246bd7ea79a3975dbfaa67e0a0315fa24b6e993",
+      "wavSha256": "b6c50d1a35a7aaa7fef1c796d324569ad3e0ec4ef28b209209d622da0ac55427",
+      "coverSha256": "f8d19865b3742cde0d3b5527a8f26fa98af16aeb832c2474d46a449697f57dc8",
+      "runId": "aim-20260925T132947-7104",
+      "brainCommit": "9778ea092a293940497dc94e98b62328b6e11fad8d0bf634a04124329a8dcec8",
+      "proof": "a714b22e4e67f0d0bb57ad06d89515f7df33f826c160c186c9d6061315141a66",
+      "seed": 7104,
+      "createdAt": "2026-09-25T13:29:50.800288Z",
+      "hostVerified": true,
+      "complete": true,
+      "hits": 8,
+      "misses": 0,
+      "sourceDurationMs": 9440,
+      "durationMs": 10084.036281179138,
+      "events": [
+        [
+          0,
+          62,
+          220,
+          75,
+          27
+        ],
+        [
+          200,
+          57,
+          750,
+          71,
+          29
+        ],
+        [
+          900,
+          57,
+          220,
+          65,
+          36
+        ],
+        [
+          1600,
+          57,
+          220,
+          65,
+          43
+        ],
+        [
+          2300,
+          57,
+          220,
+          65,
+          50
+        ],
+        [
+          3000,
+          57,
+          221,
+          72,
+          57
+        ],
+        [
+          3700,
+          57,
+          220,
+          72,
+          64
+        ],
+        [
+          4100,
+          60,
+          750,
+          73,
+          68
+        ],
+        [
+          4800,
+          60,
+          220,
+          73,
+          75
+        ],
+        [
+          5400,
+          62,
+          750,
+          74,
+          81
+        ],
+        [
+          6100,
+          62,
+          220,
+          74,
+          88
+        ],
+        [
+          6700,
+          64,
+          750,
+          74,
+          94
+        ],
+        [
+          7400,
+          64,
+          220,
+          74,
+          101
+        ],
+        [
+          8000,
+          67,
+          604,
+          75,
+          107
+        ],
+        [
+          8700,
+          67,
+          220,
+          75,
+          114
+        ],
+        [
+          9200,
+          64,
+          684,
+          74,
+          119
+        ],
+        [
+          9400,
+          62,
+          220,
+          71,
+          121
+        ]
+      ],
+      "selection": "All four predeclared seeds retained. No best-of reroll.",
+      "trust": "Recorded and replay-checked on the operator host. No on-chain inference proof.",
+      "storage": "Music reconstruction pack. Raw trajectory is archived separately; no model weights or 3D assets included.",
+      "playerSha256": "6b06c1a5bd3014c8ceb515070ba46bb91d8f820e6bea118b5502d961d4f2a86c",
+      "playerBytes": 10179,
+      "zipSha256": "32ee391c08d021e2f6febbd87d33146f57f145df2efee04f1cc13fe5a6dae486"
+    }
+  ]
+}

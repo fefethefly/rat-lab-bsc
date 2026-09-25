@@ -47,6 +47,10 @@
     {
       "source": "/music",
       "destination": "/music/index.html"
+    },
+    {
+      "source": "/first-takes",
+      "destination": "/first-takes/index.html"
     }
   ]
 }

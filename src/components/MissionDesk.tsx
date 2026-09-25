@@ -36,12 +36,12 @@ export default function MissionDesk() {
           <i />
         </div>
         <div>
-          <span className="music-label">NEW EXPERIMENT / MUSIC STUDIO</span>
-          <h2>Write a little melody.</h2>
-          <p>Eight notes from you. A real recorded response from the rat.</p>
+          <span className="music-label">FIRST TAKES / BEHAVIORAL SCORES</span>
+          <h2>A little movement. A lasting note.</h2>
+          <p>Four real trajectories, turned into music you can keep.</p>
         </div>
-        <a href="/music">
-          Enter the music room <ArrowUpRight size={18} />
+        <a href="/first-takes">
+          Listen to First Takes <ArrowUpRight size={18} />
         </a>
       </section>
       <div className="mission-workbench">

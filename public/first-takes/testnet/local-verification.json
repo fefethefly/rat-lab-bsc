@@ -1,0 +1,16 @@
+{
+  "network": "LOCAL ANVIL — not a public deployment",
+  "chainId": 31337,
+  "at": "2026-09-25T13:38:59.354Z",
+  "checks": [
+    "unauthorized issuance rejected",
+    "score hash mismatch rejected",
+    "four archive tokens recover exact music scores and complete players from chain alone",
+    "duplicate source rejected",
+    "metadata injection rejected",
+    "standard ERC721 ownership transfer",
+    "fixed 16-token ceiling enforced",
+    "constructor rejects BSC mainnet chain ID (local simulation)"
+  ],
+  "independentlyAudited": false
+}
