@@ -12,10 +12,15 @@ export type DuelRecording = {
   rules: Experiment["rules"];
   rulesHash: string;
 };
-export function isDuelRecording(value: unknown): value is DuelRecording {
+export function isDuelRecording(
+  value: unknown,
+  prefix = "/experiment/duel",
+): value is DuelRecording {
   const d = value as DuelRecording;
   const r = d?.run;
   return (
+    (prefix === "/experiment/duel" ||
+      /^\/challenges\/[a-f0-9]{20}$/.test(prefix)) &&
     !!r &&
     r.complete &&
     r.verified &&
@@ -53,8 +58,8 @@ export function isDuelRecording(value: unknown): value is DuelRecording {
       ) &&
     r.clicks.filter((c) => c.hit).at(-1)!.atMs - r.firstTargetMs ===
       r.durationMs &&
-    r.replay?.metaUrl === "/experiment/duel/poses.json" &&
-    r.replay.binaryUrl === "/experiment/duel/poses.bin" &&
+    r.replay?.metaUrl === `${prefix}/poses.json` &&
+    r.replay.binaryUrl === `${prefix}/poses.bin` &&
     Number.isFinite(r.replay.timeOriginMs) &&
     /^[a-f0-9]{64}$/.test(r.replay.sha256)
   );

@@ -37,7 +37,12 @@ export type Experiment = {
   serviceStartedAt: string;
   phase: "running" | "verifying" | "standby" | "error";
   current:
-    | ({ id: string; elapsedMs: number; target: Target | null } & Sample)
+    | ({
+        id: string;
+        challengeId?: string | null;
+        elapsedMs: number;
+        target: Target | null;
+      } & Sample)
     | null;
   latest: Run | null;
   history: Run[];
@@ -49,6 +54,7 @@ export type Experiment = {
     initialDelayMs: number;
     betweenDelayMs: number;
     targetTimeoutMs: number;
+    sessionTimeoutMs?: number;
     note: string;
   };
   rulesHash: string;
@@ -195,7 +201,10 @@ export function useExperiment(enabled = true) {
           )
             throw new Error("Stale data");
           if (!disposed) {
-            setData(previous => ({...next, latest:next.latest || previous?.latest || null}));
+            setData((previous) => ({
+              ...next,
+              latest: next.latest || previous?.latest || null,
+            }));
             setOnline(true);
             setError(next.error || "");
           }

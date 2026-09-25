@@ -25,3 +25,12 @@ test('splits compare the same target and preserve ahead/behind sign',()=>{
 test('rejects an unverified, mismatched or reordered opponent',()=>{
  for(const mutate of [d=>d.run.verified=false,d=>d.run.rulesHash='bad',d=>d.run.durationMs=20,d=>d.run.clicks.reverse(),d=>d.run.replay.binaryUrl='https://elsewhere/poses.bin']){const d=structuredClone(record);mutate(d);assert.equal(isDuelRecording(d),false);}
 });
+test('a community opponent is bound to its mission artifact paths',()=>{
+ const d=structuredClone(record);const prefix='/challenges/0123456789abcdef0123';
+ d.run.replay.metaUrl=prefix+'/poses.json';d.run.replay.binaryUrl=prefix+'/poses.bin';
+ assert.equal(isDuelRecording(d,prefix),true);
+ assert.equal(isDuelRecording(d),false);
+ assert.equal(isDuelRecording(d,'/challenges/aaaaaaaaaaaaaaaaaaaa'),false);
+ assert.equal(isDuelRecording(d,'https://untrusted.example'),false);
+ d.run.complete=false;assert.equal(isDuelRecording(d,prefix),false);
+});

@@ -20,7 +20,7 @@ class ObserverTests(unittest.TestCase):
     def test_shared_targets_stay_inside_board(self):
         for x,y,w,h in RULES['targets']:
             self.assertTrue(0<=x-w<x+w<=1 and 0<=y-h<y+h<=1)
-    def test_public_service_has_no_write_or_signing_endpoint(self):
+    def test_status_is_read_only_and_exposes_no_signing_endpoint(self):
         from fastapi.testclient import TestClient
         from observer.app import app
         client=TestClient(app)

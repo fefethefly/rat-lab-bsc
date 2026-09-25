@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/release.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/live",
+      "destination": "/live/index.html"
+    },
+    {
+      "source": "/buyback",
+      "destination": "/buyback/index.html"
+    },
+    {
+      "source": "/challenge",
+      "destination": "/challenge/index.html"
+    },
+    {
+      "source": "/create",
+      "destination": "/create/index.html"
+    }
+  ]
+}

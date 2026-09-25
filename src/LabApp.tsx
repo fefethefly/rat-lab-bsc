@@ -22,6 +22,7 @@ import BrandMark from "./components/BrandMark";
 import Viewer from "./components/Viewer";
 import AimBoard from "./components/AimBoard";
 import Challenge from "./components/Challenge";
+import { MissionStudio, CommunityMission } from "./components/MissionStudio";
 import RecordedRat from "./components/RecordedRat";
 import SessionFlow from "./components/SessionFlow";
 import { useDuelRecording, hitsAt } from "./lib/duel";
@@ -36,6 +37,10 @@ import {
 import "./public.css";
 import "./lab.css";
 const titles = {
+  create: [
+    "A new problem. Your signature.",
+    "Move the targets. Name the mission. Give the rat something of your own to attempt.",
+  ],
   live: [
     "The experiment continues.",
     "Watch the head aim. Watch the lever press. Follow every result.",
@@ -100,7 +105,10 @@ function Live({
   const live = online && data.phase === "running" && data.current !== null;
   const { recording } = useDuelRecording();
   const [now, setNow] = useState(Date.now());
-  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(id); }, []);
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
   const run = !live && recording ? recording.run : data.latest;
   const [playing, setPlaying] = useState(
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -128,7 +136,16 @@ function Live({
   const samples = run?.samples || [];
   const selected =
     [...samples].reverse().find((s) => s.atMs <= at) || samples[0];
-  const s = live ? data.current : selected && run ? {...selected, hits: hitsAt(run, at - start), misses: (run.clicks || []).filter(c => !c.hit && c.atMs <= at).length} : selected;
+  const s = live
+    ? data.current
+    : selected && run
+      ? {
+          ...selected,
+          hits: hitsAt(run, at - start),
+          misses: (run.clicks || []).filter((c) => !c.hit && c.atMs <= at)
+            .length,
+        }
+      : selected;
   const target = live
     ? data.current?.target
     : s && s.targetIndex >= 0
@@ -146,6 +163,14 @@ function Live({
       : "RECORDED RUN";
   return (
     <>
+      {live && data.current?.challengeId && (
+        <div className="mission-race-invite">
+          <span>Community mission in progress</span>
+          <a href={`/challenge?id=${data.current.challengeId}`}>
+            Open this mission <ArrowUpRight size={16} />
+          </a>
+        </div>
+      )}
       <div className="live-layout">
         <section className="lab-panel observation-panel">
           <div className="panel-heading">
@@ -227,7 +252,9 @@ function Live({
               <span>
                 {live
                   ? seconds(data.current?.elapsedMs || 0)
-                  : seconds(Math.min(run?.durationMs || 0, Math.max(0, at - start)))}
+                  : seconds(
+                      Math.min(run?.durationMs || 0, Math.max(0, at - start)),
+                    )}
                 <em> / {run ? seconds(run.durationMs) : "—"}</em>
               </span>
             </div>
@@ -649,8 +676,13 @@ export default function LabApp() {
   const page = (location.pathname.replace(/\/$/, "").slice(1) ||
     "live") as keyof typeof titles;
   const known = page in titles;
+  const missionId =
+    page === "challenge"
+      ? new URLSearchParams(location.search).get("id")
+      : null;
+  const workspace = page === "challenge" || page === "create";
   const [menu, setMenu] = useState(false);
-  const { data, online, error, retry } = useExperiment(page !== "challenge" && known);
+  const { data, online, error, retry } = useExperiment(!workspace && known);
   const [relay, setRelay] = useState("");
   useEffect(() => {
     if (page !== "live") return;
@@ -670,7 +702,7 @@ export default function LabApp() {
       .catch(() => {});
   }, []);
   useEffect(() => {
-    document.title = `RAT LAB · ${known ? (page === "live" ? "Live experiment" : page === "buyback" ? "Buyback ledger" : "Aim Eight challenge") : "Page not found"}`;
+    document.title = `RAT LAB · ${known ? (page === "live" ? "Live experiment" : page === "buyback" ? "Buyback ledger" : page === "create" ? "Mission studio" : "Aim Eight challenge") : "Page not found"}`;
     const canonical = document.querySelector('link[rel="canonical"]');
     canonical?.setAttribute("href", `https://rat-lab.fun/${known ? page : ""}`);
   }, [page, known]);
@@ -692,7 +724,8 @@ export default function LabApp() {
             ["/", "Overview"],
             ["/live", "Observe"],
             ["/buyback", "Buybacks"],
-            ["/challenge", "Challenge"],
+            ["/challenge", "Race"],
+            ["/create", "Create a mission"],
           ].map(([url, label]) => (
             <a
               key={url}
@@ -734,22 +767,46 @@ export default function LabApp() {
                     ? "OBSERVATION"
                     : page === "buyback"
                       ? "BNB BUYBACKS"
-                      : "AIM EIGHT"}
+                      : page === "create"
+                        ? "MISSION STUDIO"
+                        : "AIM EIGHT"}
                 </span>
-                <h1>{titles[page][0]}</h1>
-                <p>{titles[page][1]}</p>
+                <h1>
+                  {missionId
+                    ? "Someone set the test. Your move."
+                    : titles[page][0]}
+                </h1>
+                <p>
+                  {missionId
+                    ? "One community design. One recorded attempt. A result you can come back to."
+                    : titles[page][1]}
+                </p>
               </div>
               <div className={"connection-state " + (online ? "online" : "")}>
-                {page === "challenge" ? <CheckCircle size={17} /> : online ? <WifiHigh size={17} /> : <WifiSlash size={17} />}
+                {workspace ? (
+                  <CheckCircle size={17} />
+                ) : online ? (
+                  <WifiHigh size={17} />
+                ) : (
+                  <WifiSlash size={17} />
+                )}
                 <span>
-                  {page === "challenge"
-                    ? "Recorded opponent"
+                  {workspace
+                    ? page === "create"
+                      ? "Mission studio"
+                      : missionId
+                        ? "Community mission"
+                        : "Recorded opponent"
                     : online
                       ? "Observer connected"
                       : "Saved experiment"}
                   <small>
-                    {page === "challenge"
-                      ? "Paired motion & click timestamps"
+                    {workspace
+                      ? page === "create"
+                        ? "Public beta · saved designs"
+                        : missionId
+                          ? "Saved design & attempt"
+                          : "Paired motion & click timestamps"
                       : online
                         ? "Neural inference · not training"
                         : "Recorded data · not live"}
@@ -757,13 +814,29 @@ export default function LabApp() {
                 </span>
               </div>
             </div>
-            {error && page !== "challenge" && (
+            {error && !workspace && (
               <div className="connection-notice" role="status">
                 <span>{error}</span>
                 <button onClick={retry}>Retry connection</button>
               </div>
             )}
-            {page === "challenge" ? <Challenge /> : data ? (
+            {page === "create" ? (
+              <MissionStudio />
+            ) : page === "challenge" ? (
+              missionId ? (
+                <CommunityMission id={missionId} />
+              ) : (
+                <>
+                  <div className="mission-race-invite">
+                    <span>Your own rules next?</span>
+                    <a href="/create">
+                      Design a mission <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                  <Challenge />
+                </>
+              )
+            ) : data ? (
               page === "live" ? (
                 <Live data={data} online={online} relay={relay} />
               ) : (

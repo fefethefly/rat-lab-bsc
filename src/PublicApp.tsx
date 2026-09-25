@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -12,11 +11,10 @@ import {
   X,
   Plus,
   Minus,
-  Crosshair,
   GitBranch,
   ShieldCheck,
 } from "@phosphor-icons/react";
-import Viewer from "./components/Viewer";
+import MissionDesk from "./components/MissionDesk";
 import BrandMark from "./components/BrandMark";
 import MechanismDemo from "./components/MechanismDemo";
 import { isRelease, type Release } from "./lib/release";
@@ -60,7 +58,7 @@ const faqs = [
   ],
   [
     "Is the observation room live?",
-    "This public-source homepage displays an original mascot illustration. The hosted homepage displays a labeled upstream reference recording. The Observe page streams RAT LAB’s own Aim Eight sessions and clearly separates live inference from saved playback. The launch evidence is separate.",
+    "The Observe page streams RAT LAB’s own inference sessions and separates live motion from recorded playback. Create a mission to submit your own target layout; its design and result get a saved link.",
   ],
   [
     "How can I verify a release?",
@@ -145,9 +143,9 @@ export default function PublicApp() {
             ratlab<span className="brand-period">.</span>
           </span>
           <span className="site-edition site-mono">
-            FIELD STATION
+            OPEN
             <br />
-            NO. 002
+            EXPERIMENTS
           </span>
         </a>
         <nav
@@ -163,8 +161,8 @@ export default function PublicApp() {
           <a href="/challenge" onClick={() => setMenu(false)}>
             Challenge
           </a>
-          <a href="#mechanism" onClick={() => setMenu(false)}>
-            The mechanism
+          <a href="/create" onClick={() => setMenu(false)}>
+            Create a mission
           </a>
           <a href="#evidence" onClick={() => setMenu(false)}>
             Evidence <span className="nav-counter">03</span>
@@ -190,212 +188,116 @@ export default function PublicApp() {
         </div>
       </header>
       <main id="main" className="site-main">
-        <section className="site-hero" aria-labelledby="hero-title">
-          <div className="site-hero-copy">
-            <div className="site-mono section-kicker">
-              <span className="site-status-dot" /> AN INDEPENDENT NEURAL
-              EXPERIMENT
-            </div>
-            <h1 id="hero-title">
-              A small rat.
-              <br />A bigger
-              <br />
-              <span>question.</span>
-            </h1>
-            <p className="hero-question">
-              Can learned behavior leave an on-chain signature?
-            </p>
-            <p className="site-description">
-              Two neural networks. One virtual body. Eight physical targets.
-              Meet R-01, our subject in an experiment on BNB Chain.
-            </p>
-            <div className="site-hero-actions">
-              <a className="site-button accent" href="/live">
-                Enter the live lab <ArrowDown size={18} />
-              </a>
-              <a className="site-inline-link" href="#evidence">
-                Inspect the evidence <ArrowUpRight size={16} />
-              </a>
-            </div>
-            <div className="hero-footnote site-mono">
-              <span className="tiny-bracket">[ R–01 ]</span>
-              <span>
-                VIRTUAL BODY. TRAINED POLICIES.
-                <br />
-                EVERY CLAIM HAS A PLACE TO CHECK.
-              </span>
-            </div>
-          </div>
-          <div className="observation-room" id="observation">
-            <div className="room-header">
+        <MissionDesk />
+        <details className="mission-origin">
+          <summary>
+            <span>ORIGIN STUDY / BNB CHAIN</span>
+            <strong>How eight targets became a recorded launch.</strong>
+            <Plus size={20} />
+          </summary>
+          <section className="site-mechanism" id="mechanism">
+            <MechanismDemo />
+          </section>
+          <section className="site-sequence" id="sequence">
+            <div className="section-intro">
               <div>
-                <span className="site-mono">01 / OBSERVATION ROOM</span>
-                <strong>Meet the subject.</strong>
+                <span className="site-mono section-kicker">
+                  03 / THE BSC EXPERIMENT
+                </span>
+                <h2>
+                  Eight targets.
+                  <br />A traceable sequence.
+                </h2>
               </div>
-              <span className="room-replay site-mono">
-                <span /> REFERENCE REPLAY
-              </span>
+              <p className="site-description">
+                From a preset intent to a checkable result. Each target is hit
+                on RAT LAB’s virtual control surface.
+              </p>
             </div>
-            <Viewer running={false} replayOnly />
-            <div className="room-readout">
-              <div>
-                <span className="site-mono">SUBJECT</span>
-                <strong>
-                  R–01 <small>/ virtual rodent</small>
-                </strong>
-              </div>
-              <div>
-                <span className="site-mono">ENVIRONMENT</span>
-                <strong>
-                  MuJoCo <small>/ physics</small>
-                </strong>
-              </div>
-              <span className="orbit-hint site-mono">
-                DRAG TO
-                <br />
-                EXPLORE <ArrowUpRight size={17} />
-              </span>
-            </div>
-            <p className="room-caption">
-              An original mascot illustration in this public-source build;
-              BSC release evidence is shown separately below.
-            </p>
-          </div>
-        </section>
-        <section className="home-live-link">
-          <div>
-            <strong>The experiment continues.</strong>
-            <p>
-              Watch our own neural runs, inspect simulated allocations, and try
-              the same targets yourself.
-            </p>
-          </div>
-          <a href="/live">
-            Enter the live lab <ArrowUpRight size={18} />
-          </a>
-        </section>
-        <section className="site-facts" aria-label="Experiment specifications">
-          <div className="facts-intro">
-            <Crosshair size={20} />
-            <span className="site-mono">
-              A BODY IN PHYSICS.
-              <br />A PROCESS YOU CAN FOLLOW.
-            </span>
-          </div>
-          {[
-            ["02", "TRAINED NETWORKS"],
-            ["38", "BODY ACTUATORS"],
-            ["50", "CONTROL STEPS / SEC"],
-            ["08", "BSC SEQUENCE TARGETS"],
-          ].map(([n, l]) => (
-            <div key={l} className="site-fact">
-              <strong>{n}</strong>
-              <span className="site-mono">{l}</span>
-            </div>
-          ))}
-        </section>
-        <section className="site-mechanism" id="mechanism">
-          <MechanismDemo />
-        </section>
-        <section className="site-sequence" id="sequence">
-          <div className="section-intro">
-            <div>
-              <span className="site-mono section-kicker">
-                03 / THE BSC EXPERIMENT
-              </span>
-              <h2>
-                Eight targets.
-                <br />A traceable sequence.
-              </h2>
-            </div>
-            <p className="site-description">
-              From a preset intent to a checkable result. Each target is hit on
-              RAT LAB’s virtual control surface.
-            </p>
-          </div>
-          <div className="sequence-layout">
-            <div
-              className="site-stages"
-              role="tablist"
-              aria-label="Launch sequence stages"
-              aria-orientation="vertical"
-            >
-              {stages.map(([name, sub, number], i) => (
-                <button
-                  key={name}
-                  role="tab"
-                  id={"stage-tab-" + i}
-                  aria-controls="stage-detail"
-                  aria-selected={stage === i}
-                  tabIndex={stage === i ? 0 : -1}
-                  onClick={() => setStage(i)}
-                  onKeyDown={(e) => {
-                    const next =
-                      e.key === "ArrowDown"
-                        ? (i + 1) % 4
-                        : e.key === "ArrowUp"
-                          ? (i + 3) % 4
-                          : e.key === "Home"
-                            ? 0
-                            : e.key === "End"
-                              ? 3
-                              : null;
-                    if (next !== null) {
-                      e.preventDefault();
-                      setStage(next);
-                      document.getElementById("stage-tab-" + next)?.focus();
-                    }
-                  }}
-                >
-                  <span className="stage-numbers site-mono">{number}</span>
-                  <span>
-                    <strong>{name}</strong>
-                    <small>{sub}</small>
-                  </span>
-                  <ArrowUpRight size={20} />
-                </button>
-              ))}
-            </div>
-            <div
-              className="stage-detail"
-              id="stage-detail"
-              role="tabpanel"
-              aria-labelledby={"stage-tab-" + stage}
-              tabIndex={0}
-            >
-              <div className="site-mono stage-detail-top">
-                <span>EXPERIMENT PROTOCOL</span>
-                <Flask size={20} />
-              </div>
-              <div className="stage-illustration" aria-hidden="true">
-                {Array.from({ length: 8 }, (_, i) => (
-                  <span
-                    className={
-                      (stage === 0 && i < 3) ||
-                      (stage === 1 && i >= 3 && i < 6) ||
-                      (stage === 2 && i === 6) ||
-                      (stage === 3 && i === 7)
-                        ? "is-active"
-                        : ""
-                    }
-                    key={i}
+            <div className="sequence-layout">
+              <div
+                className="site-stages"
+                role="tablist"
+                aria-label="Launch sequence stages"
+                aria-orientation="vertical"
+              >
+                {stages.map(([name, sub, number], i) => (
+                  <button
+                    key={name}
+                    role="tab"
+                    id={"stage-tab-" + i}
+                    aria-controls="stage-detail"
+                    aria-selected={stage === i}
+                    tabIndex={stage === i ? 0 : -1}
+                    onClick={() => setStage(i)}
+                    onKeyDown={(e) => {
+                      const next =
+                        e.key === "ArrowDown"
+                          ? (i + 1) % 4
+                          : e.key === "ArrowUp"
+                            ? (i + 3) % 4
+                            : e.key === "Home"
+                              ? 0
+                              : e.key === "End"
+                                ? 3
+                                : null;
+                      if (next !== null) {
+                        e.preventDefault();
+                        setStage(next);
+                        document.getElementById("stage-tab-" + next)?.focus();
+                      }
+                    }}
                   >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                    <span className="stage-numbers site-mono">{number}</span>
+                    <span>
+                      <strong>{name}</strong>
+                      <small>{sub}</small>
+                    </span>
+                    <ArrowUpRight size={20} />
+                  </button>
                 ))}
               </div>
-              <span className="site-mono section-kicker">
-                TARGETS {stages[stage][2]}
-              </span>
-              <h3>{stages[stage][0]}</h3>
-              <p>{stages[stage][3]}</p>
-              <div className="stage-note site-mono">
-                <ShieldCheck size={16} /> HUMAN-SET PARAMETERS · NEURAL MOTOR
-                ACTIONS
+              <div
+                className="stage-detail"
+                id="stage-detail"
+                role="tabpanel"
+                aria-labelledby={"stage-tab-" + stage}
+                tabIndex={0}
+              >
+                <div className="site-mono stage-detail-top">
+                  <span>EXPERIMENT PROTOCOL</span>
+                  <Flask size={20} />
+                </div>
+                <div className="stage-illustration" aria-hidden="true">
+                  {Array.from({ length: 8 }, (_, i) => (
+                    <span
+                      className={
+                        (stage === 0 && i < 3) ||
+                        (stage === 1 && i >= 3 && i < 6) ||
+                        (stage === 2 && i === 6) ||
+                        (stage === 3 && i === 7)
+                          ? "is-active"
+                          : ""
+                      }
+                      key={i}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  ))}
+                </div>
+                <span className="site-mono section-kicker">
+                  TARGETS {stages[stage][2]}
+                </span>
+                <h3>{stages[stage][0]}</h3>
+                <p>{stages[stage][3]}</p>
+                <div className="stage-note site-mono">
+                  <ShieldCheck size={16} /> HUMAN-SET PARAMETERS · NEURAL MOTOR
+                  ACTIONS
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </details>
         <section className="site-evidence" id="evidence">
           <div className="evidence-intro">
             <span className="site-mono section-kicker">
@@ -576,7 +478,7 @@ export default function PublicApp() {
                         ? "A contract address and transaction will appear here after the BSC receipt and neural replay have been checked."
                         : proofTab === "brain"
                           ? "The published record will identify the exact networks, physics scene and inference code with a SHA-256 fingerprint."
-                          : "The session record will connect the eight target hits to a replay-checked neural proof. The illustration above is separate."}
+                          : "The session record will connect the eight target hits to a replay-checked neural proof. The mission templates are separate designs."}
                   </p>
                   <button
                     className="site-inline-link"

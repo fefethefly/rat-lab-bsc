@@ -1,6 +1,8 @@
 # RAT LAB Live
 
-The public site now has three entries:
+The public site includes the mission studio and three experiment views:
+
+- `/create` and `/challenge?id=…`: community target design, bounded real inference queue, persistent results and remix links. See [Community missions](COMMUNITY_MISSIONS.md).
 
 - `/live`: our **Aim Eight** inference sessions, cursor replay, live subject view on the hosted site, run summaries, and downloadable proof records.
 - `/buyback`: **paper allocations only**. Unique replay-verified session proofs allocate an illustrative 0.000001 BNB per hit up to 0.001 BNB in the current service window. There is no funded wallet, swap quote, purchase, burn, signing code or transaction submission in this service.
@@ -10,11 +12,11 @@ The public site now has three entries:
 
 `observer/engine.py` runs fixed trained policies, streams binary body poses and records cursor samples. It does not retrain the model. It verifies a completed session by rerunning the recorded commands and comparing frames, clicks, policy fingerprint and session proof on the recording host. It retains 24 result summaries and one detailed public recording; raw temporary session arrays are removed after verification. The service window and paper allocations reset when the process restarts. This is not a durable financial ledger.
 
-`observer/app.py` exposes only `GET /health`, `GET /status` and the read-only `/ws/live` viewer socket. A single background worker runs a trial then waits 120 seconds. No owner API, private key, signing journal or launch controls are deployed with it. The latest result remains available between trials. The frontend labels live inference, recorded playback, verification, and lost connectivity separately.
+`observer/app.py` exposes `GET /health`, `GET /status`, the read-only `/ws/live` viewer socket and the bounded `/challenges` submission/archive endpoints. A single background worker runs scheduled trials 120 seconds apart and handles community missions between them. Community runs do not enter the paper allocation ledger. Their archives are stored separately on a persistent volume. No owner API, private key, signing journal or launch controls are deployed with it. The latest result remains available between trials. The frontend labels live inference, recorded playback, verification, and lost connectivity separately.
 
 `public/experiment/config.json` points at the observer. `baseline.json` is a genuine locally recorded run used as a fallback. `chain.json` is a timestamped, block-specific read of the token's buy and sell tax rates. It does not measure revenue or allocated treasury funds.
 
-The production read-only endpoint is [observer-production-0b15.up.railway.app/status](https://observer-production-0b15.up.railway.app/status). The frontend lives at [rat-lab.fun](https://rat-lab.fun).
+The production status endpoint is [observer-production-0b15.up.railway.app/status](https://observer-production-0b15.up.railway.app/status). The frontend lives at [rat-lab.fun](https://rat-lab.fun).
 
 ## Run locally
 

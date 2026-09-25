@@ -57,7 +57,7 @@ export default function Challenge() {
     );
   return <Duel key={recording.run.id} recording={recording} />;
 }
-function Duel({ recording }: { recording: DuelRecording }) {
+export function Duel({ recording }: { recording: DuelRecording }) {
   const { run, rules, rulesHash } = recording;
   const [phase, setPhase] = useState<Phase>("ready");
   const [index, setIndex] = useState(0),
@@ -91,7 +91,7 @@ function Duel({ recording }: { recording: DuelRecording }) {
   useEffect(() => {
     try {
       const v = JSON.parse(
-        localStorage.getItem("ratlab:aim-eight:duel-best") || "null",
+        localStorage.getItem(`ratlab:duel-best:${rulesHash}`) || "null",
       );
       if (
         v?.schemaVersion === 2 &&
@@ -125,12 +125,15 @@ function Duel({ recording }: { recording: DuelRecording }) {
       else setRaceMs(Math.min(t, run.durationMs));
       if (["playing", "settling"].includes(phaseRef.current)) setElapsed(t);
       if (
-        phaseRef.current === "playing" &&
-        now - targetClock.current > rules.targetTimeoutMs
+        (["playing", "settling"].includes(phaseRef.current) &&
+          rules.sessionTimeoutMs !== undefined &&
+          t + run.firstTargetMs >= rules.sessionTimeoutMs) ||
+        (phaseRef.current === "playing" &&
+          now - targetClock.current > rules.targetTimeoutMs)
       ) {
         clearTimeout(timer.current);
         change("timeout");
-        setNotice("Target timed out. Start another round.");
+        setNotice("Time limit reached. Start another round.");
       }
       if (phaseRef.current === "done" && t >= run.durationMs) clearInterval(id);
     }, 32);
@@ -183,6 +186,17 @@ function Duel({ recording }: { recording: DuelRecording }) {
   };
   const press = (p: [number, number]) => {
     if (phaseRef.current !== "playing") return;
+    const now = performance.now();
+    if (
+      now - targetClock.current > rules.targetTimeoutMs ||
+      (rules.sessionTimeoutMs !== undefined &&
+        now - clock.current + run.firstTargetMs >= rules.sessionTimeoutMs)
+    ) {
+      clearTimeout(timer.current);
+      change("timeout");
+      setNotice("Time limit reached. Start another round.");
+      return;
+    }
     setCursor(p);
     const target = rules.targets[indexRef.current];
     if (
@@ -216,7 +230,7 @@ function Duel({ recording }: { recording: DuelRecording }) {
         setBest(result);
         try {
           localStorage.setItem(
-            "ratlab:aim-eight:duel-best",
+            `ratlab:duel-best:${rulesHash}`,
             JSON.stringify(result),
           );
         } catch {
@@ -598,7 +612,7 @@ function Duel({ recording }: { recording: DuelRecording }) {
               onClick={async () => {
                 try {
                   await navigator.clipboard.writeText(
-                    `I raced R-01: ${seconds(score.durationMs)}, ${score.misses} misses. Rat benchmark: ${seconds(run.durationMs)}. Local practice against a verified recording. https://rat-lab.fun/challenge`,
+                    `I raced R-01: ${seconds(score.durationMs)}, ${score.misses} misses. Rat benchmark: ${seconds(run.durationMs)}. Local practice against a verified recording. ${location.href}`,
                   );
                   setNotice("Result text copied.");
                 } catch {
@@ -625,7 +639,7 @@ function Duel({ recording }: { recording: DuelRecording }) {
               onClick={() => {
                 setBest(null);
                 try {
-                  localStorage.removeItem("ratlab:aim-eight:duel-best");
+                  localStorage.removeItem(`ratlab:duel-best:${rulesHash}`);
                 } catch {}
               }}
             >

@@ -1,4 +1,4 @@
-"""Public, read-only neural experiment. This process has no signer or owner API."""
+"""Public neural experiment worker. This process has no signer or owner API."""
 import os
 os.environ.setdefault('OPENBLAS_NUM_THREADS', '1')
 os.environ.setdefault('OMP_NUM_THREADS', '1')
@@ -53,7 +53,7 @@ def paper_ledger(runs):
 class Experiment:
     def __init__(self, output=None, interval=120):
         self.lock = threading.RLock(); self.interval = max(30, interval)
-        self.output = Path(output or os.getenv('RAT_DATA', '/tmp/ratlab-observer'))
+        self.output = Path(output or os.getenv('RAT_DATA', os.getenv('RAILWAY_VOLUME_MOUNT_PATH', '/tmp/ratlab-observer')))
         self.output.mkdir(parents=True, exist_ok=True)
         self.started = utc(); self.latest = None; self.history = []; self.current = None
         self.phase = 'standby'; self.error = None; self.next_at = None; self.listeners = set()
@@ -72,7 +72,10 @@ class Experiment:
             try: listener(packet)
             except Exception: pass
 
-    def run_once(self, seed=2026, realtime=True):
+    def run_once(self, seed=2026, realtime=True, rules=None, challenge_id=None):
+        rules = rules or RULES
+        targets = rules['targets']
+        rules_hash = hashlib.sha256(json.dumps(rules, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
         sys.path[:0] = [str(VENDOR), str(VENDOR / 'live')]
         from session import Session, replay
         import labrat_frame as lf
@@ -80,12 +83,12 @@ class Experiment:
         run_id = 'aim-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S') + '-' + str(seed)
         folder = self.output / run_id
         s = Session(str(VENDOR / 'runs/final/steer.pt'), seed)
-        index = 0; lit = False; ready = 2.8; target_at = 0.; first_at = None
+        index = 0; lit = False; ready = rules['initialDelayMs'] / 1000; target_at = 0.; first_at = None
         clicks = []; samples = []; hits = 0; misses = 0; pose = None; count = 0; fail = None
         started = utc()
         with self.lock:
             self.phase = 'running'; self.error = None; self.next_at = None
-            self.current = {'id': run_id, 'startedAt': started, 'seed': seed, 'brainCommit': s.commit,
+            self.current = {'id': run_id, 'challengeId': challenge_id, 'startedAt': started, 'seed': seed, 'brainCommit': s.commit,
                 'hits': 0, 'misses': 0, 'elapsedMs': 0, 'cursor': [.5, .5], 'targetIndex': -1, 'target': None}
         self.emit({'type': 'hello', 'source': 'inference', 'task': 'steer', 'run': run_id,
                    'label': 'RAT LAB Aim Eight · neural inference', 'fps': 25})
@@ -96,23 +99,25 @@ class Experiment:
             at = round(inner.t * 20)
             if pose is None: pose = lf.PoseReader(inner.m)
             self.emit(lf.pack(inner.t * .02, index, inner.lever_angle(), True,
-                (float(x), float(y)), TARGETS[index], pose(inner.d.qpos)))
+                (float(x), float(y)), targets[index], pose(inner.d.qpos)))
             clicks.append({'atMs': at, 'x': float(x), 'y': float(y), 'hit': bool(hit), 'targetIndex': index})
             if hit:
-                hits += 1; index += 1; lit = False; ready = inner.t * .02 + .96; s.hold()
+                hits += 1; index += 1; lit = False; ready = inner.t * .02 + rules['betweenDelayMs'] / 1000; s.hold()
             else: misses += 1
         def frame(inner, phase, info, obs):
             nonlocal lit, first_at, target_at, pose, count, fail
             if self.stop_event.is_set(): s.stop(); return
             t = inner.t * .02
+            if challenge_id and t * 1000 >= rules['sessionTimeoutMs']:
+                fail = 'Session time limit reached'; s.stop(); return
             if phase == 'brain' and not lit and t >= ready:
                 if index >= 8: s.stop(); return
-                s.target(*TARGETS[index]); lit = True; target_at = t
+                s.target(*targets[index]); lit = True; target_at = t
                 if first_at is None: first_at = round(t * 1000)
-            if lit and t - target_at > 35:
+            if lit and (t - target_at) * 1000 > rules['targetTimeoutMs']:
                 fail = 'Target timed out'; s.stop()
             count += 1
-            target = TARGETS[index] if lit and index < 8 else None
+            target = targets[index] if lit and index < 8 else None
             if count % 2 == 0:
                 if pose is None: pose = lf.PoseReader(inner.m)
                 self.emit(lf.pack(t, index, inner.lever_angle(), bool((info or {}).get('click')),
@@ -132,28 +137,49 @@ class Experiment:
                   'hits': hits, 'misses': misses, 'complete': hits == 8 and not info.get('fell') and not fail,
                   'durationMs': max(0, clicks[-1]['atMs'] - first_at) if clicks and first_at is not None else 0,
                   'firstTargetMs': first_at or 2800, 'proof': proof, 'brainCommit': s.commit,
-                  'rulesHash': RULES_HASH, 'verified': bool(ok), 'verification': verification,
+                  'rulesHash': rules_hash, 'verified': bool(ok), 'verification': verification,
                   'failure': fail or ('Subject fell' if info.get('fell') else None),
                   'samples': samples, 'clicks': clicks}
         with self.lock:
-            self.latest = result
+            if not challenge_id: self.latest = result
             summary = {k:v for k,v in result.items() if k not in ('samples','clicks','verification')}
-            self.history.insert(0, summary); self.history = self.history[:24]
+            if not challenge_id:
+                self.history.insert(0, summary); self.history = self.history[:24]
             self.current = None; self.phase = 'standby'
-            (self.output / 'latest-public.json').write_text(json.dumps(result))
+            if not challenge_id: (self.output / 'latest-public.json').write_text(json.dumps(result))
         # Session arrays are temporary for replay verification; no growing disk archive.
         shutil.rmtree(folder)
         return result
 
     def loop(self):
-        count = 0
+        from .challenges import ChallengeStore, archive
+        import logging
+        store = ChallengeStore(self.output); store.recover()
+        count = 0; next_builtin = 0
         while not self.stop_event.is_set():
+            job = None
             try:
-                self.run_once(seed=2026 + count, realtime=True); count += 1
+                job = store.claim()
+                if job:
+                    frames = []
+                    def capture(packet):
+                        if isinstance(packet, bytes): frames.append(packet)
+                    self.listeners.add(capture)
+                    try:
+                        result = self.run_once(seed=2026, realtime=True, rules=job['rules'], challenge_id=job['id'])
+                        meta, binary = archive(result, job['rules'], frames, '/challenges/' + job['id'])
+                        store.finish(job['id'], result, meta, binary)
+                    finally: self.listeners.discard(capture)
+                elif time.time() >= next_builtin:
+                    self.run_once(seed=2026 + count, realtime=True); count += 1
+                    next_builtin = time.time() + self.interval
+                else:
+                    with self.lock: self.next_at = datetime.fromtimestamp(next_builtin, timezone.utc).isoformat()
+                    self.stop_event.wait(1)
             except Exception:
-                import logging
                 logging.exception('Observer experiment failed')
+                if job: store.fail(job['id'])
                 with self.lock: self.phase = 'error'; self.current = None; self.error = 'Experiment unavailable. Retrying next window.'
                 self.emit({'type': 'bye'})
-            with self.lock: self.next_at = datetime.fromtimestamp(time.time()+self.interval, timezone.utc).isoformat()
-            self.stop_event.wait(self.interval)
+                next_builtin = time.time() + self.interval
+                self.stop_event.wait(1)
