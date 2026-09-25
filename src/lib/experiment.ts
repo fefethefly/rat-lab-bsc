@@ -55,6 +55,12 @@ export type Experiment = {
     betweenDelayMs: number;
     targetTimeoutMs: number;
     sessionTimeoutMs?: number;
+    music?: {
+      notes: number[];
+      pitches: string[];
+      instrument: string;
+      previewStepMs: number;
+    };
     note: string;
   };
   rulesHash: string;

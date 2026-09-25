@@ -42,7 +42,7 @@ export default function RecordedRat({
       mountRecorded(host.current, {
         base: "/lab/",
         ariaLabel:
-          "Verified Aim Eight recording: the rat turns its head to aim and presses a lever. Playback is synchronized to the displayed race clock.",
+          "Verified eight-target recording: the rat turns its head to aim and presses a lever. Playback is synchronized to the displayed playback clock.",
         relay: false,
         paused: true,
         hud: false,
@@ -109,8 +109,12 @@ export default function RecordedRat({
             index={sample?.targetIndex || 0}
           />
           <div className="fallback-note">
-            {supports3D ? "3D unavailable · showing the same recorded cursor" : "Recorded cursor · public-source build"}{" "}
-            {supports3D && <button onClick={() => retry((n) => n + 1)}>Retry 3D</button>}
+            {supports3D
+              ? "3D unavailable · showing the same recorded cursor"
+              : "Recorded cursor · public-source build"}{" "}
+            {supports3D && (
+              <button onClick={() => retry((n) => n + 1)}>Retry 3D</button>
+            )}
           </div>
         </div>
       )}

@@ -58,3 +58,19 @@ class ChallengeTests(unittest.TestCase):
         identifier=self.store.submit(self.payload(),'a'); self.store.claim()
         self.store.finish(identifier,{'complete':True,'verified':False},{},b'')
         self.assertEqual(self.store.get(identifier)['state'],'incomplete')
+    def test_music_binds_notes_to_rules_targets_and_persistence(self):
+        p={'kind':'music','title':'Little steps','notes':[0,1,2,3,2,1,0,2],'requestId':str(uuid.uuid4())}
+        title,key,rules=validate(p)
+        self.assertEqual(rules['id'],'music-eight-v1')
+        self.assertEqual(rules['targets'],[[.5,y,.16,.035] for y in [.36,.45,.54,.63,.54,.45,.36,.54]])
+        identifier=self.store.submit(p,'music')
+        restored=ChallengeStore(self.temp.name).get(identifier)
+        self.assertEqual(restored['rules']['music']['notes'],p['notes'])
+        p['notes'][0]=1
+        with self.assertRaises(SubmissionError):self.store.submit(p,'music')
+    def test_music_rejects_hidden_targets_and_unsupported_notes(self):
+        p={'kind':'music','title':'Little steps','notes':[0]*8,'requestId':str(uuid.uuid4())}
+        for notes in [[0]*7,[0]*9,[True]*8,[4]*8,[-1]*8,[.5]*8,'00000000']:
+            with self.assertRaises(SubmissionError):validate({**p,'notes':notes})
+        with self.assertRaises(SubmissionError):validate({**p,'targets':RULES['targets']})
+        with self.assertRaises(SubmissionError):validate({**p,'kind':'piano'})

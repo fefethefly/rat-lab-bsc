@@ -4,6 +4,7 @@ import MissionMap from "./MissionMap";
 import MissionReplay from "./MissionReplay";
 import { templates } from "../lib/missions";
 import "../missions.css";
+import "../music.css";
 export default function MissionDesk() {
   const [chosen, setChosen] = useState(0);
   const template = templates[chosen];
@@ -27,6 +28,22 @@ export default function MissionDesk() {
           Then see if you can beat it.
         </p>
       </div>
+      <section className="music-home-invite">
+        <div className="music-home-keys" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+          <i />
+        </div>
+        <div>
+          <span className="music-label">NEW EXPERIMENT / MUSIC STUDIO</span>
+          <h2>Write a little melody.</h2>
+          <p>Eight notes from you. A real recorded response from the rat.</p>
+        </div>
+        <a href="/music">
+          Enter the music room <ArrowUpRight size={18} />
+        </a>
+      </section>
       <div className="mission-workbench">
         <aside className="mission-brief">
           <span className="mission-kicker">YOUR NEXT EXPERIMENT</span>

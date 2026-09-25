@@ -4,9 +4,9 @@
 
 **You set the test. The rat makes its move.**
 
-Design a challenge, watch a real neural attempt, and race the saved result.
+Write a score, design a challenge, and share a real neural attempt.
 
-[**Website ↗**](https://rat-lab.fun) &nbsp;·&nbsp; [**Observe ↗**](https://rat-lab.fun/live) &nbsp;·&nbsp; [**Create a mission ↗**](https://rat-lab.fun/create) &nbsp;·&nbsp; [**Race ↗**](https://rat-lab.fun/challenge) &nbsp;·&nbsp; [**Buyback ledger ↗**](https://rat-lab.fun/buyback) &nbsp;·&nbsp; [**X ↗**](https://x.com/gouyi420)
+[**Website ↗**](https://rat-lab.fun) &nbsp;·&nbsp; [**Music studio ↗**](https://rat-lab.fun/music) &nbsp;·&nbsp; [**Observe ↗**](https://rat-lab.fun/live) &nbsp;·&nbsp; [**Create a mission ↗**](https://rat-lab.fun/create) &nbsp;·&nbsp; [**Race ↗**](https://rat-lab.fun/challenge) &nbsp;·&nbsp; [**Buyback ledger ↗**](https://rat-lab.fun/buyback) &nbsp;·&nbsp; [**X ↗**](https://x.com/gouyi420)
 
 </div>
 
@@ -28,16 +28,18 @@ Our origin study asked what learned behavior could do when its actions had a che
 
 | Experience | What is running |
 | :--- | :--- |
+| [**Music studio**](https://rat-lab.fun/music) | Compose eight notes on four keys. Hear a real attempt at its actual hit times, download the synthesized WAV, and share or remix the score. [First verified take ↗](https://rat-lab.fun/music?id=a9cfcf042e75987cebb8) |
 | [**Create & remix**](https://rat-lab.fun/create) | Three route templates, eight editable targets, a real experiment queue and persistent mission links. Successful verified attempts include synchronized race playback; failures remain documented. |
 | [**Observe R-01**](https://rat-lab.fun/live) | Our own recurring Aim Eight inference sessions, cursor playback, replay checks and downloadable records. Fixed trained policies; no claim of ongoing learning. |
 | [**Human vs. rat**](https://rat-lab.fun/challenge) | Race a verified recording in two synchronized lanes. See every target split, finish ahead or behind R-01, and export your local result. The hosted site includes recorded 3D body motion. |
 | [**BNB buyback rehearsal**](https://rat-lab.fun/buyback) | Unique verified hits generate an illustrative paper allocation. **No funded wallet or real purchases.** Includes a block-specific token-tax snapshot. |
 
-The observer is a separate service with no signer. Its bounded public submission endpoint accepts target designs only. Community mission archives persist on disk; the separate 24-session paper allocation window resets on restart. [Runtime, deployment and verification details →](docs/LIVE_LAB.md)
+The observer is a separate service with no signer. Its bounded public submission endpoint accepts bounded target designs or eight-note scores. Community mission archives persist on disk; the separate 24-session paper allocation window resets on restart. [Runtime, deployment and verification details →](docs/LIVE_LAB.md)
 
 ### Explore the code
 
 - **[Website](src/PublicApp.tsx)** — mission workbench, our own recorded benchmark, origin study and evidence desk.
+- **[Music studio](src/components/MusicStudio.tsx)** — four-key composition, verified hit-timed playback, WAV export and remixing. [Design & timing contract →](docs/MUSIC_STUDIO.md)
 - **[Mission studio](src/components/MissionStudio.tsx)** — route editor, queued attempts, saved results and remixing.
 - **[Community service](observer/challenges.py)** — validated tasks, idempotent submissions and persistent archives.
 - **[Product direction](docs/COMMUNITY_MISSIONS.md)** — design decisions, beta limits, API contract and next steps.

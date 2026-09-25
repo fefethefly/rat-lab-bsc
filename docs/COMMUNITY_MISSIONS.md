@@ -22,7 +22,7 @@ RAT LAB 的首页主张改为 **You set the test. The rat makes its move.** 用�
 
 ## Service contract
 
-`POST /challenges` accepts only `{title, targets, requestId}`. Titles are 3–48 characters; eight target rectangles use normalized center X `.42–.58`, Y `.35–.64`, half-width `.14–.20`, half-height `.035–.055`. All inputs must be finite numbers. Payloads are limited to 4 KiB, including chunked bodies. No URLs, code, files or financial parameters are accepted.
+`POST /challenges` accepts `{title, targets, requestId}` or the bounded music variant `{kind: "music", title, notes, requestId}` documented in [Music studio](MUSIC_STUDIO.md). Titles are 3–48 characters; eight target rectangles use normalized center X `.42–.58`, Y `.35–.64`, half-width `.14–.20`, half-height `.035–.055`. All inputs must be finite numbers. Payloads are limited to 4 KiB, including chunked bodies. No URLs, code, files or financial parameters are accepted.
 
 A request ID is idempotent across retries; reusing it with a different design returns 409. The beta admits at most four queued/running missions, three submissions per network per hour, 24 per rolling day and 500 archived missions. Global limits also apply to clients using different network addresses. Capacity errors leave existing missions intact. Network limiting is a lightweight supplementary control, not an identity system.
 

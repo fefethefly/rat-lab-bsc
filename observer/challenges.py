@@ -17,15 +17,23 @@ def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'))
 
 def validate(payload):
-    if not isinstance(payload, dict) or set(payload) != {'title', 'targets', 'requestId'}:
-        raise SubmissionError('Provide a title, eight targets and a request ID.')
+    musical = isinstance(payload, dict) and payload.get('kind') == 'music'
+    fields = {'title', 'notes', 'requestId', 'kind'} if musical else {'title', 'targets', 'requestId'}
+    if not isinstance(payload, dict) or set(payload) != fields:
+        raise SubmissionError('Provide a title, a supported eight-step design and a request ID.')
     title = payload['title']
     if not isinstance(title, str) or not 3 <= len(title.strip()) <= 48 or any(ord(c) < 32 for c in title):
         raise SubmissionError('Use a title of 3–48 characters.')
     key = payload['requestId']
     if not isinstance(key, str) or not re.fullmatch(r'[a-f0-9-]{36}', key):
         raise SubmissionError('Invalid request ID.')
-    targets = payload['targets']
+    if musical:
+        notes = payload['notes']
+        if not isinstance(notes, list) or len(notes) != 8 or any(type(n) is not int or not 0 <= n <= 3 for n in notes):
+            raise SubmissionError('Choose exactly eight notes from C, D, E and G.')
+        targets = [[.5, [.36,.45,.54,.63][n], .16, .035] for n in notes]
+    else:
+        targets = payload['targets']
     if not isinstance(targets, list) or len(targets) != 8:
         raise SubmissionError('A mission needs exactly eight targets.')
     for t in targets:
@@ -35,6 +43,8 @@ def validate(payload):
         if not (.42 <= x <= .58 and .35 <= y <= .64 and .14 <= w <= .20 and .035 <= h <= .055):
             raise SubmissionError('Keep targets within the editor’s supported area and sizes.')
     rules = {**RULES, 'id': 'community-eight-v1', 'targets': targets, 'targetTimeoutMs': 12000, 'sessionTimeoutMs': 60000}
+    if musical:
+        rules.update(id='music-eight-v1', music={'notes': notes, 'pitches': ['C4','D4','E4','G4'], 'instrument': 'soft-keys-v1', 'previewStepMs': 650})
     return title.strip(), key, rules
 
 class ChallengeStore:
