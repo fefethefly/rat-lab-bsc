@@ -118,7 +118,7 @@ export default function FirstTakes() {
           Four recorded attempts become four short scores. Hear the movement,
           inspect the notes, and take the complete player with you.
         </p>
-        <a href="/music">
+        <a href="/music?compose=1">
           Write your own score <ArrowUpRight size={17} />
         </a>
       </div>

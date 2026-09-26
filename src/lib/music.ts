@@ -11,6 +11,7 @@ export const melodies = [
   { name: "Little steps", notes: [0, 1, 2, 3, 2, 1, 0, 2] },
   { name: "Back & forth", notes: [0, 3, 1, 2, 0, 3, 2, 1] },
   { name: "Golden hour", notes: [2, 2, 0, 1, 3, 2, 1, 0] },
+  { name: "Ode to Joy · opening", notes: [2, 2, 1, 0, 0, 1, 2, 2] },
 ];
 export type NoteEvent = { atMs: number; note: number; step: number };
 export const validNotes = (notes: unknown): notes is number[] =>
@@ -146,4 +147,15 @@ export function encodeWav(
     view.setInt16(44 + i * 2, v < 0 ? v * 32768 : v * 32767, true);
   });
   return buffer;
+}
+
+/** Compare the same authored notes without retiming the recorded response. */
+export function phraseComparison(notes: number[], run: Run) {
+  const planned = previewEvents(notes), actual = takeEvents(notes, run);
+  return planned.map((event) => {
+    const heard = actual.find(e => e.step === event.step);
+    const previous = actual.find(e => e.step === event.step - 1);
+    return { ...event, recordedAtMs: heard?.atMs ?? null,
+      gapMs: heard && previous ? heard.atMs - previous.atMs : null };
+  });
 }

@@ -18,12 +18,14 @@ import {
   takeEvents,
   musicRecording,
   validNotes,
+  phraseComparison,
   type NoteEvent,
 } from "../lib/music";
 import { SoftKeys, musicWav } from "../lib/softKeys";
 import { observerBase, readMission, type Mission } from "../lib/missions";
 import { seconds, downloadJson } from "../lib/experiment";
 import RecordedRat from "./RecordedRat";
+import PianoStage from "./PianoStage";
 import "../music.css";
 
 function NoteStrip({
@@ -179,6 +181,8 @@ function MusicComposer() {
     [busy, setBusy] = useState(false),
     [loading, setLoading] = useState(false),
     [error, setError] = useState("");
+  const [advance, setAdvance] = useState(true);
+  const [undo, setUndo] = useState<{ notes: number[]; selected: number }[]>([]);
   const request = useRef<{ fingerprint: string; id: string } | null>(null);
   const transport = useTransport(previewEvents(notes), 6050);
   useEffect(() => {
@@ -203,7 +207,9 @@ function MusicComposer() {
   }, []);
   const choose = (note: number) => {
     transport.seek(0);
+    setUndo(history => [...history.slice(-31), { notes: [...notes], selected }]);
     setNotes((n) => n.map((v, i) => (i === selected ? note : v)));
+    if (advance) setSelected(i => Math.min(7, i + 1));
     void transport.tap(note);
   };
   const submit = async (e: React.FormEvent) => {
@@ -265,7 +271,13 @@ function MusicComposer() {
     }
   };
   return (
-    <form onSubmit={submit} className="music-studio">
+    <form onSubmit={submit} className="music-studio" onKeyDown={event => {
+      if (busy || loading || event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+      const target = event.target as HTMLElement;
+      if (target.matches("input,textarea,select") || target.isContentEditable) return;
+      const pitch = ["a", "s", "d", "f"].indexOf(event.key.toLowerCase());
+      if (pitch !== -1) { event.preventDefault(); choose(pitch); }
+    }}>
       <p className="music-featured">
         <a href="/first-takes" className="lab-button">
           First Takes: hear movement become music <ArrowUpRight size={17} />
@@ -340,9 +352,14 @@ function MusicComposer() {
                 Make it yours.
               </h2>
               <p>
-                Select a numbered note above, then choose its pitch. Repeats are
-                welcome.
+                Play a key to write the selected note. Use A, S, D, F when the
+                score desk has focus. Select any numbered note to change it.
               </p>
+              <label className="music-advance"><input type="checkbox" checked={advance} onChange={e => setAdvance(e.target.checked)} /> Move to the next note</label>
+              <button type="button" className="music-undo" disabled={!undo.length} onClick={() => {
+                const previous = undo.at(-1); if (!previous) return;
+                transport.seek(0); setNotes(previous.notes); setSelected(previous.selected); setUndo(h => h.slice(0,-1));
+              }}><ArrowCounterClockwise size={14} /> Undo last key</button>
             </div>
             <div className="music-keys" aria-label="Choose a pitch">
               {pitches.map((pitch, i) => (
@@ -357,7 +374,7 @@ function MusicComposer() {
                   <i />
                   <span>
                     {pitch.name}
-                    <small>{pitch.octave}</small>
+                    <small>{pitch.octave} · {["A", "S", "D", "F"][i]}</small>
                   </span>
                 </button>
               ))}
@@ -404,6 +421,7 @@ function MusicComposer() {
                 setTitle(m.name);
                 setNotes([...m.notes]);
                 setSelected(0);
+                setUndo([]);
               }}
             >
               {m.name}
@@ -457,7 +475,7 @@ function MusicComposer() {
     </form>
   );
 }
-function MusicTake({ id }: { id: string }) {
+function MusicTake({ id, featured = false }: { id: string; featured?: boolean }) {
   const [mission, setMission] = useState<Mission | null>(null),
     [base, setBase] = useState(""),
     [error, setError] = useState(""),
@@ -468,7 +486,15 @@ function MusicTake({ id }: { id: string }) {
     const c = new AbortController();
     const poll = async () => {
       try {
-        const result = await readMission(id, c.signal);
+        const result = featured
+          ? await fetch("/experiment/music-featured.json", { signal: AbortSignal.any([c.signal, AbortSignal.timeout(12000)]) }).then(async r => {
+              if (!r.ok) throw Error("The featured recording could not be loaded.");
+              const saved = await r.json();
+              if (saved.mission?.id !== id || typeof saved.mission?.title !== "string" || !musicRecording(saved.mission, saved.base))
+                throw Error("The featured archive is invalid.");
+              return saved as { mission: Mission; base: string };
+            })
+          : await readMission(id, c.signal);
         if (gone) return;
         if (!validNotes(result.mission.rules.music?.notes))
           throw Error("This link is not a musical experiment.");
@@ -490,7 +516,7 @@ function MusicTake({ id }: { id: string }) {
       c.abort();
       clearTimeout(timer);
     };
-  }, [id, retry]);
+  }, [id, retry, featured]);
   if (!mission)
     return (
       <div className="lab-loading">
@@ -502,7 +528,7 @@ function MusicTake({ id }: { id: string }) {
             Retry take
           </button>
         )}
-        <a className="mission-secondary" href="/music">
+        <a className="mission-secondary" href="/music?compose=1">
           Write a new score <ArrowUpRight size={16} />
         </a>
       </div>
@@ -534,17 +560,19 @@ function MusicPerformance({
     recording = musicRecording(mission, base),
     run = recording?.run;
   const events = run ? takeEvents(notes, run) : [];
-  const duration = run
+  const responseDuration = run
     ? Math.max(
         run.durationMs,
         (run.samples?.at(-1)?.atMs || 0) - run.firstTargetMs,
       ) + 1500
     : 1000;
-  const transport = useTransport(events, duration);
+  const [mode, setMode] = useState<"response" | "score">("response");
+  const duration = mode === "response" ? responseDuration : 6050;
+  const transport = useTransport(mode === "response" ? events : previewEvents(notes), duration);
+  const comparison = run ? phraseComparison(notes, run) : [];
+  const selectMode = (next: "response" | "score") => { transport.seek(0); setMode(next); };
   const [notice, setNotice] = useState(""),
-    [saving, setSaving] = useState(false),
-    [sceneReady, setSceneReady] = useState(false);
-  const heard = events.filter((e) => e.atMs <= transport.at).length;
+    [saving, setSaving] = useState(false);
   const share = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -559,7 +587,7 @@ function MusicPerformance({
     if (!run || saving) return;
     setSaving(true);
     try {
-      const wav = await musicWav(events, duration),
+      const wav = await musicWav(events, responseDuration),
         url = URL.createObjectURL(new Blob([wav], { type: "audio/wav" }));
       const a = document.createElement("a");
       a.href = url;
@@ -583,7 +611,7 @@ function MusicPerformance({
             SIDE B / RECORDED RESPONSE · {mission.id.slice(0, 8).toUpperCase()}
           </span>
           <h2>{mission.title}</h2>
-          <p>A saved score. A real attempt by R-01.</p>
+          <p>{run ? <>Recorded on {new Date(mission.createdAt * 1000).toLocaleDateString()} · actual hit timing · not live.</> : "Your saved score and the status of its attempt."}</p>
         </div>
         <span className="music-stamp">
           {mission.state.toUpperCase()}
@@ -595,145 +623,52 @@ function MusicPerformance({
       </div>
       {recording && run ? (
         <>
-          <div className="music-performance-grid">
-            <section className="music-performance-scene">
-              <div className="music-console-top">
-                <span>
-                  <i /> VERIFIED RECORDING
-                </span>
-                <span>HEAD → AIM · LEVER → NOTE</span>
+          <div className="music-audition" role="group" aria-label="Choose what to hear">
+            <button aria-pressed={mode === "response"} onClick={() => selectMode("response")}><span>01</span><b>The rat’s response</b><small>Actual hit timing</small></button>
+            <button aria-pressed={mode === "score"} onClick={() => selectMode("score")}><span>02</span><b>Original score</b><small>Even 650ms spacing</small></button>
+            <p>Same notes. Hear what changes.<br />Switching stops and resets playback.</p>
+          </div>
+          <div className="music-theatre">
+            <div>
+              <div className="music-take-controls">
+                <div className="music-transport">
+                  <button className="mission-primary" onClick={() => transport.playing ? transport.pause() : void transport.play()}>
+                    {transport.playing ? <Pause size={19} /> : <Play size={19} />}
+                    {transport.playing ? "Pause playback" : mode === "response" ? "Hear the rat play" : "Hear the original score"}
+                  </button>
+                  <button className="lab-button" aria-label="Restart recording" onClick={() => transport.seek(0)}><ArrowCounterClockwise size={18} /></button>
+                  <button className="lab-button" aria-label={transport.muted ? "Unmute audio" : "Mute audio"} onClick={transport.toggleMute}>{transport.muted ? <SpeakerSlash size={19} /> : <SpeakerHigh size={19} />}</button>
+                </div>
+                <label className="sr-only" htmlFor="take-position">Recording position</label>
+                <input id="take-position" type="range" min="0" max={duration} step="20" value={transport.at} onChange={e => transport.seek(Number(e.target.value))} />
+                <div className="music-position-label"><span>{seconds(transport.at)}</span><span>{seconds(duration)}</span></div>
               </div>
-              <RecordedRat
-                recording={recording}
-                atMs={run.firstTargetMs + transport.at}
-                onReady={() => setSceneReady(true)}
-              />
-              <div className="music-take-readout">
-                <b>
-                  {String(heard).padStart(2, "0")}
-                  <small>/ 08 NOTES HIT</small>
-                </b>
-                <span>
-                  {transport.playing
-                    ? "PLAYING RECORDED TIMING"
-                    : "PAUSED RECORDING"}
-                  <strong>{seconds(transport.at)}</strong>
-                </span>
+              <PianoStage events={mode === "response" ? events : previewEvents(notes)} at={transport.at}
+                duration={duration} playing={transport.playing} mode={mode} onSeek={transport.seek} />
+            </div>
+            <aside className="music-source-panel">
+              <div className="music-source-title"><span className="music-label">THE PERFORMER / RECORDED</span><b>R-01</b></div>
+              {mode === "response" ? <RecordedRat recording={recording} atMs={run.firstTargetMs + transport.at} />
+                : <div className="music-score-explainer"><MusicNotes size={42} /><h3>Before the performance.</h3><p>This is your score at even intervals. Switch to the rat’s response to watch its recorded movement.</p></div>}
+              <div className="music-source-facts">
+                <div><span>Notes reached</span><b>{run.hits} / 8</b></div>
+                <div><span>Misses in attempt</span><b>{run.misses}</b></div>
+                <div><span>Replay check</span><b>Verified on host</b></div>
               </div>
-            </section>
-            <aside className="music-take-notes">
-              <span className="music-label">
-                A PERFORMANCE WITH A PAPER TRAIL
-              </span>
-              <h3>
-                Hear every
-                <br />
-                little decision.
-              </h3>
-              <p>
-                Every sound follows an actual successful hit in this attempt.
-                The gaps belong to the rat. Misses do not play a note.
-              </p>
-              <dl>
-                <div>
-                  <dt>Notes reached</dt>
-                  <dd>{run.hits}/8</dd>
-                </div>
-                <div>
-                  <dt>Misses</dt>
-                  <dd>{run.misses}</dd>
-                </div>
-                <div>
-                  <dt>Attempt</dt>
-                  <dd>{run.complete ? "Complete" : "Incomplete"}</dd>
-                </div>
-                <div>
-                  <dt>Replay check</dt>
-                  <dd>Verified on recording host</dd>
-                </div>
-              </dl>
-              {!run.complete && (
-                <p className="music-incomplete">
-                  {run.failure || "The full score was not completed."} This
-                  playback preserves the partial attempt.
-                </p>
-              )}
+              <p>The head aims. A lever press hits the target. Each successful hit sounds its assigned note. These are synthesized keys, not a physical piano.</p>
+              {!run.complete && <p className="music-incomplete">{run.failure || "The full score was not completed."} Unreached notes stay silent.</p>}
             </aside>
           </div>
-          <NoteStrip
-            notes={notes}
-            active={transport.playing ? transport.active : -1}
-            completed={heard}
-          />
-          <div className="music-take-controls">
-            <div className="music-transport">
-              <button
-                className="mission-primary"
-                disabled={!sceneReady}
-                onClick={() =>
-                  transport.playing ? transport.pause() : void transport.play()
-                }
-              >
-                {transport.playing ? <Pause size={19} /> : <Play size={19} />}{" "}
-                {!sceneReady
-                  ? "Preparing playback…"
-                  : transport.playing
-                    ? "Pause take"
-                    : transport.at >= duration
-                      ? "Play take again"
-                      : "Play recorded take"}
-              </button>
-              <button
-                className="lab-button"
-                aria-label="Restart recording"
-                onClick={() => transport.seek(0)}
-              >
-                <ArrowCounterClockwise size={18} />
-              </button>
-              <button
-                className="lab-button"
-                aria-label={transport.muted ? "Unmute audio" : "Mute audio"}
-                onClick={transport.toggleMute}
-              >
-                {transport.muted ? (
-                  <SpeakerSlash size={19} />
-                ) : (
-                  <SpeakerHigh size={19} />
-                )}
-              </button>
-              <span>SOUND STARTS WHEN YOU PRESS PLAY</span>
-            </div>
-            <label className="sr-only" htmlFor="take-position">
-              Recording position
-            </label>
-            <input
-              id="take-position"
-              type="range"
-              min="0"
-              max={duration}
-              step="20"
-              value={transport.at}
-              onChange={(e) => transport.seek(Number(e.target.value))}
-            />
-            <div className="music-position-label">
-              <span>{seconds(transport.at)}</span>
-              <span>{seconds(duration)}</span>
-            </div>
-          </div>
-          <div className="music-hit-log">
-            <span className="music-label">NOTE / ACTUAL HIT TIME</span>
-            {notes.map((note, i) => {
-              const e = events.find((event) => event.step === i);
-              return (
-                <span key={i}>
-                  <b>
-                    {String(i + 1).padStart(2, "0")} {pitches[note].name}
-                  </b>
-                  <small>{e ? seconds(e.atMs) : "Not reached"}</small>
-                </span>
-              );
-            })}
-          </div>
+          <section className="music-phrase-compare" aria-label="Original score and recorded timing comparison">
+            <div><span className="music-label">SAME SCORE / DIFFERENT PACE</span><h3>Listen to the spaces.</h3><p>The score preview is evenly spaced. The response keeps every pause from this attempt.</p></div>
+            <div className="music-comparison-scroll"><table>
+              <caption className="sr-only">Note timestamps, in seconds from the start of each playback</caption>
+              <thead><tr><th scope="col">Note</th>{comparison.map(e=><th scope="col" key={e.step}>{e.step+1} · {pitches[e.note].name}</th>)}</tr></thead>
+              <tbody><tr><th scope="row">Your score</th>{comparison.map(e=><td key={e.step}>{(e.atMs/1000).toFixed(2)}s</td>)}</tr>
+              <tr><th scope="row">R-01’s hit</th>{comparison.map(e=><td key={e.step}>{e.recordedAtMs===null ? "—" : (e.recordedAtMs/1000).toFixed(2)+"s"}</td>)}</tr></tbody>
+            </table></div>
+          </section>
+
         </>
       ) : (
         <div className="music-waiting">
@@ -775,10 +710,10 @@ function MusicPerformance({
             onClick={() => void save()}
           >
             <DownloadSimple size={17} />
-            {saving ? "Rendering audio…" : "Download audio"}
+            {saving ? "Rendering audio…" : "Download recorded WAV"}
           </button>
         )}
-        <a className="mission-secondary" href="/music">
+        <a className="mission-secondary" href="/music?compose=1">
           Write another score <ArrowUpRight size={16} />
         </a>
       </div>
@@ -814,6 +749,18 @@ function MusicPerformance({
   );
 }
 export default function MusicStudio() {
-  const id = new URLSearchParams(location.search).get("id");
-  return id ? <MusicTake id={id} /> : <MusicComposer />;
+  const params = new URLSearchParams(location.search), id = params.get("id");
+  const composing = params.has("compose") || params.has("remix");
+  return <>
+    <nav className="music-room-nav" aria-label="Music room">
+      <a href="/music" aria-current={!composing && !id ? "page" : undefined}><span>01</span> Listen to R-01</a>
+      <a href="/music?compose=1" aria-current={composing ? "page" : undefined}><span>02</span> Write your phrase</a>
+      <a href="/first-takes"><span>03</span> Explore First Takes <ArrowUpRight size={15} /></a>
+    </nav>
+    {id ? <MusicTake id={id} /> : composing ? <MusicComposer /> : <>
+      <p className="music-featured-caption">FEATURED SESSION · OPERATOR-CREATED EXAMPLE · OPEN LISTENING</p>
+      <MusicTake id="a9cfcf042e75987cebb8" featured />
+      <section className="music-next-phrase"><div><span className="music-label">YOUR TURN ON THE SCORE DESK</span><h2>Give it your next eight notes.</h2><p>Try a familiar opening, write your own phrase, and keep the rat’s response.</p></div><a href="/music?compose=1" className="mission-primary">Write a phrase <ArrowRight size={18} /></a></section>
+    </>}
+  </>;
 }

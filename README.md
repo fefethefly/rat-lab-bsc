@@ -29,7 +29,7 @@ Our origin study asked what learned behavior could do when its actions had a che
 | Experience | What is running |
 | :--- | :--- |
 | [**First Takes**](https://rat-lab.fun/first-takes) | Four behavioral music studies, synchronized movement-to-note playback, self-contained listening rooms and a test-only NFT archive. Free listening; no production sale. |
-| [**Music studio**](https://rat-lab.fun/music) | Compose eight notes on four keys. Hear a real attempt at its actual hit times, download the synthesized WAV, and share or remix the score. [First verified take ↗](https://rat-lab.fun/music?id=a9cfcf042e75987cebb8) |
+| [**Music studio**](https://rat-lab.fun/music) | Listen first: a recorded performance with synchronized keys and source motion. Compare it with the original score, then compose with A/S/D/F, export the response and remix. [First verified take ↗](https://rat-lab.fun/music?id=a9cfcf042e75987cebb8) |
 | [**Create & remix**](https://rat-lab.fun/create) | Three route templates, eight editable targets, a real experiment queue and persistent mission links. Successful verified attempts include synchronized race playback; failures remain documented. |
 | [**Observe R-01**](https://rat-lab.fun/live) | Our own recurring Aim Eight inference sessions, cursor playback, replay checks and downloadable records. Fixed trained policies; no claim of ongoing learning. |
 | [**Human vs. rat**](https://rat-lab.fun/challenge) | Race a verified recording in two synchronized lanes. See every target split, finish ahead or behind R-01, and export your local result. The hosted site includes recorded 3D body motion. |
@@ -41,7 +41,7 @@ The observer is a separate service with no signer. Its bounded public submission
 
 - **[Website](src/PublicApp.tsx)** — mission workbench, our own recorded benchmark, origin study and evidence desk.
 - **[First Takes](src/components/FirstTakes.tsx)** — behavioral scores, note provenance and independent reconstruction. [Method & testnet archive →](docs/FIRST_TAKES.md)
-- **[Music studio](src/components/MusicStudio.tsx)** — four-key composition, verified hit-timed playback, WAV export and remixing. [Design & timing contract →](docs/MUSIC_STUDIO.md)
+- **[Music studio](src/components/MusicStudio.tsx)** — listening room, score/response comparison, keyboard composition, verified playback and WAV export. [Design & timing contract →](docs/MUSIC_STUDIO.md)
 - **[Mission studio](src/components/MissionStudio.tsx)** — route editor, queued attempts, saved results and remixing.
 - **[Community service](observer/challenges.py)** — validated tasks, idempotent submissions and persistent archives.
 - **[Product direction](docs/COMMUNITY_MISSIONS.md)** — design decisions, beta limits, API contract and next steps.

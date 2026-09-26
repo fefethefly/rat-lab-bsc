@@ -1,6 +1,6 @@
 # First Takes — behavioral music studies
 
-[Listen to the collection](https://rat-lab.fun/first-takes) · [Compose your own score](https://rat-lab.fun/music)
+[Listen to the collection](https://rat-lab.fun/first-takes) · [Compose your own score](https://rat-lab.fun/music?compose=1)
 
 Four recorded targeting attempts become four short musical studies. This is **behavior sonification**, using fixed, previously trained policies and human-designed task routes. It is not an independently trained music composer or a physical piano simulation. No sale or auction is enabled.
 

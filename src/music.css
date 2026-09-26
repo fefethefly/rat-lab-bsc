@@ -886,3 +886,125 @@
   color: var(--muted, #b6a9c8);
   font-size: 12px;
 }
+
+/* Listening-first music room: a score ribbon and four mapped ivory keys. */
+.lab-page-music .lab-lead { margin-bottom: 25px; }
+.lab-page-music .lab-lead h1 { font-size: clamp(32px, 4.5vw, 62px); }
+.music-room-nav { display: flex; align-items: center; gap: 28px; border-bottom: 1px solid #493451; padding: 0 0 22px; flex-wrap: wrap; }
+.music-room-nav a { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #b5a0c7; text-decoration: none; min-height: 34px; }
+.music-room-nav a span { font: 10px 'JetBrains Mono', monospace; color: #927ba6; }
+.music-room-nav a[aria-current], .music-room-nav a:hover { color: #f0c44e; }
+.music-featured-caption { font: 9px/1.8 'JetBrains Mono', monospace; letter-spacing: 1.1px; color: #ac96bf; margin: 27px 0 0; }
+.music-audition { display: flex; gap: 12px; margin: 0 0 24px; align-items: stretch; }
+.music-audition button { display: grid; grid-template-columns: 25px 1fr; gap: 3px 10px; padding: 15px 22px; border: 1px solid #4d365e; background: #1d1427; color: #c6b4d8; text-align: left; border-radius: 3px; }
+.music-audition button span { grid-row: span 2; font: 11px 'JetBrains Mono', monospace; align-self: center; }
+.music-audition button b { font-size: 13px; font-weight: 500; }
+.music-audition button small { font-size: 10px; color: #af98c3; }
+.music-audition button[aria-pressed=true] { border-color: #eac34f; background: #31251d; color: #f6d86d; }
+.music-audition p { color: #b6a1c7; font-size: 11px; line-height: 1.8; margin: auto 0 auto auto; }
+.music-theatre { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(250px, 1fr); gap: 25px; align-items: start; }
+.piano-stage { background: #19101f; border: 1px solid #5a3c64; padding: 20px 22px 16px; border-radius: 8px 8px 0 0; box-shadow: 0 18px 50px #0c071830; }
+.piano-stage-top, .piano-stage-foot { display: flex; justify-content: space-between; gap: 12px; color: #c8aade; font: 8px/1.8 'JetBrains Mono', monospace; letter-spacing: 1px; }
+.piano-stage-top span:first-child { color: #efc64f; }
+.piano-paper { margin: 20px 0 0; background: #0f0b15; border: 1px solid #3f2b4d; padding: 15px; }
+.piano-paper-label { display: flex; align-items: center; justify-content: space-between; gap: 14px; font-size: 12px; color: #c6b3d5; }
+.piano-paper-label b { color: #eecd66; font: 24px 'JetBrains Mono', monospace; }
+.piano-paper-label b small { color: #947fa6; font-size: 11px; }
+.piano-paper svg { width: 100%; display: block; margin: 10px 0; overflow: visible; }
+.piano-paper svg text { fill: #a28eaf; font: 10px monospace; }
+.piano-rule { stroke: #51395d; stroke-width: .7; }
+.piano-note-tail { stroke: #79568f; stroke-width: 7; stroke-linecap: round; opacity: .4; }
+.piano-note-dot { fill: #ac8ec4; }
+.played .piano-note-tail { stroke: #f0c65b; }
+.played .piano-note-dot { fill: #f0c65b; }
+.piano-needle { stroke: #f0c65b; stroke-width: 1; }
+.piano-cues { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+.piano-cues button { min-width: 0; padding: 8px 1px; background: #21162e; border: 1px solid #3f2c4d; color: #dac6e8; font: 500 16px 'Space Grotesk', sans-serif; border-radius: 2px; }
+.piano-cues span, .piano-cues small { display: block; font: 8px/1.8 'JetBrains Mono', monospace; color: #b09cc1; }
+.piano-cues button:hover { border-color: #c59bd8; }
+.piano-cues button.active { background: #493424; border-color: #edc14f; color: #ffe494; }
+.piano-keybed { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 18px 5px 10px; perspective: 800px; }
+.piano-ivory { background: linear-gradient(#d5caca, #fcf0db 32%, #e7dccb); height: 126px; border-radius: 0 0 5px 5px; border-bottom: 7px solid #a59a8d; box-shadow: 0 7px 0 #09050d; color: #443449; display: flex; flex-direction: column; align-items: center; justify-content: end; position: relative; padding-bottom: 14px; transform-origin: top center; }
+.piano-ivory > i { position: absolute; width: 36%; height: 50%; top: 0; left: -20%; border-radius: 0 0 4px 4px; background: linear-gradient(#0a0710, #342637); box-shadow: 1px 4px 3px #20142360; z-index: 1; }
+.piano-ivory:first-child > i { display: none; }
+.piano-ivory b { font: 500 30px 'Space Grotesk', sans-serif; }
+.piano-ivory b small { font: 11px 'JetBrains Mono', monospace; margin-left: 4px; }
+.piano-ivory > span { font-size: 10px; color: #775e73; margin-top: 6px; }
+.piano-ivory.pressed { transform: rotateX(-6deg); background: linear-gradient(#d9a839, #ffe59a); border-color: #c79935; box-shadow: 0 3px 0 #09050d; }
+.piano-stage-foot { margin-top: 10px; font-size: 7px; color: #a790b8; }
+.music-source-panel { border: 1px solid #463052; background: #180f21; min-width: 0; }
+.music-source-title { display: flex; justify-content: space-between; align-items: center; padding: 17px 20px; }
+.music-source-title b { color: #e9c766; font: 14px 'JetBrains Mono', monospace; }
+.music-source-panel .recorded-rat, .music-source-panel .aim-board { height: 245px; min-height: 0; }
+.music-source-panel .rat-camera-label { font-size: 7px; }
+.music-source-facts { padding: 6px 20px; }
+.music-source-facts > div { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid #3d2b49; font-size: 11px; color: #bca6cb; }
+.music-source-facts b { font-weight: 500; color: #efdfef; }
+.music-source-panel > p { font-size: 11px; line-height: 1.8; color: #bca6cb; padding: 6px 20px 18px; }
+.music-score-explainer { height: 245px; display: flex; align-items: start; justify-content: center; flex-direction: column; padding: 25px; background: #22172e; color: #d3b5e5; }
+.public-site .music-score-explainer h3 { font-size: 23px; letter-spacing: -.5px; margin: 15px 0 8px; }
+.music-score-explainer p { font-size: 12px; line-height: 1.8; color: #bca6cb; margin: 0; }
+.music-theatre .music-transport { padding: 19px; gap: 10px; }
+.music-theatre .music-transport .mission-primary { font-size: 12px; padding: 14px 20px; }
+.music-phrase-compare { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 30px; margin: 36px 0; padding: 30px 0; border-bottom: 1px solid #493451; }
+.public-site .music-phrase-compare h3 { font: 500 27px 'Space Grotesk', sans-serif; letter-spacing: -.8px; margin: 10px 0; }
+.music-phrase-compare p { color: #bca6cb; font-size: 12px; line-height: 1.8; margin: 0; }
+.music-comparison-scroll { overflow-x: auto; align-self: center; }
+.music-phrase-compare table { width: 100%; border-collapse: collapse; white-space: nowrap; font: 10px/1.7 'JetBrains Mono', monospace; color: #c8b0d6; }
+.music-phrase-compare th, .music-phrase-compare td { padding: 14px 10px; border-bottom: 1px solid #3a2946; text-align: right; font-weight: 400; }
+.music-phrase-compare tr > :first-child { text-align: left; }
+.music-phrase-compare tbody tr:last-child { color: #ebc85e; }
+.music-next-phrase { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 36px 0; border-top: 1px solid #493451; }
+.public-site .music-next-phrase h2 { font: 500 33px 'Space Grotesk', sans-serif; letter-spacing: -1px; margin: 12px 0; }
+.music-next-phrase p { color: #bca6cb; font-size: 13px; }
+.music-advance { display: flex; gap: 9px; align-items: center; font-size: 11px; color: #cbb4dc; margin: 18px 0; }
+.public-site .music-advance input { width: 16px; height: 16px; accent-color: #e8bd45; padding: 0; }
+.music-undo { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #edcc77; }
+.music-undo:disabled { opacity: .35; cursor: default; }
+.music-room-nav a:focus-visible, .music-audition button:focus-visible, .piano-cues button:focus-visible { outline: 2px solid #eac34f; outline-offset: 4px; }
+@media(max-width: 900px) {
+  .music-theatre { grid-template-columns: 1fr; }
+  .music-source-panel { display: grid; grid-template-columns: 1fr 1fr; }
+  .music-source-title { grid-column: 1 / -1; }
+  .music-source-panel .recorded-rat, .music-source-panel .music-score-explainer { grid-row: span 2; height: 270px; }
+  .music-audition p { display: none; }
+  .music-phrase-compare { grid-template-columns: 1fr; gap: 15px; }
+}
+@media(max-width: 540px) {
+  .music-room-nav { gap: 8px 18px; padding-bottom: 16px; }
+  .music-room-nav a { font-size: 11px; gap: 6px; }
+  .music-audition { gap: 8px; }
+  .music-audition button { flex: 1; padding: 12px 10px; grid-template-columns: 1fr; }
+  .music-audition button span { display: none; }
+  .music-audition button b { font-size: 11px; }
+  .music-audition button small { font-size: 9px; }
+  .piano-stage { padding: 14px 12px; }
+  .piano-stage-top { font-size: 6px; gap: 5px; letter-spacing: .3px; }
+  .piano-paper { padding: 12px 8px; margin-top: 12px; }
+  .piano-paper-label { font-size: 10px; }
+  .piano-paper-label b { font-size: 19px; }
+  .piano-cues { gap: 2px; }
+  .piano-cues span, .piano-cues small { font-size: 6px; }
+  .piano-cues button { font-size: 13px; min-height: 46px; }
+  .piano-ivory { height: 105px; }
+  .piano-ivory b { font-size: 25px; }
+  .piano-stage-foot { font-size: 5.5px; letter-spacing: .5px; }
+  .music-source-panel { display: block; }
+  .music-source-panel .recorded-rat { height: 245px; }
+  .music-phrase-compare { margin: 20px 0; padding: 20px 0; }
+  .music-next-phrase { align-items: start; flex-direction: column; }
+  .music-studio .music-stamp { font-size: 7px; padding: 7px 10px; }
+}
+.lab-site.lab-page-music .lab-lead { padding: 30px 0 18px; margin-bottom: 0; }
+.lab-site.lab-page-music .lab-lead h1 { font-size: clamp(30px, 3.5vw, 44px); margin: 12px 0 8px; }
+.lab-page-music .music-featured-caption { margin: 18px 0 0; }
+.lab-page-music .music-take .music-session-heading { padding: 18px 0 22px; }
+.lab-page-music .music-take .music-session-heading h2 { font-size: clamp(25px, 3vw, 36px); }
+.music-theatre .music-take-controls { border-bottom: 0; border-radius: 6px 6px 0 0; }
+.music-theatre .piano-stage { border-radius: 0 0 6px 6px; }
+@media(max-width: 540px) {
+  .lab-site.lab-page-music .lab-lead { padding: 24px 0 12px; }
+  .lab-site.lab-page-music .lab-lead .connection-state { display: none; }
+  .lab-page-music .music-take .music-session-heading { gap: 14px; }
+  .music-take .music-session-heading h2 { letter-spacing: -.7px; }
+}

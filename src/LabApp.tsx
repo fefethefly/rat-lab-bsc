@@ -44,8 +44,8 @@ const titles = {
     "First Takes — four behavioral scores from a very small performer.",
   ],
   music: [
-    "You write the notes. It finds its rhythm.",
-    "Eight notes, four keys, one real attempt. Make a score for a very small performer.",
+    "A small performer. Its own timing.",
+    "Hear a recorded performance, compare it with the score, then write a phrase of your own.",
   ],
   create: [
     "A new problem. Your signature.",

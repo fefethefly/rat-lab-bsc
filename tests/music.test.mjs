@@ -35,3 +35,20 @@ test('audio uses recorded times on one clock; pause cancels scheduled notes',asy
  const previous=globalThis.AudioContext;globalThis.AudioContext=Context;
  try{const keys=new SoftKeys();assert.equal(voices.length,0);await keys.enable();const origin=keys.schedule([{atMs:500,note:0,step:0},{atMs:2300,note:1,step:1}],1000);assert.equal(voices.length,3);assert.ok(voices.every(v=>Math.abs(v.starts[0]-(origin+1.3))<1e-8));keys.stop();assert.ok(voices.every(v=>v.stops.at(-1)===undefined));keys.dispose();await assert.rejects(()=>keys.enable());}finally{globalThis.AudioContext=previous}
 });
+
+const {phraseComparison}=await import(url);
+test('comparison keeps original score spacing and the actual recorded pauses, including missing notes',()=>{
+ const run={firstTargetMs:2800,clicks:[{hit:false,atMs:3000,targetIndex:0},{hit:true,atMs:3200,targetIndex:0},{hit:true,atMs:4440,targetIndex:1}]};
+ const rows=phraseComparison(notes,run);
+ assert.equal(rows.length,8);assert.equal(rows[0].atMs,0);assert.equal(rows[1].atMs,650);
+ assert.equal(rows[0].recordedAtMs,400);assert.equal(rows[1].recordedAtMs,1640);assert.equal(rows[1].gapMs,1240);
+ assert.equal(rows[2].recordedAtMs,null);assert.equal(rows[2].gapMs,null);assert.equal(rows[7].atMs,4550);
+});
+test('featured music page contains a verified operator recording and uses its original eight-note score',()=>{
+ const featured=JSON.parse(readFileSync(new URL('../public/experiment/music-featured.json',import.meta.url),'utf8'));
+ const recording=musicRecording(featured.mission,featured.base);
+ assert.ok(recording);assert.equal(featured.mission.id,'a9cfcf042e75987cebb8');
+ assert.deepEqual(featured.mission.rules.music.notes,notes);
+ assert.deepEqual(takeEvents(notes,recording.run).map(e=>e.atMs),[400,1640,3120,4420,5740,7080,8420,9860]);
+ assert.equal(recording.run.hits,8);assert.equal(recording.run.misses,0);
+});
